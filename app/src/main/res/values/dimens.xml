@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="width_normal_edt">180dp</dimen>
+    <dimen name="height_normal_edt">27dp</dimen>
+
+    <dimen name="size_txt_1">8sp</dimen>
+    <dimen name="size_txt_2">12sp</dimen>
+    <dimen name="size_txt_3">14sp</dimen>
+
+    <dimen name="width_normal_btn">80dp</dimen>
+    <dimen name="height_normal_btn">24dp</dimen>
+
+    <dimen name="margin_1">6dp</dimen>
+    <dimen name="margin_2">12dp</dimen>
+    <dimen name="margin_3">24dp</dimen>
+    <dimen name="margin_4">40dp</dimen>
+
+
+    <dimen name="stroke_border">0.5dp</dimen>
+    <dimen name="radius_border">30dp</dimen>
+
+
+
+    <dimen name="container_userAccountF_width">180dp</dimen>
+    <dimen name="container_userAccountF_height">30dp</dimen>
+    <dimen name="container_userAccountF_marginEnd">5dp</dimen>
+    <dimen name="text_size_for_edit_Text_userAccountF">8sp</dimen>
+    <dimen name="text_size_for_Text_View_userAccountF">12sp</dimen>
+    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="margin_top_for_layout_right_top_in_chargeF">@dimen/_15sdp</dimen>
+    <dimen name="height__for_layout_right_bottom_in_chargeF">@dimen/_14sdp</dimen>
+    <dimen name="height_for_right_layout_personal">25dp</dimen>
+    <dimen name="width_for_right_layout_personal">180dp</dimen>
+    <dimen name="img_size_inside_container_for_edit_text">10dp</dimen>
+    <dimen name="width_for_btn_personal">80dp</dimen>
+    <dimen name="guid_line">@dimen/_10sdp</dimen>
+</resources>

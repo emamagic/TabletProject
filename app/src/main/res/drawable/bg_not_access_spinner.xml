@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="#f7f6fb" />
+                    <stroke
+                        android:color="@color/green_text"
+                        android:width="0.5dp"/>
+                    <corners android:radius="@dimen/radius_border" />
+                    <padding android:left="8dp"/>
+                </shape>
+            </item>
+            <item>
+                <bitmap android:gravity="left"
+                    android:src="@drawable/ic_spinner_dropdown"/>
+            </item>
+        </layer-list>
+    </item>
+</selector>

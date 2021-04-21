@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_border_item_recy"
+    android:layoutDirection="ltr"
+    android:layout_margin="@dimen/_2sdp"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_chargeF_item_list"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_chargeF_item_list_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="12:00"
+        app:layout_constraintBottom_toBottomOf="@+id/img_chargeF_right"
+        app:layout_constraintStart_toEndOf="@+id/img_chargeF_right"
+        app:layout_constraintTop_toTopOf="@+id/img_chargeF_right" />
+
+    <TextView
+        android:id="@+id/txt_chargeF_item_list_Credit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_toStartOf="@+id/img_chargeF_item_list"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:text="اعتبار نقدی"
+        android:textColor="@color/black"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/txt_chargeF_item_list_Cost"
+        app:layout_constraintEnd_toStartOf="@+id/img_chargeF_item_list"
+        app:layout_constraintTop_toTopOf="@id/img_chargeF_item_list"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <TextView
+        android:id="@+id/txt_chargeF_item_list_Cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:textColor="@color/black"
+        android:text="65,0000"
+        android:layout_marginBottom="@dimen/_2sdp"
+
+        app:layout_constraintBottom_toBottomOf="@id/img_chargeF_item_list"
+        app:layout_constraintEnd_toStartOf="@+id/img_chargeF_item_list"
+        app:layout_constraintTop_toBottomOf="@+id/txt_chargeF_item_list_Credit" />
+
+
+    <ImageView
+        android:id="@+id/img_chargeF_item_list_Credit"
+        android:layout_width="@dimen/_6sdp"
+        android:layout_height="@dimen/_5sdp"
+        android:background="@color/orange"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_chargeF_item_list_Credit"
+        app:layout_constraintEnd_toStartOf="@+id/txt_chargeF_item_list_Credit"
+        app:layout_constraintTop_toTopOf="@+id/txt_chargeF_item_list_Credit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="@string/txt_rail"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_chargeF_item_list_Cost"
+        app:layout_constraintEnd_toEndOf="@+id/img_chargeF_item_list_Credit"
+        app:layout_constraintStart_toStartOf="@+id/img_chargeF_item_list_Credit"
+        app:layout_constraintTop_toTopOf="@+id/txt_chargeF_item_list_Cost" />
+
+
+    <ImageView
+        android:id="@+id/img_chargeF_right"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_margin="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

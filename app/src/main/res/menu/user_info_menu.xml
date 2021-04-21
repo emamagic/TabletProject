@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/messages"
+        android:title="پیغام ها"
+        android:icon="@drawable/ic_mail"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="خروج"
+        android:icon="@drawable/ic_exit"/>
+
+</menu>

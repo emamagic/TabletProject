@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:id="@+id/constraint_root_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextClock
+        android:id="@+id/txt_homeF_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:padding="0dp"
+        tools:text="16:12"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_txt_3"
+        android:textStyle="bold"
+        android:format12Hour="hh:mm"
+        app:layout_constraintEnd_toEndOf="@+id/txt_homeF_date"
+        app:layout_constraintStart_toStartOf="@+id/txt_homeF_date"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_homeF_date"
+        android:layout_width="wrap_content"
+        android:padding="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_txt_2"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:layout_marginLeft="@dimen/margin_3"
+        android:layout_marginBottom="@dimen/margin_1"
+        app:layout_constraintBottom_toTopOf="@+id/frame_homeF_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_homeF_time"
+        tools:text="1399/3/2" />
+
+
+    <ImageView
+        android:id="@+id/img_homeF_person"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_avatar"
+        app:layout_constraintBottom_toTopOf="@+id/frame_homeF_container"
+        app:layout_constraintStart_toEndOf="@+id/img_homeF_arrow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_homeF_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_4"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toTopOf="@+id/frame_homeF_container"
+        app:layout_constraintEnd_toStartOf="@+id/img_homeF_person"
+        app:layout_constraintStart_toEndOf="@+id/txt_homeF_time"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/frame_homeF_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_4"
+        app:layout_constraintHorizontal_weight="7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/recycler_homeF_side_menu" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_homeF_side_menu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:itemCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1.2"
+        app:layout_constraintLeft_toRightOf="@id/frame_homeF_container"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_homeF_logo"
+        tools:context=".ui.home.MainActivity"
+        tools:listitem="@layout/item_list_content" />
+
+    <ImageView
+        android:id="@+id/img_homeF_logo"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="center"
+        android:layout_marginTop="@dimen/margin_3"
+        android:src="@drawable/main_logo"
+        app:layout_constraintLeft_toRightOf="@id/frame_homeF_container"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

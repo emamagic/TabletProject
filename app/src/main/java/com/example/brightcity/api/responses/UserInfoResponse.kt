@@ -1,0 +1,30 @@
+package com.example.brightcity.api.responses
+
+data class UserInfoResponse(
+    val birthdate: String,
+    val confirm: Int,
+    val createdAt: String,
+    val credit: Int,
+    val description: Any,
+    val email: String,
+    val family: String,
+    val gender: Int,
+    val gift: Int,
+    val gifted: Int,
+    val id: Int,
+    val is_parent: Int,
+    val level: Int,
+    val mobile: String,
+    val name: String,
+    val payed: Int,
+    val role: String,
+    val score: Int,
+    val shaba: Int,
+    val status: Int,
+    val tel: Int,
+    val updatedAt: String,
+    val user_group: String,
+    val username: String,
+    val fileId: String,
+    val national_id: String
+)

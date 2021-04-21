@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="6dp">
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/img_activity_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_charge"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/txt_activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="شارژ"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:layout_marginRight="10dp"
+        app:layout_constraintRight_toLeftOf="@id/img_activity_icon"
+        app:layout_constraintTop_toTopOf="@id/img_activity_icon"
+        app:layout_constraintBottom_toBottomOf="@id/img_activity_icon" />
+
+    <TextView
+        android:id="@+id/txt_activity_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text_gray"
+        android:text="350,000"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_activity_icon"
+        app:layout_constraintBottom_toBottomOf="@id/img_activity_icon" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

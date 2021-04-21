@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/box_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/users_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_group_3"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@id/family_icon"
+        app:layout_constraintBottom_toTopOf="@id/users_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/users_text"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:text="کاربران حاضر"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:background="@drawable/background_text"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/users_count"
+        app:layout_constraintEnd_toEndOf="@+id/users_icon"
+        app:layout_constraintStart_toStartOf="@+id/users_icon"
+        app:layout_constraintTop_toBottomOf="@+id/users_icon" />
+
+    <TextView
+        android:id="@+id/users_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="۵۹۴"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="@color/green_text"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/users_text"
+        app:layout_constraintStart_toStartOf="@+id/users_text"
+        app:layout_constraintTop_toBottomOf="@+id/users_text" />
+
+    <ImageView
+        android:id="@+id/family_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_group_2"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@id/family_text"
+        app:layout_constraintLeft_toRightOf="@id/register_icon"
+        app:layout_constraintRight_toLeftOf="@id/users_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/family_text"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:text="خانوار حاضر"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:background="@drawable/background_text"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/family_count"
+        app:layout_constraintEnd_toEndOf="@+id/family_icon"
+        app:layout_constraintStart_toStartOf="@+id/family_icon"
+        app:layout_constraintTop_toBottomOf="@+id/family_icon" />
+
+    <TextView
+        android:id="@+id/family_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="۳۶۷"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="@color/text_gray"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/family_text"
+        app:layout_constraintStart_toStartOf="@+id/family_text"
+        app:layout_constraintTop_toBottomOf="@+id/family_text" />
+
+    <ImageView
+        android:id="@+id/register_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_group_1"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@id/register_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/family_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/register_text"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:text="ثبت‌نام جدید"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:background="@drawable/background_text"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/register_count"
+        app:layout_constraintEnd_toEndOf="@+id/register_icon"
+        app:layout_constraintStart_toStartOf="@+id/register_icon"
+        app:layout_constraintTop_toBottomOf="@+id/register_icon" />
+
+    <TextView
+        android:id="@+id/register_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="۲۴۱"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="@color/text_gray"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/register_text"
+        app:layout_constraintStart_toStartOf="@+id/register_text"
+        app:layout_constraintTop_toBottomOf="@+id/register_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

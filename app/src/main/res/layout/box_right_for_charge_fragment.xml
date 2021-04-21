@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_person_profile_border"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerView_bottom_chargeF"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        tools:listitem="@layout/item_list_charge_right"
+        android:background="@drawable/bg_border_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_chargeF_code_bon" />
+
+    <TextView
+        android:id="@+id/txt_chargeF_code_bon_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:text="@string/txt_chargeF_code_bon"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout_chargeF_code_bon"
+        app:layout_constraintEnd_toEndOf="@+id/txt_chargeF_amount_charge"
+        app:layout_constraintStart_toStartOf="@+id/txt_chargeF_amount_charge"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout_chargeF_code_bon" />
+
+    <TextView
+        android:id="@+id/txt_chargeF_amount_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_chargeF_amountF"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="@dimen/_5sdp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_pessonal_proileF_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_pessonal_proileF_add" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_chargeF_get_charge"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height__for_layout_right_bottom_in_chargeF"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:background="@drawable/bg_border_container"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_pessonal_proileF_add"
+        app:layout_constraintEnd_toStartOf="@+id/txt_chargeF_amount_charge"
+        app:layout_constraintStart_toEndOf="@+id/btn_pessonal_proileF_add"
+        app:layout_constraintTop_toTopOf="@+id/btn_pessonal_proileF_add">
+
+
+        <EditText
+            android:id="@+id/edit_chargeF_get_charge"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@id/txt_chargeF_get_charge"
+            android:background="@null"
+            android:fontFamily="@font/iransanse_medium"
+            android:gravity="center_vertical"
+            android:hint="مبلغ"
+            android:inputType="number"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:padding="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textSize="@dimen/_7sdp" />
+
+        <TextView
+            android:id="@+id/txt_chargeF_get_charge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/iransanse_medium"
+            android:text="@string/txt_rail" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_pessonal_proileF_add"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/height__for_layout_right_bottom_in_chargeF"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:background="@drawable/bg_normal_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/_7sdp"
+            android:layout_height="@dimen/_7sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:srcCompat="@drawable/ic_plus" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/iran_sans_mobile"
+            android:text="@string/txt_submit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_6sdp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_chargeF_submit_code_bon"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/height__for_layout_right_bottom_in_chargeF"
+        android:background="@drawable/bg_normal_btn"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_pessonal_proileF_add"
+        app:layout_constraintStart_toStartOf="@+id/btn_pessonal_proileF_add"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pessonal_proileF_add">
+
+        <ImageView
+            android:layout_width="@dimen/_7sdp"
+            android:layout_height="@dimen/_7sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:srcCompat="@drawable/ic_plus" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/iran_sans_mobile"
+            android:text="@string/txt_submit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_6sdp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_chargeF_code_bon"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height__for_layout_right_bottom_in_chargeF"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/bg_border_container"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_chargeF_submit_code_bon"
+        app:layout_constraintEnd_toEndOf="@id/relativeLayout_chargeF_get_charge"
+        app:layout_constraintStart_toEndOf="@+id/btn_chargeF_submit_code_bon"
+        app:layout_constraintTop_toBottomOf="@id/relativeLayout_chargeF_get_charge">
+
+
+        <EditText
+            android:id="@+id/edit_chargeF_code_bon"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@id/view_chargeF_code_bon"
+            android:background="@null"
+            android:fontFamily="@font/iransanse_medium"
+            android:gravity="center_vertical"
+            android:hint="مبلغ"
+            android:inputType="number"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:padding="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textSize="@dimen/_7sdp" />
+        <View
+            android:id="@+id/view_chargeF_code_bon"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/line"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_toEndOf="@+id/img_chargeF_code_bon" />
+
+        <ImageView
+            android:id="@+id/img_chargeF_code_bon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/ic_dashboard_fill"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/iransanse_medium"
+            android:text="ریال" />
+
+    </RelativeLayout>
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

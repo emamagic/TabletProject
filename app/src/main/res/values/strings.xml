@@ -1,0 +1,65 @@
+<resources>
+
+    // App Name
+    <string name="app_name">BrightCity</string>
+
+
+    // Login Fragment
+    <string name="txt_name_pass_empty">نام یا رمز عبور خالی می باشد</string>
+    <string name="txt_login_name">نام کاربری</string>
+    <string name="txt_login_pass">رمز عبور</string>
+    <string name="edt_login_name">نام کاربری</string>
+    <string name="edt_login_pass">رمزعبور</string>
+    <string name="btn_login_submit">ورود</string>
+
+
+
+    <string name="sample_name">محمد</string>
+    <string name="sampleFamily">محمدی</string>
+    <string name="sampleNumber">09351987413</string>
+
+
+    <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">ورود</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="toastyError">مشکلی رخ داده بعدا تلاش نمایید</string>
+    <string name="toastyNet">از وضعیت اینترنت خود اطمینان حاصل کنید</string>
+    <string name="txt_rail">ریال</string>
+    <string name="txt_submit">ثبت</string>
+    <string name="txt_nationId_for_chargeF">کدملی :</string>
+    <string name="txt_age_for_chargeF">سن :</string>
+    <string name="txt_sample_name_for_chargF">سید محمد رضا محمودی</string>
+    <string name="txt_name_for_chargeF">نام :</string>
+    <string name="txt_sample_cost">100,000,000</string>
+    <string name="txt_chargeF_code_bon">کد تخفیف ،بن و…</string>
+    <string name="txt_chargeF_amountF">مقدار شارژ :</string>
+    <string name="txt_cancel">انصراف</string>
+    <string name="txt_search">جستجو</string>
+    <string name="txt_ral">پدر</string>
+    <string name="txt_change_password">تغییر رمز عبور</string>
+    <string name="txt_description">توضیحات</string>
+    <string name="txt_parent">سرپرست خانواده</string>
+    <string name="txt_natinal_star">* کد ملی</string>
+    <string name="txt_birth_star">* تاریخ تولد</string>
+    <string name="txt_phone_star">* شماره همراه</string>
+    <string name="txt_family_star">* نام خانوادگی</string>
+    <string name="txt_name_star">* نام</string>
+    <string name="txt_sex_star">* جنسیت</string>
+    <string name="txt_mail">مذکر</string>
+    <string name="txt_feamal">مونث</string>
+    <string name="txt_charge_submit">ثبت و شارژ</string>
+    <string name="txt_user_details">مشخصات فردی</string>
+    <string name="txt_cards">کارت ها</string>
+
+
+</resources>

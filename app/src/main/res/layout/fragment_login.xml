@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_login_container"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.LoginFragment">
+
+    <View
+        android:id="@+id/view_loginF_line"
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:background="#b9b9b9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_loginF_line"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_loginF_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_txt_1"
+            android:text="@string/txt_login_name"
+            android:layout_marginRight="@dimen/margin_2"
+            android:layout_marginBottom="@dimen/margin_1"
+            android:layout_alignRight="@+id/edt_loginF_name"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/edt_loginF_name"
+            android:layout_width="@dimen/width_normal_edt"
+            android:layout_height="@dimen/height_normal_edt"
+            android:layout_below="@+id/txt_loginF_name"
+            android:textSize="@dimen/size_txt_1"
+            android:textDirection="rtl"
+            android:textColorHint="#a5a5a5"
+            android:drawableEnd="@drawable/ic_user"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="@dimen/margin_3"
+            android:background="@drawable/bg_normal_edt"
+            android:hint="@string/edt_login_name"
+            android:padding="6dp" />
+
+        <TextView
+            android:id="@+id/txt_loginF_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_2"
+            android:layout_marginBottom="@dimen/margin_1"
+            android:layout_alignRight="@+id/edt_loginF_pass"
+            android:layout_below="@+id/edt_loginF_name"
+            android:textSize="@dimen/size_txt_1"
+            android:text="@string/txt_login_pass"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/edt_loginF_pass"
+            android:layout_width="@dimen/width_normal_edt"
+            android:layout_height="@dimen/height_normal_edt"
+            android:textSize="@dimen/size_txt_1"
+            android:textDirection="rtl"
+            android:textColorHint="#a5a5a5"
+            android:drawableEnd="@drawable/ic_pass"
+            android:drawablePadding="8dp"
+            android:layout_below="@+id/txt_loginF_pass"
+            android:background="@drawable/bg_normal_edt"
+            android:hint="@string/edt_login_pass"
+            android:padding="6dp" />
+
+        <Button
+            android:id="@+id/btn_loginF_submit"
+            android:layout_width="@dimen/width_normal_btn"
+            android:layout_height="@dimen/height_normal_btn"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:textSize="10sp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="2dp"
+            android:layout_below="@+id/edt_loginF_pass"
+            android:background="@drawable/bg_normal_btn"
+            android:text="@string/btn_login_submit"
+            android:layout_alignRight="@+id/edt_loginF_pass"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/img_loginF_rfi"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/btn_loginF_submit"
+            android:layout_alignBottom="@+id/btn_loginF_submit"
+            android:layout_alignLeft="@+id/edt_loginF_pass"
+            app:srcCompat="@drawable/ic_reader"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/main_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view_loginF_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/loading_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/box_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_triangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="مشاهده حساب کاربری"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/btn_UserAccountF_pay"
+        android:layout_width="90dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_normal_btn"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="ثبت"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_UserAccountF_Cancel"
+        android:layout_width="90dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/bg_border_with_out_color"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="@string/txt_cancel"
+        android:textSize="10dp"
+        android:textColor="@color/black_text"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_UserAccountF_pay"
+        app:layout_constraintStart_toEndOf="@+id/btn_UserAccountF_pay"
+        app:layout_constraintTop_toTopOf="@+id/btn_UserAccountF_pay" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frame_main"
+        android:layout_width="550dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_green_border"
+        android:paddingEnd="@dimen/_5sdp"
+        android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_UserAccountF_pay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_UserAccountF_pay"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:fontFamily="@font/iransanse_medium"
+            android:text=" *  نام "
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/text_size_for_edit_Text_userAccountF"
+            app:layout_constraintBottom_toTopOf="@+id/container_name"
+            app:layout_constraintEnd_toEndOf="@+id/container_name" />
+
+        <RelativeLayout
+            android:id="@+id/container_name"
+            android:layout_width="@dimen/container_userAccountF_width"
+            android:layout_height="@dimen/container_userAccountF_height"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="@dimen/container_userAccountF_marginEnd"
+            android:background="@drawable/bg_border_of"
+            app:layout_constraintBottom_toTopOf="@+id/container_family"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/edit_UserAccountF_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_toStartOf="@id/img_UserAccountF_name"
+                android:background="@null"
+                android:textDirection="rtl"
+                android:clickable="false"
+                android:fontFamily="@font/iransanse_medium"
+                android:gravity="center_vertical"
+                tools:text="@string/sample_name"
+                android:textColor="#a5a5a5"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_5sdp"
+                android:textSize="@dimen/text_size_for_edit_Text_userAccountF" />
+
+            <ImageView
+                android:id="@+id/img_UserAccountF_name"
+                android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_7sdp"
+                app:srcCompat="@drawable/ic_user" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/black_text"
+            android:fontFamily="@font/iransanse_medium"
+            android:text=" *  نام خانوادگی "
+            android:textSize="@dimen/text_size_for_edit_Text_userAccountF"
+            app:layout_constraintBottom_toTopOf="@+id/container_family"
+            app:layout_constraintEnd_toEndOf="@+id/container_family" />
+
+
+        <RelativeLayout
+            android:id="@+id/container_family"
+            android:layout_width="@dimen/container_userAccountF_width"
+            android:layout_height="@dimen/container_userAccountF_height"
+            android:layout_marginEnd="@dimen/container_userAccountF_marginEnd"
+            android:background="@drawable/bg_border_of"
+            app:layout_constraintBottom_toTopOf="@+id/container_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_name">
+
+            <TextView
+                android:id="@+id/edit_UserAccountF_family"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:textDirection="rtl"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:layout_toStartOf="@id/img_UserAccountF_family"
+                android:background="@null"
+                android:clickable="false"
+                android:gravity="center_vertical"
+                android:textColor="#a5a5a5"
+                android:fontFamily="@font/iransanse_medium"
+                tools:hint="@string/sampleFamily"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:paddingEnd="15sp"
+                android:textSize="@dimen/text_size_for_edit_Text_userAccountF" />
+
+            <ImageView
+                android:id="@+id/img_UserAccountF_family"
+                android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_7sdp"
+                app:srcCompat="@drawable/ic_user" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textColor="@color/black_text"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:fontFamily="@font/iransanse_medium"
+            android:text=" *  شماره همراه "
+            android:textSize="@dimen/text_size_for_edit_Text_userAccountF"
+            app:layout_constraintBottom_toTopOf="@+id/container_number"
+            app:layout_constraintEnd_toEndOf="@+id/container_number" />
+
+
+        <RelativeLayout
+            android:id="@+id/container_number"
+            android:layout_width="@dimen/container_userAccountF_width"
+            android:layout_height="@dimen/container_userAccountF_height"
+            android:layout_marginEnd="@dimen/container_userAccountF_marginEnd"
+            android:background="@drawable/bg_normal_edt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_family">
+
+            <EditText
+                android:id="@+id/edit_UserAccountF_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_toStartOf="@id/img_UserAccountF_number"
+                android:background="@null"
+                android:fontFamily="@font/iransanse_medium"
+                android:gravity="end|center"
+                tools:text="@string/sampleNumber"
+                android:layout_marginBottom="3dp"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_8sdp"
+                android:textSize="@dimen/text_size_for_edit_Text_userAccountF" />
+
+            <ImageView
+                android:id="@+id/img_UserAccountF_number"
+                android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_7sdp"
+                app:srcCompat="@drawable/ic_mobile_phone" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/black_text"
+            android:fontFamily="@font/iransanse_medium"
+            android:text=" *  تاریخ تولد "
+            android:textSize="@dimen/text_size_for_edit_Text_userAccountF"
+            app:layout_constraintBottom_toTopOf="@+id/container_Birth"
+            app:layout_constraintEnd_toEndOf="@+id/container_Birth" />
+
+        <RelativeLayout
+            android:id="@+id/container_Birth"
+            android:layout_width="@dimen/container_userAccountF_width"
+            android:layout_height="@dimen/container_userAccountF_height"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_border_of"
+            app:layout_constraintBottom_toTopOf="@+id/container_National_Id"
+            app:layout_constraintEnd_toStartOf="@+id/container_name"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/edit_UserAccountF_Birth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:textColor="#a5a5a5"
+                android:layout_toStartOf="@id/img_UserAccountF_Birth"
+                android:layout_toEndOf="@id/view_calender"
+                android:background="@null"
+                android:clickable="false"
+                android:fontFamily="@font/iransanse_medium"
+                android:gravity="end|center_vertical"
+                tools:hint="1375/25/26"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_5sdp"
+                android:textSize="@dimen/text_size_for_edit_Text_userAccountF" />
+
+            <ImageView
+                android:id="@+id/img_UserAccountF_Birth"
+                android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_7sdp"
+                app:srcCompat="@drawable/ic_calendar" />
+
+            <ImageView
+                android:id="@+id/img_UserAccountF_Birth_left"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:srcCompat="@drawable/ic_calendar__1_" />
+
+            <View
+                android:id="@+id/view_calender"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_toEndOf="@id/img_UserAccountF_Birth_left"
+                android:background="#040303" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:fontFamily="@font/iransanse_medium"
+            android:textColor="@color/black_text"
+            android:text=" *  کد ملی "
+            android:textSize="@dimen/text_size_for_edit_Text_userAccountF"
+            app:layout_constraintBottom_toTopOf="@+id/container_National_Id"
+            app:layout_constraintEnd_toEndOf="@+id/container_National_Id" />
+
+        <RelativeLayout
+            android:id="@+id/container_National_Id"
+            android:layout_width="@dimen/container_userAccountF_width"
+            android:layout_height="@dimen/container_userAccountF_height"
+            android:background="@drawable/bg_border_of"
+            app:layout_constraintBottom_toTopOf="@+id/container_access"
+            app:layout_constraintEnd_toEndOf="@+id/container_Birth"
+            app:layout_constraintStart_toStartOf="@+id/container_Birth"
+            app:layout_constraintTop_toBottomOf="@+id/container_Birth">
+
+            <TextView
+                android:id="@+id/edit_UserAccountF_National_Id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5sp"
+                android:layout_marginEnd="5sp"
+                android:layout_toStartOf="@id/img_UserAccountF_National_Id"
+                android:background="@null"
+                android:clickable="false"
+                android:textColor="#a5a5a5"
+                android:fontFamily="@font/iransanse_medium"
+                android:gravity="end|center_vertical"
+                tools:hint="008 598462 2352532"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_5sdp"
+                android:textSize="@dimen/text_size_for_edit_Text_userAccountF" />
+
+            <ImageView
+                android:id="@+id/img_UserAccountF_National_Id"
+                android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_7sdp"
+                app:srcCompat="@drawable/ic_bars_code" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/black_text"
+            android:fontFamily="@font/iransanse_medium"
+            android:text=" *  سطح دسترسی "
+            android:textSize="@dimen/text_size_for_edit_Text_userAccountF"
+            app:layout_constraintBottom_toTopOf="@+id/container_access"
+            app:layout_constraintEnd_toEndOf="@+id/container_access" />
+
+        <RelativeLayout
+            android:id="@+id/container_access"
+            android:layout_width="@dimen/container_userAccountF_width"
+            android:layout_height="@dimen/container_userAccountF_height"
+            android:background="@drawable/bg_border_of"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/container_National_Id"
+            app:layout_constraintStart_toStartOf="@+id/container_National_Id"
+            app:layout_constraintTop_toBottomOf="@+id/container_National_Id">
+
+            <Spinner
+                android:id="@+id/spinner_userF_acsses"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:textDirection="rtl"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_arrow_down" />
+
+            <TextView
+                android:id="@+id/edit_userF_access"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#a5a5a5"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:textSize="@dimen/text_size_for_edit_Text_userAccountF"
+                tools:text="صندقدار"/>
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="35dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_border_black"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView3"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_border_black"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_camera_alt_24"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+            app:layout_constraintEnd_toEndOf="@+id/circleImageView" />
+
+        <Button
+            android:id="@+id/btn_UserAccountF_changeAccount"
+            android:layout_width="90dp"
+            android:layout_height="@dimen/container_userAccountF_height"
+            android:background="@drawable/bg_green_border"
+            android:text="@string/txt_change_password"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/container_access"
+            app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+            app:layout_constraintStart_toStartOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="@+id/container_access" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

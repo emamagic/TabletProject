@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_person_profile_border"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <CheckBox
+        android:id="@+id/check_personalF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        app:layout_constraintBottom_toBottomOf="@+id/container_family"
+        app:layout_constraintEnd_toEndOf="@+id/switchForReportF_1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:text="@string/txt_parent"
+        android:textSize="8sp"
+        android:textColor="@color/black_text"
+        app:layout_constraintBottom_toBottomOf="@+id/check_personalF"
+        app:layout_constraintEnd_toStartOf="@+id/check_personalF"
+        app:layout_constraintTop_toTopOf="@+id/check_personalF" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:text="گزارش مهم در مورد کاربر"
+        android:textColor="@color/black_text"
+        android:textSize="8sp"
+        android:layout_marginRight="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/container_phone_number"
+        app:layout_constraintEnd_toEndOf="@+id/switchForReportF_1"
+        app:layout_constraintTop_toTopOf="@+id/container_phone_number" />
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/bg_normal_edt"
+        app:layout_constraintBottom_toBottomOf="@+id/container_nationalId"
+        app:layout_constraintEnd_toEndOf="@+id/switchForReportF_1"
+        app:layout_constraintStart_toStartOf="@+id/guid_personal_profile_left"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+        <EditText
+            android:id="@+id/edit_personalF_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_description_border"
+            android:gravity="top|start"
+            android:hint="@string/txt_description"
+            android:padding="@dimen/_5sdp"
+            android:textDirection="rtl"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:text="@string/txt_sex_star"
+        android:textSize="8sp"
+        android:textColor="@color/black_text"
+        app:layout_constraintBottom_toTopOf="@+id/switchForReportF_1"
+        app:layout_constraintEnd_toEndOf="@+id/switchForReportF_1" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchForReportF_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/white"
+        android:textOff="@string/txt_mail"
+        android:textOn="@string/txt_feamal"
+        android:thumb="@drawable/thumb1"
+        app:layout_constraintEnd_toStartOf="@+id/container_name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@id/guid_personal_profile_left"
+        app:layout_constraintTop_toTopOf="@+id/guid_personal_profile_top"
+        app:showText="true"
+        app:track="@drawable/track" />
+
+    <TextView
+        android:id="@+id/switch_text_change_her"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مونث"
+        android:textSize="14sp"
+        android:textColor="@color/black_text"
+        android:layout_marginRight="28dp"
+        app:layout_constraintRight_toRightOf="@+id/switchForReportF_1"
+        app:layout_constraintTop_toTopOf="@+id/switchForReportF_1"
+        app:layout_constraintBottom_toBottomOf="@+id/switchForReportF_1"/>
+
+    <TextView
+        android:id="@+id/switch_text_change_his"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مذکر"
+        android:textSize="14sp"
+        android:textColor="@color/black_text"
+        android:visibility="invisible"
+        android:layout_marginLeft="28dp"
+        app:layout_constraintLeft_toLeftOf="@+id/switchForReportF_1"
+        app:layout_constraintTop_toTopOf="@+id/switchForReportF_1"
+        app:layout_constraintBottom_toBottomOf="@+id/switchForReportF_1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/iransanse_medium"
+        android:textColor="@color/black_text"
+        android:text="@string/txt_name_star"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/container_name"
+        app:layout_constraintEnd_toEndOf="@+id/container_name" />
+
+    <RelativeLayout
+        android:id="@+id/container_name"
+        android:layout_width="@dimen/width_for_right_layout_personal"
+        android:layout_height="@dimen/height_for_right_layout_personal"
+        android:background="@drawable/bg_normal_edt"
+        app:layout_constraintBottom_toBottomOf="@+id/switchForReportF_1"
+        app:layout_constraintEnd_toStartOf="@+id/guid_personal_profile_right"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/switchForReportF_1"
+        app:layout_constraintTop_toTopOf="@+id/switchForReportF_1">
+
+        <EditText
+            android:id="@+id/edit_personalF_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textDirection="rtl"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_toStartOf="@id/img_personalF_name"
+            android:background="@null"
+            android:textSize="8sp"
+            android:fontFamily="@font/iransanse_medium"
+            android:gravity="center_vertical"
+            android:hint="@string/txt_name_star"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_5sdp"/>
+
+        <ImageView
+            android:id="@+id/img_personalF_name"
+            android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_7sdp"
+            app:srcCompat="@drawable/ic_user" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textSize="8sp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black_text"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="@string/txt_family_star"
+        app:layout_constraintBottom_toTopOf="@+id/container_family"
+        app:layout_constraintEnd_toEndOf="@+id/container_family" />
+
+    <RelativeLayout
+        android:id="@+id/container_family"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="@dimen/width_for_right_layout_personal"
+        android:layout_height="@dimen/height_for_right_layout_personal"
+        android:background="@drawable/bg_normal_edt"
+        app:layout_constraintBottom_toTopOf="@+id/container_phone_number"
+        app:layout_constraintEnd_toEndOf="@+id/container_name"
+        app:layout_constraintTop_toBottomOf="@+id/container_name"
+        app:layout_constraintVertical_chainStyle="spread">
+
+        <EditText
+            android:id="@+id/edit_personalF_family"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_toStartOf="@id/img_personalF_family"
+            android:background="@null"
+            android:fontFamily="@font/iransanse_medium"
+            android:textDirection="rtl"
+            android:gravity="center_vertical"
+            android:hint="@string/txt_family_star"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:textSize="8sp"
+            android:paddingEnd="@dimen/_5sdp" />
+
+        <ImageView
+            android:id="@+id/img_personalF_family"
+            android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_7sdp"
+            app:srcCompat="@drawable/ic_user" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="@string/txt_phone_star"
+        android:textSize="8sp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black_text"
+        app:layout_constraintBottom_toTopOf="@+id/container_phone_number"
+        app:layout_constraintEnd_toEndOf="@+id/container_phone_number" />
+
+    <RelativeLayout
+        android:id="@+id/container_phone_number"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="@dimen/width_for_right_layout_personal"
+        android:layout_height="@dimen/height_for_right_layout_personal"
+        android:background="@drawable/bg_normal_edt"
+        app:layout_constraintBottom_toTopOf="@+id/container_birthday"
+        app:layout_constraintEnd_toEndOf="@+id/container_name"
+        app:layout_constraintStart_toStartOf="@+id/container_family"
+        app:layout_constraintTop_toBottomOf="@+id/container_family">
+
+        <EditText
+            android:id="@+id/edit_personalF_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_toStartOf="@id/img_personalF_phone_number"
+            android:textDirection="rtl"
+            android:background="@null"
+            android:fontFamily="@font/iransanse_medium"
+            android:inputType="number"
+            android:gravity="center_vertical"
+            android:hint="@string/txt_phone_star"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:textSize="8sp"
+            android:paddingEnd="@dimen/_5sdp"/>
+
+        <ImageView
+            android:id="@+id/img_personalF_phone_number"
+            android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_7sdp"
+            app:srcCompat="@drawable/ic_phone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/black_text"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="@string/txt_birth_star"
+        android:layout_marginBottom="5dp"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/container_birthday"
+        app:layout_constraintEnd_toEndOf="@+id/container_birthday" />
+
+    <RelativeLayout
+        android:id="@+id/container_birthday"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="@dimen/width_for_right_layout_personal"
+        android:layout_height="@dimen/height_for_right_layout_personal"
+        android:background="@drawable/bg_normal_edt"
+        app:layout_constraintBottom_toTopOf="@+id/container_nationalId"
+        app:layout_constraintEnd_toEndOf="@+id/container_phone_number"
+        app:layout_constraintStart_toStartOf="@+id/container_phone_number"
+        app:layout_constraintTop_toBottomOf="@+id/container_phone_number">
+
+        <TextView
+            android:id="@+id/edit_personalF_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/black_text"
+            android:layout_toStartOf="@id/img_UserAccountF_Birth"
+            android:layout_toEndOf="@id/view_calender"
+            android:background="@null"
+            android:clickable="false"
+            android:fontFamily="@font/iransanse_medium"
+            android:gravity="end|center_vertical"
+            tools:hint="1375/25/26"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textSize="@dimen/text_size_for_edit_Text_userAccountF" />
+
+        <ImageView
+            android:id="@+id/img_UserAccountF_Birth"
+            android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_7sdp"
+            app:srcCompat="@drawable/ic_calendar" />
+
+        <ImageView
+            android:id="@+id/img_UserAccountF_Birth_left"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:srcCompat="@drawable/ic_calendar__1_" />
+
+        <View
+            android:id="@+id/view_calender"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_toEndOf="@id/img_UserAccountF_Birth_left"
+            android:background="#040303" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/black_text"
+        android:fontFamily="@font/iransanse_medium"
+        android:text="@string/txt_natinal_star"
+        android:layout_marginBottom="5dp"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/container_nationalId"
+        app:layout_constraintEnd_toEndOf="@+id/container_nationalId" />
+
+    <RelativeLayout
+        android:id="@+id/container_nationalId"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="@dimen/width_for_right_layout_personal"
+        android:layout_height="@dimen/height_for_right_layout_personal"
+        android:background="@drawable/bg_normal_edt"
+        app:layout_constraintBottom_toTopOf="@+id/guid_personal_profile_bottom"
+        app:layout_constraintEnd_toEndOf="@+id/container_birthday"
+        app:layout_constraintStart_toStartOf="@+id/container_birthday"
+        app:layout_constraintTop_toBottomOf="@+id/container_birthday">
+
+        <EditText
+            android:id="@+id/edit_personalF_nationalId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_toStartOf="@id/img_personalF_nationalId"
+            android:background="@null"
+            android:fontFamily="@font/iransanse_medium"
+            android:textDirection="rtl"
+            android:gravity="center_vertical"
+            android:hint="@string/txt_natinal_star"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textSize="8sp"/>
+
+        <ImageView
+            android:id="@+id/img_personalF_nationalId"
+            android:layout_width="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_height="@dimen/img_size_inside_container_for_edit_text"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_7sdp"
+            app:srcCompat="@drawable/ic_national_id" />
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_personal_profile_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/guid_line" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_personal_profile_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/guid_line" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_personal_profile_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guid_line" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_personal_profile_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guid_line" />
+</androidx.constraintlayout.widget.ConstraintLayout>

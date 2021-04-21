@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/box_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include
+        android:id="@+id/relativeLayout4"
+        android:layout_width="480dp"
+        android:layout_height="310dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        layout="@layout/box_right_for_personal_profile"
+        app:layout_constraintBottom_toTopOf="@+id/btn_submitF_Cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guid_left"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="3.75"
+        app:layout_constraintStart_toEndOf="@+id/relativeLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/txt_chargeF_title" />
+
+    <include
+        android:id="@+id/relativeLayout5"
+        android:layout_width="250dp"
+        android:layout_height="310dp"
+        layout="@layout/box_start_for_personal_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout4"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toStartOf="@id/guid_right"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout4" />
+
+    <ImageView
+        android:id="@+id/img_chargeF_one"
+        android:layout_width="@dimen/_6sdp"
+        android:layout_height="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/ic_triangle"
+        app:layout_constraintEnd_toEndOf="@id/guid_left"
+        app:layout_constraintTop_toTopOf="@id/guid_top" />
+
+    <TextView
+        android:id="@+id/txt_chargeF_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:text="@string/txt_user_details"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_chargeF_one"
+        app:layout_constraintEnd_toStartOf="@+id/img_chargeF_one"
+        app:layout_constraintTop_toTopOf="@+id/img_chargeF_one" />
+
+
+
+    <Button
+        android:id="@+id/btn_personalF_submit"
+        android:layout_width="@dimen/width_for_btn_personal"
+        android:layout_height="25dp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:background="@drawable/bg_normal_btn"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:text="@string/txt_submit"
+        android:textSize="8sp"
+        android:layout_marginBottom="3dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/guid_down"
+        app:layout_constraintStart_toEndOf="@+id/btn_personalF_submit_charge" />
+
+    <Button
+        android:id="@+id/btn_personalF_submit_charge"
+        android:layout_width="@dimen/width_for_btn_personal"
+        android:layout_height="25dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/bg_normal_btn"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:text="@string/txt_charge_submit"
+        android:layout_marginLeft="3dp"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/guid_down"
+        app:layout_constraintStart_toStartOf="@+id/guid_right" />
+
+    <Button
+        android:id="@+id/btn_submitF_Cancel"
+        android:layout_width="@dimen/width_for_btn_personal"
+        android:layout_height="25dp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:background="@drawable/bg_border_container"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:layout_marginBottom="3dp"
+        android:text="@string/txt_cancel"
+        android:textSize="8sp"
+        android:textColor="@color/black_text"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_personalF_submit"
+        app:layout_constraintStart_toEndOf="@+id/btn_personalF_submit"
+        app:layout_constraintTop_toTopOf="@+id/btn_personalF_submit" />
+
+    <FrameLayout
+        android:id="@+id/loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guid_line" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guid_line" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/guid_line" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/guid_line" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

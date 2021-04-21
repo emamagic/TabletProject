@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_item_search"
+    android:background="#f6f5fa"
+    android:orientation="horizontal"
+    android:padding="6dp"
+    android:layoutDirection="rtl"
+    android:gravity="center_vertical"
+    android:weightSum="3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_item_search"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_avatar"/>
+
+    <TextView
+        android:id="@+id/txt_searchF_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="پوریا محمدی"
+        android:layout_weight="0.5"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:gravity="right"
+        android:textColor="@color/text"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:id="@+id/txt_searchF_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="09123456765"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:gravity="center"
+        android:layout_weight="1.5"/>
+
+    <TextView
+        android:id="@+id/txt_searchF_age"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:gravity="center"
+        android:text="3"/>
+
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:background="@drawable/box_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="جستجو با اطلاعات فردی"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textColor="@color/text"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:textDirection="rtl"
+        android:textSize="10sp"
+        android:gravity="center_vertical"
+        android:hint="نام.کدملی یا شماره همراه"
+        android:paddingHorizontal="12dp"
+        android:drawableStart="@drawable/ic_search"
+        android:background="@drawable/bg_normal_edt"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_search_box_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_recycler_search"
+        app:layout_constraintBottom_toTopOf="@id/txt_search_more"
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
+
+    <TextView
+        android:id="@+id/txt_search_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="بیشتر"
+        android:padding="6dp"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="14sp"
+        android:textColor="@color/green_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/box_background">
+
+    <ImageView
+        android:id="@+id/purchased_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_purchased_credit"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/purchased_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/consumed_image"/>
+
+    <TextView
+        android:id="@+id/purchased_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اعتبار خریداری شده"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:layout_marginVertical="10dp"
+        app:layout_constraintTop_toBottomOf="@id/purchased_image"
+        app:layout_constraintBottom_toTopOf="@id/purchased_value"
+        app:layout_constraintRight_toRightOf="@id/purchased_image"
+        app:layout_constraintLeft_toLeftOf="@id/purchased_image"/>
+
+    <TextView
+        android:id="@+id/purchased_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="534,000,000"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/green_text"
+        app:layout_constraintTop_toBottomOf="@id/purchased_text"
+        app:layout_constraintRight_toRightOf="@id/purchased_image"
+        app:layout_constraintLeft_toLeftOf="@id/purchased_image"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/consumed_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_consumed_credit"
+        app:layout_constraintTop_toTopOf="@id/purchased_image"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_image"
+        app:layout_constraintRight_toLeftOf="@id/purchased_image"
+        app:layout_constraintLeft_toRightOf="@id/returned_image"/>
+
+    <TextView
+        android:id="@+id/consumed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اعتبار مصرف شده"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toTopOf="@id/purchased_text"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_text"
+        app:layout_constraintRight_toRightOf="@id/consumed_image"
+        app:layout_constraintLeft_toLeftOf="@id/consumed_image"/>
+
+    <TextView
+        android:id="@+id/consumed_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="46,000,000"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/green_text"
+        app:layout_constraintRight_toRightOf="@id/consumed_image"
+        app:layout_constraintLeft_toLeftOf="@id/consumed_image"
+        app:layout_constraintTop_toTopOf="@id/purchased_value"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_value"/>
+
+    <ImageView
+        android:id="@+id/returned_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_returned_credit"
+        app:layout_constraintTop_toTopOf="@id/purchased_image"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_image"
+        app:layout_constraintRight_toLeftOf="@id/consumed_image"
+        app:layout_constraintLeft_toRightOf="@id/negative_image"/>
+
+    <TextView
+        android:id="@+id/returned_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اعتبار استرداد شده"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toTopOf="@id/purchased_text"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_text"
+        app:layout_constraintRight_toRightOf="@id/returned_image"
+        app:layout_constraintLeft_toLeftOf="@id/returned_image"/>
+
+    <TextView
+        android:id="@+id/returned_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="700,000"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/red_text"
+        app:layout_constraintRight_toRightOf="@id/returned_image"
+        app:layout_constraintLeft_toLeftOf="@id/returned_image"
+        app:layout_constraintTop_toTopOf="@id/purchased_value"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_value"/>
+
+    <ImageView
+        android:id="@+id/negative_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_negative_credit"
+        app:layout_constraintTop_toTopOf="@id/purchased_image"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_image"
+        app:layout_constraintRight_toLeftOf="@id/returned_image"
+        app:layout_constraintLeft_toRightOf="@id/cards"/>
+
+    <TextView
+        android:id="@+id/negative_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اعتبار منفی"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="8sp"
+        android:textColor="@color/text"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toTopOf="@id/purchased_text"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_text"
+        app:layout_constraintRight_toRightOf="@id/negative_image"
+        app:layout_constraintLeft_toLeftOf="@id/negative_image"/>
+
+    <TextView
+        android:id="@+id/negative_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="83,000"
+        android:fontFamily="@font/iran_sans_mobile"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/red_text"
+        app:layout_constraintRight_toRightOf="@id/negative_image"
+        app:layout_constraintLeft_toLeftOf="@id/negative_image"
+        app:layout_constraintTop_toTopOf="@id/purchased_value"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_value"/>
+
+    <ImageView
+        android:id="@+id/cards"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_cards"
+        app:layout_constraintRight_toLeftOf="@id/negative_image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/purchased_image"
+        app:layout_constraintBottom_toBottomOf="@id/purchased_value"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

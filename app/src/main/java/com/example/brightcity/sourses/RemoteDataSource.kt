@@ -19,8 +19,6 @@ class RemoteDataSource @Inject constructor(
     suspend fun changePass(currentPass: String, newPass: String, retype: String) = safeApi { myApi.changePass(currentPass, newPass, retype) }
     suspend fun updateInfo(name: String? = null ,family: String? = null ,birthDay: String? = null ,gender: Int? = null ,mobile: Long? = null,nationalID: Long? = null,
                            description: String? = null ,isParent: Int? = null) = safeApi { myApi.updateInfo(name, family, birthDay, gender, mobile ,nationalID ,description ,isParent) }
-/*suspend fun updateInfo(name: RequestBody? = null, family: RequestBody? = null, birthDay: RequestBody? = null, gender: RequestBody? = null, mobile: RequestBody? = null, nationalID: RequestBody? = null,
-                       description: RequestBody? = null, isParent: RequestBody? = null) = safeApi { myApi.updateInfo(name, family, birthDay, gender, mobile ,nationalID ,description ,isParent) }*/
     suspend fun getUserList(num:Int? = null ,page:Int? = null ,search: String? = null ,asc: String? = null ,order: String? = null) = safeApi { myApi.getUserList(num = num , page = page ,search = search ,asc = asc ,order = order) }
     suspend fun transactionDashboard() = safeApi { myApi.transactionDashboard() }
     suspend fun transactionList() = safeApi { myApi.transactionList() }
@@ -31,7 +29,7 @@ class RemoteDataSource @Inject constructor(
     suspend fun getLastMessage() = safeApi { myApi.getLastMessage() }
     suspend fun getDateTime() = safeApi { myApi.getDateTime() }
     suspend fun offCode(code: String) = safeApi { myApi.offCode(code) }
-    suspend fun transactionAdd(price: String ,cash: String ,cart: String ,offCodID: String) = safeApi { myApi.transactionAdd(price ,cash ,cart ,offCodID) }
+    suspend fun transactionAdd(price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int) = safeApi { myApi.transactionAdd(price ,cash ,cart ,offCodID ,paydeviceId) }
     suspend fun transactionDelete(id: Long) = safeApi { myApi.transactionDelete(id) }
     suspend fun transactionUpdate(price: String ,cash: String ,cart: String ,offCodID: String) = safeApi { myApi.transactionUpdate(price ,cash ,cart ,offCodID) }
     suspend fun transactionClose(ids: String, casheirId: Int, recivecards: Int, resendcards: Int) = safeApi { myApi.transactionCloseCache(ids, casheirId, recivecards, resendcards) }
@@ -40,5 +38,14 @@ class RemoteDataSource @Inject constructor(
     suspend fun transactionSummeryAdd(casheirId: Int ,description: String ,amount: String ,type: Int ,paydeviceId: Int) = safeApi { myApi.transactionSummeryAdd(casheirId, description, amount, type ,paydeviceId) }
     suspend fun getPayDevices() = safeApi { myApi.getPayDevices() }
     suspend fun deleteUser(id: Long) = safeApi { myApi.deleteUser(id) }
+    suspend fun getFactor(userId: Long) = safeApi { myApi.getFactor(userId) }
+    suspend fun addCharge(price: String ,factorId: Long) = safeApi { myApi.addCharge(price ,factorId) }
+    suspend fun addOffCode(price: String ,factorId: Long) = safeApi { myApi.addOffCode(price ,factorId) }
+    suspend fun play(factorismId: Long ,factorId: Long) = safeApi { myApi.play(factorismId ,factorId) }
+    suspend fun pause(factorismId: Long ,factorId: Long) = safeApi { myApi.pause(factorismId ,factorId) }
+    suspend fun delete(factorismId: Long ,factorId: Long) = safeApi { myApi.deleteItem(factorismId ,factorId) }
+    suspend fun productList() = safeApi { myApi.productList() }
+
+
 
 }

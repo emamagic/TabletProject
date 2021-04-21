@@ -137,7 +137,8 @@ interface MyApi {
         @Field("price") price: String,
         @Field("cash") cash: String,
         @Field("cart") cart: String,
-        @Field("offcodeId") offCodeID: String
+        @Field("offcodeId") offCodeID: String,
+        @Field("paydeviceId") paydeviceId: Int
     ): Response<TransactionAddResponse>
 
 
@@ -194,5 +195,48 @@ interface MyApi {
     suspend fun deleteUser(
         @Path("id") id: Long
     ): Response<DeleteUserResponse>
+
+
+    @GET("factor/getfactor")
+    suspend fun getFactor(
+        @Query("userId") userId: Long
+    ): Response<FactorResponse>
+
+    @POST("factor/addcharge")
+    @FormUrlEncoded
+    suspend fun addCharge(
+        @Field("price") price: String,
+        @Field("factorId") factorId: Long
+    ): Response<AddChargeResponse>
+
+    @POST("factor/addoffcode")
+    @FormUrlEncoded
+    suspend fun addOffCode(
+        @Field("code") code: String,
+        @Field("factorId") factorId: Long
+    ): Response<AddOffCodeResponse>
+
+    @POST("factor/play")
+    @FormUrlEncoded
+    suspend fun play(
+        @Field("factoritemId") factorismId: Long,
+        @Field("factorId") factorId: Long
+    ): Response<PlayResponse>
+
+    @POST("factor/pause")
+    @FormUrlEncoded
+    suspend fun pause(
+        @Field("factoritemId") factorismId: Long,
+        @Field("factorId") factorId: Long
+    ): Response<PauseResponse>
+
+    @DELETE("factor/deleteitem")
+    suspend fun deleteItem(
+        @Field("factoritemId") factorismId: Long,
+        @Field("factorId") factorId: Long
+    ): Response<DeleteItemResponse>
+
+    @GET("product/list")
+    suspend fun productList(): Response<ProductListResponse>
 
 }

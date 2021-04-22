@@ -30,9 +30,7 @@ interface MyApi {
 
     @GET("logs/list")
     suspend fun logList(
-        @Query("num") num: Int = 1,
-//        @Query("order") order: String,
-//        @Query("asc") asc: String
+        @Query("num") num: Int = 1
     ): Response<List<LogListResponse>>
 
     @POST("user/register")

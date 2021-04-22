@@ -52,8 +52,15 @@ class ChargeFragment: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         subscribeOnUserInfo()
         subscribeOnGetFactor()
+        subscribeOnAddCharge()
+        subscribeOnAddOffCode()
+        subscribeOnDelete()
+        subscribeOnPause()
+        subscribeOnPlay()
+
         getUserInfo(userId)
         getFactor(userId!!)
 
@@ -107,6 +114,28 @@ class ChargeFragment: DialogFragment() {
     private fun getFactor(userId: Long) {
         viewModel.getFactor(userId)
     }
+
+    private fun addCharge(price: String ,factorId: Long) {
+        viewModel.addCharge(price, factorId)
+    }
+
+    private fun addOffCode(price: String ,factorId: Long) {
+        viewModel.addOffCode(price, factorId)
+    }
+
+    private fun play(factorismId: Long ,factorId: Long) {
+        viewModel.play(factorismId, factorId)
+    }
+
+    private fun pause(factorismId: Long ,factorId: Long) {
+        viewModel.pause(factorismId, factorId)
+    }
+
+    private fun delete(factorismId: Long ,factorId: Long) {
+        viewModel.delete(factorismId, factorId)
+    }
+
+
 
     private fun splitDigitNumber(editText: EditText, watcher: TextWatcher) {
         editText.removeTextChangedListener(watcher)
@@ -174,6 +203,176 @@ class ChargeFragment: DialogFragment() {
                 }
                 is ApiWrapper.UnknownError -> {
                     Log.e("TAG", "subscribeOnPayDevices: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnAddCharge(){
+        viewModel.addCharge.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnAddCharge: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnAddCharge: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnAddOffCode() {
+        viewModel.addOffCode.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnAddOffCode: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnAddOffCode: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnPlay() {
+        viewModel.play.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnPlay: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnPlay: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnPause() {
+        viewModel.pause.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnPause: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnPause: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnDelete() {
+        viewModel.delete.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnDelete: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnDelete: ${response.message}")
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.toastyError),

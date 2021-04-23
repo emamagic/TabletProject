@@ -1,10 +1,8 @@
 package com.example.brightcity.api
 
 import com.example.brightcity.api.responses.*
-import com.example.brightcity.api.safe.MyJwt
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -132,6 +130,9 @@ interface MyApi {
     @POST("transaction/add")
     @FormUrlEncoded
     suspend fun transactionAdd(
+        @Field("userId") userId: Long,
+        @Field("user_factorId") user_factorId: Long,
+        @Field("title") title: String,
         @Field("price") price: String,
         @Field("cash") cash: String,
         @Field("cart") cart: String,
@@ -236,5 +237,10 @@ interface MyApi {
 
     @GET("product/list")
     suspend fun productList(): Response<ProductListResponse>
+
+    @GET("factor/items")
+    suspend fun getItems(
+        @Query("factorId") factorId: Long
+    ): Response<ItemsListResponse>
 
 }

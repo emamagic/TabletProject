@@ -1,5 +1,7 @@
 package com.example.brightcity.api.responses
 
+import com.google.gson.annotations.SerializedName
+
 data class GetRelationResponse(
     val id: Long,
     val pid: Long,
@@ -8,5 +10,16 @@ data class GetRelationResponse(
     val related_userId: Long,
     val type: Int,
     val status: Int,
-    val description: String
-)
+    val description: String,
+    @SerializedName("user.fullname")
+    val userName: String
+){
+    fun mapToUserList(): UserListResponse{
+        return UserListResponse(
+            id = userId,
+            name = userName,
+            status = status
+        )
+    }
+
+}

@@ -26,5 +26,6 @@ data class UserInfoResponse(
     val user_group: String,
     val username: String,
     val fileId: String,
-    val national_id: String
+    val national_id: String,
+    val age: Int
 )

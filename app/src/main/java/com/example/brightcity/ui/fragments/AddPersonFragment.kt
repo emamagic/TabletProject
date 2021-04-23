@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.brightcity.R
+import com.example.brightcity.api.responses.GetRelationResponse
 import com.example.brightcity.api.responses.UserListResponse
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.FragmentPersonalProfileBinding
@@ -28,7 +29,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     private val viewModel: AddPersonViewModel by viewModels()
     private var _binding: FragmentPersonalProfileBinding? = null
     private val binding get() = _binding
-    private var userID: Long? = null
+    private var userID: Long? = 0
     private var fileID: String? = null
     private var name: String = ""
     private var family: String = ""
@@ -41,10 +42,9 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     private var lastUser: UserListResponse? = null
     private var relationList: ArrayList<UserListResponse>? = null
     private var isChargeClicked: Boolean = false
-    private var userId: Long? = null
 
     companion object {
-        fun newInstance(id: Long, fileId: String?): AddPersonFragment {
+        fun newInstance(id: Long, fileId: String? = "0"): AddPersonFragment {
             val args = Bundle()
             args.putLong("userID", id)
             args.putString("fileID", fileId)
@@ -74,10 +74,20 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        userId = 0
+        binding?.relativeLayout5?.RecyclerViewPesrsonalProfile?.adapter = adapter
+
+        if (userID != 0L) {
+             // it form ChargeFragment
+            getRelation(userID!!)
+            getUserInfo(userID!!)
+        }
+
         subscribeOnAddPerson()
         subscribeOnUserList()
         subscribeOnSetRelation()
+        subscribeOnGetRelation()
+        subscribeOnUserInfo()
+
         getUserList()
 
         binding?.relativeLayout4?.switchForReportF1?.setSwitchTextAppearance(
@@ -155,7 +165,6 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
 
 
     private fun setUpUserRelationRecycler(item: UserListResponse) {
-        binding?.relativeLayout5?.RecyclerViewPesrsonalProfile?.adapter = adapter
         relationList?.add(item)
         checkListEmpty()
         adapter?.submitList(relationList!!)
@@ -209,6 +218,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                     response.data?.let {
                         Log.e("TAG", "subscribeOnAddPerson: $it")
                         val id: Long = it.id
+                        userID = it.id
                         if (relationList?.isNotEmpty()!!) {
                             relationList?.forEach { item ->
                                 Log.e("TAG", "subscribeOnAddPerson: id $id , item.id ${item.id}  type ${item.type}", )
@@ -302,7 +312,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         if (relationList?.size == 0) {
                             hideLoading()
                             if (isChargeClicked) {
-                                ChargeFragment.newInstance(userId!!).show(childFragmentManager, null)
+                                ChargeFragment.newInstance(userID!!).show(childFragmentManager, null)
                             } else {
                                 Toast.makeText(
                                     requireContext(),
@@ -351,7 +361,8 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         } else {
                             binding?.relativeLayout5?.linearPersonalTitle?.visibility = View.VISIBLE
                             binding?.relativeLayout5?.imgPersonalFNothing?.visibility = View.GONE
-                            // setUpRelationRecycler(it)
+                            it.forEach { item -> setUpUserRelationRecycler(item.mapToUserList()) }
+
                         }
                     }
                 }
@@ -390,7 +401,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         Log.e("TAG", "subscribeOnUserInfo: $it")
                         binding?.relativeLayout4?.editPersonalFName?.setText(it.name)
                         binding?.relativeLayout4?.editPersonalFFamily?.setText(it.family)
-                        binding?.relativeLayout4?.editPersonalFBirthday?.setText(it.birthdate)
+                        binding?.relativeLayout4?.editPersonalFBirthday?.text = it.birthdate
                         binding?.relativeLayout4?.editPersonalFNationalId?.setText(it.national_id)
                         binding?.relativeLayout4?.editPersonalFPhoneNumber?.setText(it.mobile)
                         binding?.relativeLayout4?.editPersonalFDescription?.setText(it.description)
@@ -446,7 +457,6 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     override fun onRelationCreate(item: UserListResponse) {
         Log.e("TAG", "onRelationCreate: $item")
         setUpUserRelationRecycler(item)
-        //  getRelation(userID!!)
     }
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {

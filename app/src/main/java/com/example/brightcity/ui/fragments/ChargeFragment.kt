@@ -20,12 +20,12 @@ import com.example.brightcity.ui.viewmodels.ChargeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import kotlin.math.abs
 
-@Suppress("JAVA_CLASS_ON_COMPANION")
 @AndroidEntryPoint
 class ChargeFragment: DialogFragment() {
 
-    private val TAG = ChargeFragment.javaClass.simpleName
+    private val TAG = "ChargeFragment"
 
     private val viewModel: ChargeViewModel by viewModels()
     private var _binding: FragmentChargeBinding? = null
@@ -60,6 +60,9 @@ class ChargeFragment: DialogFragment() {
         subscribeOnDelete()
         subscribeOnPause()
         subscribeOnPlay()
+        subscribeOnTransactionAdd()
+        subscribeOnProductList()
+        subscribeOnItemsList()
 
         getUserInfo(userId)
         getFactor(userId!!)
@@ -67,15 +70,17 @@ class ChargeFragment: DialogFragment() {
         binding?.btnChargeFCancel?.setOnClickListener { dismiss() }
 
         binding?.btnChargeFPay?.setOnClickListener {
-
+            // transactionAdd()
         }
 
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
-
+            val offCode = binding?.include1?.editChargeFCodeBon?.text?.toString()?.filter { it != ',' }
+            if (offCode?.isNotEmpty()!!) addOffCode(offCode ,factorId!!)
         }
 
         binding?.include1?.btnPessonalProileFAdd?.setOnClickListener {
-
+            val charge = binding?.include1?.editChargeFGetCharge?.text?.toString()?.filter { it != ',' }
+            if (charge?.isNotEmpty()!!) addCharge(charge ,factorId!!)
         }
 
         binding?.include1?.editChargeFGetCharge?.addTextChangedListener(object: TextWatcher{
@@ -85,6 +90,7 @@ class ChargeFragment: DialogFragment() {
                 splitDigitNumber(binding?.include1?.editChargeFGetCharge!! ,this)
             }
         })
+
         binding?.include1?.editChargeFCodeBon?.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -92,6 +98,14 @@ class ChargeFragment: DialogFragment() {
                 splitDigitNumber(binding?.include1?.editChargeFCodeBon!! ,this)
             }
         })
+
+        binding?.relativeLayout2?.button?.setOnClickListener {
+            AddPersonFragment.newInstance(userId!!).show(childFragmentManager ,null)
+        }
+
+        binding?.relativeLayout2?.relativeLayout55?.setOnClickListener {
+            PayBackFragment().show(childFragmentManager ,null)
+        }
 
 
     }
@@ -135,6 +149,18 @@ class ChargeFragment: DialogFragment() {
         viewModel.delete(factorismId, factorId)
     }
 
+    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int) {
+        viewModel.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
+    }
+
+    private fun productList() {
+        viewModel.productList()
+    }
+
+    private fun itemsList(factorId: Long) {
+        viewModel.itemsList(factorId)
+    }
+
 
 
     private fun splitDigitNumber(editText: EditText, watcher: TextWatcher) {
@@ -158,7 +184,11 @@ class ChargeFragment: DialogFragment() {
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        binding?.relativeLayout2?.txtChargeFGetName?.text = it.name
+                        binding?.relativeLayout2?.txtChargeFGetAge?.text = it.age.toString()
+                        binding?.relativeLayout2?.txtChargeFGetPhoneNumber?.text = it.mobile
+                        binding?.relativeLayout2?.txtChargeFGetNationalId?.text = it.national_id
+                        binding?.relativeLayout2?.textView16?.text = abs((it.credit)-(it.gift)).toString()
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -193,6 +223,7 @@ class ChargeFragment: DialogFragment() {
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         factorId = it.id
+                        binding?.relativeLayout2?.textView13?.text = it.sumprice.toString()
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -373,6 +404,108 @@ class ChargeFragment: DialogFragment() {
                 }
                 is ApiWrapper.UnknownError -> {
                     Log.e("TAG", "subscribeOnDelete: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnTransactionAdd() {
+        viewModel.transactionAdd.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnProductList() {
+        viewModel.productList.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnItemsList() {
+        viewModel.itemsList.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.toastyError),

@@ -14,6 +14,9 @@ class ChargeRepository @Inject constructor(
     suspend fun play(factorismId: Long ,factorId: Long)   = remote.play(factorismId, factorId)
     suspend fun pause(factorismId: Long ,factorId: Long)  = remote.pause(factorismId, factorId)
     suspend fun delete(factorismId: Long ,factorId: Long) = remote.delete(factorismId, factorId)
-
+    suspend fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int)
+        = remote.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
+    suspend fun productList() = remote.productList()
+    suspend fun itemsList(factorId: Long) = remote.itemsList(factorId)
 
 }

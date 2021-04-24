@@ -56,6 +56,7 @@ class ProductAdapter(private val interaction: Interaction? = null ,private val p
 
     fun submitList(list: List<ProductListResponse>) {
         differ.submitList(list)
+        notifyDataSetChanged()
     }
 
     inner class AuditViewHolder

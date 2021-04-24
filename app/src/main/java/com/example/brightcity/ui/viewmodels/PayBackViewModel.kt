@@ -21,7 +21,7 @@ class PayBackViewModel @Inject constructor(
         get() = _transactionAdd
 
 
-    fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int)
+    fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int?)
             = viewModelScope.launch {
         _transactionAdd.value = repository.addTransaction(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
     }

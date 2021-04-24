@@ -62,6 +62,7 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
 
     fun submitList(list: List<ItemsListResponse>) {
         differ.submitList(list)
+        notifyDataSetChanged()
     }
 
     inner class AuditViewHolder
@@ -71,16 +72,14 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
 
         fun bind(item: ItemsListResponse) = with(itemView) {
 
-            itemView.setOnClickListener {
-                interaction?.onItemSelectedItem(adapterPosition, item)
-            }
             itemView.apply {
 
                 if (item.fileId != null)
                     picasso.load("${Constance.BASE_URL}file/download?id=${item.fileId}").fit().placeholder(R.drawable.ic_avatar).into(img_chargeF_item_list)
                 txt_chargeF_item_list_Credit.text = item.title
                 txt_chargeF_item_list_time.text = item.remain
-                img_chargeF_item_list.setImageResource(setImage(item.status))
+                img_chargeF_right.setImageResource(setImage(item.status ,item.type))
+                img_chargeF_right.setOnClickListener { interaction?.onItemSelectedItem(adapterPosition, item) }
 
             }
 
@@ -89,13 +88,23 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
     }
 
 
-    fun setImage(status: Int): Int {
+    fun setImage(status: Int ,type: Int): Int {
         return when (status) {
-            0 -> R.drawable.ic_play
+            // ثبت شده
+            0 -> R.drawable.ic_remove_item
+            // پرداخت شده
             1 -> R.drawable.ic_play
+            // استفاده نشده
             2 -> R.drawable.ic_play
-            3 -> R.drawable.ic_pause
-            // 4 -> R.drawable.ic_remove_item
+            // درحال استفاده
+            3 -> {
+                when(type){
+                    // بن اعتباری (کد هدیه)
+                   0 -> R.drawable.ic_non_pause
+                   else -> R.drawable.ic_pause
+                }
+            }
+            // 4 -> R.drawable.ic_remove_item تکمیل شده
             else -> R.drawable.ic_remove_item
         }
     }

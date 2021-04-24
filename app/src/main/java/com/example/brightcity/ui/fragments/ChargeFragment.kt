@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.brightcity.R
 import com.example.brightcity.api.responses.ItemsListResponse
 import com.example.brightcity.api.responses.ProductListResponse
@@ -76,9 +77,15 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         subscribeOnTransactionAdd()
         subscribeOnProductList()
         subscribeOnItemsList()
+        subscribeOnAddProduct()
+
 
         getUserInfo(userId)
         getFactor(userId!!)
+
+        binding?.relativeLayout3?.recyclerviewChargeFRight?.adapter = itemsAdapter
+        binding?.include1?.RecyclerViewBottomChargeF?.adapter = productAdapter
+        binding?.include1?.RecyclerViewBottomChargeF?.layoutManager = GridLayoutManager(requireContext() ,5)
 
         binding?.btnChargeFCancel?.setOnClickListener { dismiss() }
 
@@ -132,6 +139,13 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         return _binding?.root
     }
 
+    private fun setUpRecyclerProduct(list: List<ProductListResponse>) {
+        productAdapter.submitList(list)
+    }
+
+    private fun setUpRecyclerItems(list: List<ItemsListResponse>) {
+        itemsAdapter.submitList(list)
+    }
 
     private fun getUserInfo(userId: Long?) {
         showLoading()
@@ -174,6 +188,9 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         viewModel.itemsList(factorId)
     }
 
+    private fun addProduct(id: Long ,pid: Long ,ord: Int,name: String ,awardId: Long ,price: String ,description: String, conditions: String ,fileId: String){
+        viewModel.addProduct(id, pid, ord, name, awardId, price, description, conditions, fileId)
+    }
 
 
     private fun splitDigitNumber(editText: EditText, watcher: TextWatcher) {
@@ -474,7 +491,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                            setUpRecyclerProduct(it)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -508,7 +525,41 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
+                        setUpRecyclerItems(it)
+                    }
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
 
+    private fun subscribeOnAddProduct() {
+        viewModel.addProduct.observe(viewLifecycleOwner){ response ->
+            hideLoading()
+            when(response){
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+                        Toast.makeText(requireContext(), response.data.status, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -537,6 +588,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     }
 
 
+
     private fun showLoading() {
         binding?.loading?.visibility = View.VISIBLE
         binding?.btnChargeFPay?.visibility = View.GONE
@@ -555,11 +607,13 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     }
 
     override fun onItemSelectedProduct(position: Int, item: ProductListResponse) {
-
+        addProduct(item.id ,item.pid ,item.ord ,item.name ,item.awardId.toLong() ,item.price ,item.description ,item.condition ,item.fileId.toString())
     }
 
     override fun onItemSelectedItem(position: Int, item: ItemsListResponse) {
+        when(item.status){
 
+        }
     }
 
 

@@ -48,13 +48,17 @@ class ChargeViewModel @Inject constructor(
     val transactionAdd: LiveData<ApiWrapper<TransactionAddResponse>>
         get() = _transactionAdd
 
-    private val _productList = MutableLiveData<ApiWrapper<ProductListResponse>>()
-    val productList: LiveData<ApiWrapper<ProductListResponse>>
+    private val _productList = MutableLiveData<ApiWrapper<List<ProductListResponse>>>()
+    val productList: LiveData<ApiWrapper<List<ProductListResponse>>>
         get() = _productList
 
-    private val _itemsList = MutableLiveData<ApiWrapper<ItemsListResponse>>()
-    val itemsList: LiveData<ApiWrapper<ItemsListResponse>>
+    private val _itemsList = MutableLiveData<ApiWrapper<List<ItemsListResponse>>>()
+    val itemsList: LiveData<ApiWrapper<List<ItemsListResponse>>>
         get() = _itemsList
+
+    private val _addProduct = MutableLiveData<ApiWrapper<AddProductResponse>>()
+    val addProduct: LiveData<ApiWrapper<AddProductResponse>>
+        get() = _addProduct
 
 
     fun getUserInfo(userId: Long?) = viewModelScope.launch {
@@ -96,6 +100,10 @@ class ChargeViewModel @Inject constructor(
 
     fun itemsList(factorId: Long) = viewModelScope.launch {
         _itemsList.value = repository.itemsList(factorId)
+    }
+
+    fun addProduct(id: Long ,pid: Long ,ord: Int,name: String ,awardId: Long ,price: String ,description: String, conditions: String ,fileId: String) = viewModelScope.launch {
+        _addProduct.value = repository.addProduct(id, pid, ord, name, awardId, price, description, conditions, fileId)
     }
 
 }

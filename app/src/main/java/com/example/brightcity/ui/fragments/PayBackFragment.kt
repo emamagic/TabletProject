@@ -13,9 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.brightcity.R
 import com.example.brightcity.api.safe.ApiWrapper
-import com.example.brightcity.databinding.FragmentChargeBinding
 import com.example.brightcity.databinding.PayBackFragmentBinding
-import com.example.brightcity.ui.viewmodels.ChargeViewModel
 import com.example.brightcity.ui.viewmodels.PayBackViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
@@ -28,6 +26,23 @@ class PayBackFragment: DialogFragment() {
     private val viewModel: PayBackViewModel by viewModels()
     private var _binding: PayBackFragmentBinding? = null
     private val binding get() = _binding
+    private var userId: Long? = 0
+    private var factorId: Long? = 0
+
+    fun newInstance(userId: Long ,factorId: Long): PayBackFragment{
+        val args = Bundle()
+        args.putLong("userId" ,userId)
+        args.putLong("factorId" ,factorId)
+        val fragment = PayBackFragment()
+        fragment.arguments = args
+        return fragment
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userId = arguments?.getLong("userId")
+        factorId = arguments?.getLong("factorId")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +57,8 @@ class PayBackFragment: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        subscribeOnTransactionAdd()
+        
         binding?.editPaymentFCostForCart?.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -54,12 +71,12 @@ class PayBackFragment: DialogFragment() {
 
         binding?.btnPaymentFPay?.setOnClickListener {
             val price = binding?.editPaymentFCostForCart?.text?.toString()?.filter { it != ',' }
-
+            transactionAdd(userId!! ,factorId!! ," ","-$price" ,"","","",null)
         }
 
     }
 
-    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int) {
+    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null) {
         viewModel.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
     }
 
@@ -68,7 +85,10 @@ class PayBackFragment: DialogFragment() {
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        // TODO: 4/24/2021
+                        Log.e(TAG, "subscribeOnTransactionAdd: ${response.data}")
+                        Toast.makeText(requireContext(), response.data.status, Toast.LENGTH_SHORT).show()
+                        // dismiss()
                     }
                 }
                 is ApiWrapper.ApiError -> {

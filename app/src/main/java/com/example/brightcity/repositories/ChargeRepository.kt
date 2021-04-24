@@ -18,5 +18,7 @@ class ChargeRepository @Inject constructor(
         = remote.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
     suspend fun productList() = remote.productList()
     suspend fun itemsList(factorId: Long) = remote.itemsList(factorId)
+    suspend fun addProduct(id: Long ,pid: Long ,ord: Int,name: String ,awardId: Long ,price: String ,description: String, conditions: String ,fileId: String)
+        = remote.addProduct(id, pid, ord, name, awardId, price, description, conditions, fileId)
 
 }

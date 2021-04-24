@@ -137,7 +137,7 @@ interface MyApi {
         @Field("cash") cash: String,
         @Field("cart") cart: String,
         @Field("offcodeId") offCodeID: String,
-        @Field("paydeviceId") paydeviceId: Int
+        @Field("paydeviceId") paydeviceId: Int? = null
     ): Response<TransactionAddResponse>
 
 
@@ -236,11 +236,25 @@ interface MyApi {
     ): Response<DeleteItemResponse>
 
     @GET("product/list")
-    suspend fun productList(): Response<ProductListResponse>
+    suspend fun productList(): Response<List<ProductListResponse>>
 
     @GET("factor/items")
     suspend fun getItems(
         @Query("factorId") factorId: Long
-    ): Response<ItemsListResponse>
+    ): Response<List<ItemsListResponse>>
+
+    @PUT("product/add")
+    @FormUrlEncoded
+    suspend fun addProduct(
+        @Field("id") id: Long,
+        @Field("pid") pid: Long,
+        @Field("ord") ord: Int,
+        @Field("name") name: String,
+        @Field("awardId") awardId: Long,
+        @Field("price") price: String,
+        @Field("description") description: String,
+        @Field("conditions") conditions: String,
+        @Field("fileId") fileId: String,
+    ): Response<AddProductResponse>
 
 }

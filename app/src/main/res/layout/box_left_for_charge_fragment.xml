@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/_2sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:background="@color/white"
         tools:listitem="@layout/item_list_charge"
         app:layout_constraintBottom_toTopOf="@+id/view4"

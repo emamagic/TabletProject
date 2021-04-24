@@ -14,16 +14,23 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.brightcity.R
+import com.example.brightcity.api.responses.ItemsListResponse
+import com.example.brightcity.api.responses.ProductListResponse
+import com.example.brightcity.api.responses.TransactionListResponse
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.FragmentChargeBinding
+import com.example.brightcity.ui.adapter.ItemsAdapter
+import com.example.brightcity.ui.adapter.ProductAdapter
 import com.example.brightcity.ui.viewmodels.ChargeViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import javax.inject.Inject
 import kotlin.math.abs
 
 @AndroidEntryPoint
-class ChargeFragment: DialogFragment() {
+class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter.Interaction {
 
     private val TAG = "ChargeFragment"
 
@@ -32,6 +39,10 @@ class ChargeFragment: DialogFragment() {
     private val binding get() = _binding
     private var userId: Long? = null
     private var factorId: Long? = null
+    private lateinit var productAdapter: ProductAdapter
+    private lateinit var itemsAdapter: ItemsAdapter
+    @Inject
+    lateinit var picasso: Picasso
 
     companion object {
         fun newInstance(userId: Long): ChargeFragment{
@@ -47,6 +58,8 @@ class ChargeFragment: DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userId = arguments?.getLong("userId")
+        productAdapter = ProductAdapter(this ,picasso)
+        itemsAdapter = ItemsAdapter(this ,picasso)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -539,6 +552,14 @@ class ChargeFragment: DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemSelectedProduct(position: Int, item: ProductListResponse) {
+
+    }
+
+    override fun onItemSelectedItem(position: Int, item: ItemsListResponse) {
+
     }
 
 

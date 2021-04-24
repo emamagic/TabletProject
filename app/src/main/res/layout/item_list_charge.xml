@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/iran_sans_mobile"
         android:layout_marginStart="@dimen/_5sdp"
-        android:text="12:00"
+        tools:text="12:00"
         app:layout_constraintBottom_toBottomOf="@+id/img_chargeF_right"
         app:layout_constraintStart_toEndOf="@+id/img_chargeF_right"
         app:layout_constraintTop_toTopOf="@+id/img_chargeF_right" />

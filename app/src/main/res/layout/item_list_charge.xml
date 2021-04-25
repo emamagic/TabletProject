@@ -38,7 +38,7 @@
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@+id/img_chargeF_item_list"
         android:fontFamily="@font/iran_sans_mobile"
-        android:text="اعتبار نقدی"
+        tools:text="اعتبار نقدی"
         android:textColor="@color/black"
 
 
@@ -54,7 +54,7 @@
         android:fontFamily="@font/iran_sans_mobile"
         android:layout_marginEnd="@dimen/_6sdp"
         android:textColor="@color/black"
-        android:text="65,0000"
+        tools:text="65,0000"
         android:layout_marginBottom="@dimen/_2sdp"
 
         app:layout_constraintBottom_toBottomOf="@id/img_chargeF_item_list"

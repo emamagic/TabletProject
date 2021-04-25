@@ -10,6 +10,6 @@ data class ItemsListResponse(
     val status: Int,
     val price: String,
     val percent: String,
-    val remain: String,
-    val fileId: Long
+    val remain: String?,
+    val fileId: Long?
 )

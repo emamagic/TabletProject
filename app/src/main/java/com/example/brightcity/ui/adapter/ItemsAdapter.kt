@@ -82,8 +82,11 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
                 img_chargeF_right.setImageResource(setImage(item.status ,item.type))
                 img_chargeF_right.setOnClickListener { interaction?.onItemSelectedItem(adapterPosition, item) }
 
-                txt_chargeF_item_list_time.base = item.remain.toLong()
-                txt_chargeF_item_list_time.start()
+                if (item.remain != null){
+                    txt_chargeF_item_list_time.base = item.remain.toLong()
+                    txt_chargeF_item_list_time.start()
+                }
+
 
             }
 

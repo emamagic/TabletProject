@@ -18,13 +18,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+
+    <Chronometer
         android:id="@+id/txt_chargeF_item_list_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/iran_sans_mobile"
         android:layout_marginStart="@dimen/_5sdp"
-        tools:text="12:00"
+        android:format="MM:SS"
+        android:countDown="true"
         app:layout_constraintBottom_toBottomOf="@+id/img_chargeF_right"
         app:layout_constraintStart_toEndOf="@+id/img_chargeF_right"
         app:layout_constraintTop_toTopOf="@+id/img_chargeF_right" />

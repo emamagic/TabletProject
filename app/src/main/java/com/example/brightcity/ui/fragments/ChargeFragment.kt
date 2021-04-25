@@ -593,17 +593,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         }
     }
 
-    private fun countDownTimer(textView: TextView ,totalTime: Long ,step: Long) {
-        countDown = object : CountDownTimer(totalTime, step) {
-            override fun onTick(millisUntilFinished: Long) {
-                textView.text = "${millisUntilFinished / 1000} ثانیه "
-            }
-            override fun onFinish() {
-                countDown?.cancel()
-            }
-        }.start()
-    }
-
 
     private fun showLoading() {
         binding?.loading?.visibility = View.VISIBLE

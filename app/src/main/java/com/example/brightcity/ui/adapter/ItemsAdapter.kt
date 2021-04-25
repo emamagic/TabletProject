@@ -1,9 +1,11 @@
 package com.example.brightcity.ui.adapter
 
+import android.os.CountDownTimer
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.brightcity.R
@@ -77,9 +79,11 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
                 if (item.fileId != null)
                     picasso.load("${Constance.BASE_URL}file/download?id=${item.fileId}").fit().placeholder(R.drawable.ic_avatar).into(img_chargeF_item_list)
                 txt_chargeF_item_list_Credit.text = item.title
-                txt_chargeF_item_list_time.text = item.remain
                 img_chargeF_right.setImageResource(setImage(item.status ,item.type))
                 img_chargeF_right.setOnClickListener { interaction?.onItemSelectedItem(adapterPosition, item) }
+
+                txt_chargeF_item_list_time.base = item.remain.toLong()
+                txt_chargeF_item_list_time.start()
 
             }
 
@@ -108,6 +112,18 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
             else -> R.drawable.ic_remove_item
         }
     }
+
+/*    private fun countDownTimer(textView: TextView, totalTime: Long, step: Long) {
+        // user lifecycle owner to react to dismiss if ui destroied
+        countDown = object : CountDownTimer(totalTime, step) {
+            override fun onTick(millisUntilFinished: Long) {
+                textView.text = "${millisUntilFinished / 1000} ثانیه "
+            }
+            override fun onFinish() {
+                countDown?.cancel()
+            }
+        }.start()
+    }*/
 
     interface Interaction {
         fun onItemSelectedItem(position: Int, item: ItemsListResponse)

@@ -218,7 +218,7 @@ interface MyApi {
     @POST("factor/play")
     @FormUrlEncoded
     suspend fun play(
-        @Field("factoritemId") factorismId: Long,
+        @Field("factoritemId") factoritemId: Long,
         @Field("factorId") factorId: Long
     ): Response<PlayResponse>
 

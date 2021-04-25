@@ -77,16 +77,16 @@ class ChargeViewModel @Inject constructor(
         _addOffCode.value = repository.addOffCode(price, factorId)
     }
 
-    fun play(factorismId: Long ,factorId: Long) = viewModelScope.launch {
-        _play.value = repository.play(factorismId, factorId)
+    fun play(factoritemId: Long ,factorId: Long) = viewModelScope.launch {
+        _play.value = repository.play(factoritemId, factorId)
     }
 
-    fun pause(factorismId: Long ,factorId: Long) = viewModelScope.launch {
-        _pause.value = repository.pause(factorismId, factorId)
+    fun pause(factoritemId: Long ,factorId: Long) = viewModelScope.launch {
+        _pause.value = repository.pause(factoritemId, factorId)
     }
 
-    fun delete(factorismId: Long ,factorId: Long) = viewModelScope.launch {
-        _delete.value = repository.delete(factorismId, factorId)
+    fun delete(factoritemId: Long ,factorId: Long) = viewModelScope.launch {
+        _delete.value = repository.delete(factoritemId, factorId)
     }
 
     fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int)

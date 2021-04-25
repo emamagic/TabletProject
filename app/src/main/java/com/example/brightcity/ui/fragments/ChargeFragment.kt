@@ -82,6 +82,8 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
 
         getUserInfo(userId)
         getFactor(userId!!)
+        itemsList(factorId!!)
+        productList()
 
         binding?.relativeLayout3?.recyclerviewChargeFRight?.adapter = itemsAdapter
         binding?.include1?.RecyclerViewBottomChargeF?.adapter = productAdapter
@@ -90,7 +92,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         binding?.btnChargeFCancel?.setOnClickListener { dismiss() }
 
         binding?.btnChargeFPay?.setOnClickListener {
-            // transactionAdd()
+           //  transactionAdd(userId!! ,0," ",)
         }
 
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
@@ -164,16 +166,16 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         viewModel.addOffCode(price, factorId)
     }
 
-    private fun play(factorismId: Long ,factorId: Long) {
-        viewModel.play(factorismId, factorId)
+    private fun play(factoritemId: Long ,factorId: Long) {
+        viewModel.play(factoritemId, factorId)
     }
 
-    private fun pause(factorismId: Long ,factorId: Long) {
-        viewModel.pause(factorismId, factorId)
+    private fun pause(factoritemId: Long ,factorId: Long) {
+        viewModel.pause(factoritemId, factorId)
     }
 
-    private fun delete(factorismId: Long ,factorId: Long) {
-        viewModel.delete(factorismId, factorId)
+    private fun delete(factoritemId: Long ,factorId: Long) {
+        viewModel.delete(factoritemId, factorId)
     }
 
     private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int) {
@@ -287,7 +289,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -321,7 +323,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -355,7 +357,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        Log.e(TAG, "subscribeOnPlay: ${it.status}")
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -389,7 +391,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        Log.e(TAG, "subscribeOnPause: ${it.status}")
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -423,7 +425,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        Log.e(TAG, "subscribeOnDelete: ${it.status}")
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -457,7 +459,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-
+                        Log.e(TAG, "subscribeOnTransactionAdd: ${it.status}")
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -491,6 +493,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
+                        Log.e(TAG, "subscribeOnPlay: ${it}")
                             setUpRecyclerProduct(it)
                     }
                 }
@@ -559,7 +562,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Toast.makeText(requireContext(), response.data.status, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.status, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.ApiError -> {

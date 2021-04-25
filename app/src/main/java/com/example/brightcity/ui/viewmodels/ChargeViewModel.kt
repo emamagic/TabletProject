@@ -44,9 +44,7 @@ class ChargeViewModel @Inject constructor(
     val delete: LiveData<ApiWrapper<DeleteItemResponse>>
         get() = _delete
 
-    private val _transactionAdd = MutableLiveData<ApiWrapper<TransactionAddResponse>>()
-    val transactionAdd: LiveData<ApiWrapper<TransactionAddResponse>>
-        get() = _transactionAdd
+
 
     private val _productList = MutableLiveData<ApiWrapper<List<ProductListResponse>>>()
     val productList: LiveData<ApiWrapper<List<ProductListResponse>>>
@@ -89,10 +87,7 @@ class ChargeViewModel @Inject constructor(
         _delete.value = repository.delete(factoritemId, factorId)
     }
 
-    fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null)
-    = viewModelScope.launch {
-        _transactionAdd.value = repository.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
-    }
+
 
     fun productList() = viewModelScope.launch {
         _productList.value = repository.productList()

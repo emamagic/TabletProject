@@ -80,11 +80,17 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
                     picasso.load("${Constance.BASE_URL}file/download?id=${item.fileId}").fit().placeholder(R.drawable.ic_avatar).into(img_chargeF_item_list)
                 txt_chargeF_item_list_Credit.text = item.title
                 img_chargeF_right.setImageResource(setImage(item.status ,item.type))
+                txt_chargeF_item_list_Cost.text = item.price
                 img_chargeF_right.setOnClickListener { interaction?.onItemSelectedItem(adapterPosition, item) }
+                if (item.count == 2) img_chargeF_item_list_Credit.visibility = View.VISIBLE
+                else img_chargeF_item_list_Credit.visibility = View.GONE
 
                 if (item.remain != null){
+                    txt_chargeF_item_list_time.visibility = View.VISIBLE
                     txt_chargeF_item_list_time.base = item.remain.toLong()
                     txt_chargeF_item_list_time.start()
+                }else{
+                    txt_chargeF_item_list_time.visibility = View.GONE
                 }
 
 

@@ -27,6 +27,7 @@ import com.example.brightcity.util.onTextChange
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import io.socket.client.Ack
 import io.socket.client.IO
 import io.socket.client.Manager
 import io.socket.client.Socket
@@ -105,17 +106,25 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
                 Log.e(TAG, "light_casheir ack $ack")
             }
         })
-
+*/
         val userListInput = JSONObject()
-        userListInput.put("num", 10)
+        userListInput.put("num", 7)
         userListInput.put("page", 1)
         mSocket?.emit("user/list", userListInput, Ack { args ->
             Handler(Looper.getMainLooper()).post {
                 val ack = args[0] as JSONArray
                 Log.e(TAG, "user/list ack $ack: ")
-              //  setUpUserListRecycler(filterDateToList(ack))
+                setUpUserListRecycler(filterDateToList(ack))
             }
-        })*/
+        })
+
+        mSocket?.on("user/list"){ args ->
+            Handler(Looper.getMainLooper()).post {
+                val data = args[0] as JSONArray
+                Log.e(TAG, "user/list ack $data: ")
+                setUpUserListRecycler(filterDateToList(data))
+            }
+        }
 
     }
 
@@ -132,12 +141,12 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
         super.onViewCreated(view, savedInstanceState)
         subscribeOnLogList()
         subscribeOnUserDashboard()
-        subscribeOnUserList()
+       // subscribeOnUserList()
         subscribeOnTransactionDashboard()
         subscribeOnLastMessage()
         getTransactionDashboard()
         getLogList()
-        getUserList()
+       // getUserList()
         getUserDashboard()
         getLastMessage()
         socketOnEvents()

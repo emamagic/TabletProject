@@ -78,7 +78,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         subscribeOnDelete()
         subscribeOnPause()
         subscribeOnPlay()
-        subscribeOnTransactionAdd()
         subscribeOnProductList()
         subscribeOnItemsList()
         subscribeOnAddProduct()
@@ -95,7 +94,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         binding?.btnChargeFCancel?.setOnClickListener { dismiss() }
 
         binding?.btnChargeFPay?.setOnClickListener {
-          //   transactionAdd(userId!! ,factorId!!," ",)
+            PaymentFragment.newInstance().show(childFragmentManager ,null)
         }
 
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
@@ -181,9 +180,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         viewModel.delete(factoritemId, factorId)
     }
 
-    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null) {
-        viewModel.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
-    }
+
 
     private fun productList() {
         viewModel.productList()
@@ -441,40 +438,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 }
                 is ApiWrapper.UnknownError -> {
                     Log.e("TAG", "subscribeOnDelete: ${response.message}")
-                    Toast.makeText(
-                        requireContext(),
-                        requireContext().resources.getString(R.string.toastyError),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                is ApiWrapper.NetworkError -> {
-                    Toast.makeText(
-                        requireContext(),
-                        requireContext().resources.getString(R.string.toastyNet),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-    }
-
-    private fun subscribeOnTransactionAdd() {
-        viewModel.transactionAdd.observe(viewLifecycleOwner){ response ->
-            hideLoading()
-            when(response){
-                is ApiWrapper.Success -> {
-                    response.data?.let {
-                        Log.e(TAG, "subscribeOnTransactionAdd: ${it.status}")
-                    }
-                }
-                is ApiWrapper.ApiError -> {
-                    response.error?.let {
-                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-                is ApiWrapper.UnknownError -> {
-                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.toastyError),

@@ -143,7 +143,7 @@
         android:layout_height="@dimen/_13sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_4sdp"
-        android:background="@drawable/bg_border_white"
+        android:background="@drawable/bg_green_border"
         app:layout_constraintBottom_toBottomOf="@+id/txt_chargeF_get_national_id"
         app:layout_constraintEnd_toStartOf="@+id/txt_chargeF_get_national_id"
         app:layout_constraintHorizontal_bias="0.5"

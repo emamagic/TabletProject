@@ -193,10 +193,11 @@
 
         <ImageView
             android:id="@+id/img_chargeF_code_bon"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:padding="4dp"
             android:layout_alignParentStart="true"
-            android:background="@drawable/ic_dashboard_fill"
+            android:src="@drawable/ic_icon_awesome_qrcode"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/iransanse_medium"

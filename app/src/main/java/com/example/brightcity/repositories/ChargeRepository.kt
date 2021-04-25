@@ -15,9 +15,9 @@ class ChargeRepository @Inject constructor(
     suspend fun pause(factoritemId: Long ,factorId: Long)  = remote.pause(factoritemId, factorId)
     suspend fun delete(factoritemId: Long ,factorId: Long) = remote.delete(factoritemId, factorId)
 
-    suspend fun productList() = remote.productList()
+    suspend fun productList(page: Int? = null ,num: Int? =null) = remote.productList(page, num)
     suspend fun itemsList(factorId: Long) = remote.itemsList(factorId)
-    suspend fun addProduct(id: Long ,pid: Long ,ord: Int,name: String ,awardId: Long ,price: String ,description: String, conditions: String ,fileId: String)
-        = remote.addProduct(id, pid, ord, name, awardId, price, description, conditions, fileId)
+    suspend fun addProduct(productId: Long ,factorId: Long)
+        = remote.addProduct(productId, factorId)
 
 }

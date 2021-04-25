@@ -47,10 +47,10 @@ class RemoteDataSource @Inject constructor(
     suspend fun play(factoritemId: Long ,factorId: Long) = safeApi { myApi.play(factoritemId ,factorId) }
     suspend fun pause(factoritemId: Long ,factorId: Long) = safeApi { myApi.pause(factoritemId ,factorId) }
     suspend fun delete(factoritemId: Long ,factorId: Long) = safeApi { myApi.deleteItem(factoritemId ,factorId) }
-    suspend fun productList() = safeApi { myApi.productList() }
+    suspend fun productList(page: Int? = null ,num: Int? = null) = safeApi { myApi.productList(page, num) }
     suspend fun itemsList(factorId: Long) = safeApi { myApi.getItems(factorId) }
-    suspend fun addProduct(id: Long ,pid: Long ,ord: Int,name: String ,awardId: Long ,price: String ,description: String, conditions: String ,fileId: String) =
-        safeApi { myApi.addProduct(id ,pid ,ord ,name ,awardId ,price ,description ,conditions ,fileId) }
+    suspend fun addProduct(productId: Long ,factorId: Long) =
+        safeApi { myApi.addProduct(productId, factorId) }
 
 
 }

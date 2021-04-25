@@ -89,16 +89,16 @@ class ChargeViewModel @Inject constructor(
 
 
 
-    fun productList() = viewModelScope.launch {
-        _productList.value = repository.productList()
+    fun productList(page: Int? = null ,num: Int? =null) = viewModelScope.launch {
+        _productList.value = repository.productList(page, num)
     }
 
     fun itemsList(factorId: Long) = viewModelScope.launch {
         _itemsList.value = repository.itemsList(factorId)
     }
 
-    fun addProduct(id: Long ,pid: Long ,ord: Int,name: String ,awardId: Long ,price: String ,description: String, conditions: String ,fileId: String) = viewModelScope.launch {
-        _addProduct.value = repository.addProduct(id, pid, ord, name, awardId, price, description, conditions, fileId)
+    fun addProduct(productId: Long ,factorId: Long) = viewModelScope.launch {
+        _addProduct.value = repository.addProduct(productId, factorId)
     }
 
 }

@@ -65,6 +65,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         userId = arguments?.getLong("userId")
         productAdapter = ProductAdapter(this ,picasso)
         itemsAdapter = ItemsAdapter(this ,picasso)
+        Log.e(TAG, "onCreate: $userId")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -183,15 +184,15 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
 
 
     private fun productList() {
-        viewModel.productList()
+        viewModel.productList(1,9)
     }
 
     private fun itemsList(factorId: Long) {
         viewModel.itemsList(factorId)
     }
 
-    private fun addProduct(id: Long ,pid: Long ,ord: Int,name: String ,awardId: Long ,price: String ,description: String, conditions: String ,fileId: String){
-        viewModel.addProduct(id, pid, ord, name, awardId, price, description, conditions, fileId)
+    private fun addProduct(productId: Long ,factorId: Long){
+        viewModel.addProduct(productId, factorId)
     }
 
 
@@ -462,17 +463,20 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Log.e(TAG, "subscribeOnPlay: $it")
-                            setUpRecyclerProduct(it)
+                        val list = ArrayList<ProductListResponse>()
+                        list.addAll(it)
+                        list.add(ProductListResponse(-2 ,0,0,"",0,"","","","",0))
+                            setUpRecyclerProduct(list)
                     }
                 }
                 is ApiWrapper.ApiError -> {
                     response.error?.let {
-                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
+                        Log.e("TAG", "subscribeOnProductList: $it")
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.UnknownError -> {
-                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
+                    Log.e("TAG", "subscribeOnProductList: ${response.message}")
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.toastyError),
@@ -502,12 +506,12 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 }
                 is ApiWrapper.ApiError -> {
                     response.error?.let {
-                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
+                        Log.e("TAG", "subscribeOnItemsList: $it")
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.UnknownError -> {
-                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
+                    Log.e("TAG", "subscribeOnItemsList: ${response.message}")
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.toastyError),
@@ -531,17 +535,17 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Toast.makeText(requireContext(), it.status, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.ApiError -> {
                     response.error?.let {
-                        Log.e("TAG", "subscribeOnTransactionAdd: $it")
+                        Log.e("TAG", "subscribeOnAddProduct: $it")
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.UnknownError -> {
-                    Log.e("TAG", "subscribeOnTransactionAdd: ${response.message}")
+                    Log.e("TAG", "subscribeOnAddProduct: ${response.message}")
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.toastyError),
@@ -558,7 +562,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             }
         }
     }
-
 
     private fun showLoading() {
         binding?.loading?.visibility = View.VISIBLE
@@ -582,7 +585,13 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     }
 
     override fun onItemSelectedProduct(position: Int, item: ProductListResponse) {
-        addProduct(item.id ,item.pid ,item.ord ,item.name ,item.awardId.toLong() ,item.price ,item.description ,item.condition ,item.fileId.toString())
+        if (item.id == -2L){
+            IncentiveFragment.newInstance(factorId!!).show(childFragmentManager ,null)
+        }else{
+            addProduct(item.id ,factorId!!)
+        }
+
+
     }
 
     override fun onItemSelectedItem(position: Int, item: ItemsListResponse) {

@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:elevation="@dimen/_5sdp"
+    android:layoutDirection="ltr"
     app:cardCornerRadius="@dimen/_4sdp"
-    android:layout_margin="@dimen/_4sdp"
+    android:layout_margin="@dimen/_2sdp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <RelativeLayout
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_60sdp">
+        android:id="@+id/relative_item"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_35sdp">
         <TextView
             android:id="@+id/txt_chargeF_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/iransanse_medium"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:textColor="#2196F3"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:textSize="@dimen/_30sdp"
+            android:textSize="35sp"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
             android:text="1"/>
+
         <ImageView
             android:id="@+id/img_chargeF_time"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:srcCompat="@drawable/ic_clock_blue"/>
+            android:layout_marginTop="@dimen/_6sdp"
+            android:src="@drawable/ic_clock_blue"/>
 
         <TextView
             android:id="@+id/txt_chargeF_cost"
@@ -37,13 +41,26 @@
             android:fontFamily="@font/iransanse_medium"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/_8sdp"
-            android:textSize="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
+            android:textSize="14sp"
+            android:layout_marginBottom="@dimen/_2sdp"
             tools:text="100,000,00"/>
 
 
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/relative_more"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_more"/>
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

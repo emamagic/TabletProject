@@ -9,5 +9,6 @@ data class ProductListResponse(
     val price: String,
     val description: String,
     val condition: String,
-    val fileId: Long
+    val fileId: String,
+    val age: Int
 )

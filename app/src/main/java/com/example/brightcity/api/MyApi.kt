@@ -250,25 +250,20 @@ interface MyApi {
     ): Response<DeleteItemResponse>
 
     @GET("product/list")
-    suspend fun productList(): Response<List<ProductListResponse>>
+    suspend fun productList(
+        @Query("page") page: Int? = null,
+        @Query("num") num: Int? = null
+    ): Response<List<ProductListResponse>>
 
     @GET("factor/items")
     suspend fun getItems(
         @Query("factorId") factorId: Long
     ): Response<List<ItemsListResponse>>
 
-    @PUT("product/add")
-    @FormUrlEncoded
+    @PUT("factor/addproduct")
     suspend fun addProduct(
-        @Field("id") id: Long,
-        @Field("pid") pid: Long,
-        @Field("ord") ord: Int,
-        @Field("name") name: String,
-        @Field("awardId") awardId: Long,
-        @Field("price") price: String,
-        @Field("description") description: String,
-        @Field("conditions") conditions: String,
-        @Field("fileId") fileId: String,
+        @Field("productId") productId: Long? = null,
+        @Field("factorId") factorId: Long? = null
     ): Response<AddProductResponse>
 
 }

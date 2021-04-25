@@ -15,6 +15,7 @@
         android:layout_marginBottom="@dimen/_4sdp"
         android:layout_marginEnd="@dimen/_4sdp"
         android:layout_marginStart="@dimen/_4sdp"
+        android:layoutDirection="rtl"
         tools:listitem="@layout/item_list_charge_right"
         android:background="@drawable/bg_border_gray"
         app:layout_constraintBottom_toBottomOf="parent"

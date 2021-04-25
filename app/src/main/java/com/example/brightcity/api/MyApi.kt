@@ -90,8 +90,22 @@ interface MyApi {
     ):Response<ChangePassResponse>
 
     @Multipart
-    @PUT("user/Selfupdate")
+    @PUT("user/update")
     suspend fun updateInfo(
+        @Part("id") id: Long? = null,
+        @Part("name") name: String? = null,
+        @Part("family") family: String? = null,
+        @Part("birthdate") birthDay: String? = "1",
+        @Part("gender") gender: Int? = null,
+        @Part("mobile") mobile: String? = null,
+        @Part("national_id") national_id: Long? = null,
+        @Part("description") description: String? = null,
+        @Part("is_parent") is_parent: Int? = null,
+    ): Response<UpdateInfoResponse>
+
+    @Multipart
+    @PUT("user/SelfUpdate")
+    suspend fun updateInfoSelf(
         @Part("name") name: String? = null,
         @Part("family") family: String? = null,
         @Part("birthdate") birthDay: String? = "1",

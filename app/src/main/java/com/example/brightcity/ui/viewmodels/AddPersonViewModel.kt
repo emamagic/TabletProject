@@ -26,8 +26,8 @@ class AddPersonViewModel @Inject constructor(
     val userRelation: LiveData<ApiWrapper<List<GetRelationResponse>>>
         get() = _userRelation
 
-    private var _userStatus = SingleLiveEvent<ApiWrapper<UserStatusResponse>>()
-    val userStatus: LiveData<ApiWrapper<UserStatusResponse>>
+    private var _userStatus = SingleLiveEvent<ApiWrapper<UserInfoResponse>>()
+    val userStatus: LiveData<ApiWrapper<UserInfoResponse>>
         get() = _userStatus
 
     private var _userList = SingleLiveEvent<ApiWrapper<List<UserListResponse>>>()
@@ -38,6 +38,9 @@ class AddPersonViewModel @Inject constructor(
     val setRelation: LiveData<ApiWrapper<SetRelationResponse>>
         get() = _setRelation
 
+    private var _updateInfo = SingleLiveEvent<ApiWrapper<UpdateInfoResponse>>()
+    val updateInfo: LiveData<ApiWrapper<UpdateInfoResponse>>
+        get() = _updateInfo
 
     fun setRelation(userID: Long ,relatedUser: Long ,type: Int) = viewModelScope.launch {
         _setRelation.value = repository.setUserRelation(userID, relatedUser, type)
@@ -60,4 +63,9 @@ class AddPersonViewModel @Inject constructor(
     fun getUserList(num: Int ,page: Int ,search: String? = null ,asc: String? = null,order: String? = null) = viewModelScope.launch {
         _userList.value = repository.getUserList(num = num ,page = page ,search, asc ,order = order)
     }
+
+    fun updateInfo(id: Long ,name: String? = null ,family: String? = null ,birthDay: String? = null ,gender: Int? = null ,mobile: String? = null ,nationalID: Long? = null ,description: String? = null ,isParent: Int? = null) =
+        viewModelScope.launch {
+            _updateInfo.value = repository.updateInfo(id ,name, family, birthDay, gender, mobile, nationalID, description, isParent)
+        }
 }

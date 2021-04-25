@@ -79,6 +79,7 @@
             android:maxLines="1"
             android:padding="@dimen/_2sdp"
             android:paddingEnd="@dimen/_5sdp"
+            android:textDirection="rtl"
             android:textSize="@dimen/_7sdp" />
 
         <TextView
@@ -174,6 +175,7 @@
             android:background="@null"
             android:fontFamily="@font/iransanse_medium"
             android:gravity="center_vertical"
+            android:textDirection="rtl"
             android:hint="مبلغ"
             android:inputType="number"
             android:maxLength="30"

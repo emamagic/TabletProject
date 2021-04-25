@@ -1,5 +1,7 @@
 package com.example.brightcity.ui.fragments
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -28,20 +30,26 @@ class PayBackFragment: DialogFragment() {
     private val binding get() = _binding
     private var userId: Long? = 0
     private var factorId: Long? = 0
+    private var payBack: String? = ""
 
-    fun newInstance(userId: Long ,factorId: Long): PayBackFragment{
-        val args = Bundle()
-        args.putLong("userId" ,userId)
-        args.putLong("factorId" ,factorId)
-        val fragment = PayBackFragment()
-        fragment.arguments = args
-        return fragment
+    companion object {
+        fun newInstance(userId: Long ,factorId: Long ,payBack: String): PayBackFragment{
+            val args = Bundle()
+            args.putLong("userId" ,userId)
+            args.putLong("factorId" ,factorId)
+            args.putString("payBack" ,payBack)
+            val fragment = PayBackFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userId = arguments?.getLong("userId")
         factorId = arguments?.getLong("factorId")
+        payBack = arguments?.getString("payBack")
     }
 
     override fun onCreateView(
@@ -56,9 +64,11 @@ class PayBackFragment: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         subscribeOnTransactionAdd()
-        
+
+        binding?.editPaymentFCostForCart?.hint = payBack
         binding?.editPaymentFCostForCart?.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -71,7 +81,7 @@ class PayBackFragment: DialogFragment() {
 
         binding?.btnPaymentFPay?.setOnClickListener {
             val price = binding?.editPaymentFCostForCart?.text?.toString()?.filter { it != ',' }
-            transactionAdd(userId!! ,factorId!! ," ","-$price" ,"","","",null)
+            transactionAdd(userId!! ,factorId!! ," ","-$price" ,"-$price"," "," ",null)
         }
 
     }
@@ -85,10 +95,9 @@ class PayBackFragment: DialogFragment() {
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        // TODO: 4/24/2021
                         Log.e(TAG, "subscribeOnTransactionAdd: ${response.data}")
                         Toast.makeText(requireContext(), response.data.status, Toast.LENGTH_SHORT).show()
-                        // dismiss()
+                         dismiss()
                     }
                 }
                 is ApiWrapper.ApiError -> {

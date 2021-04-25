@@ -44,6 +44,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     private var factorId: Long? = null
     private lateinit var productAdapter: ProductAdapter
     private lateinit var itemsAdapter: ItemsAdapter
+    private var payBack: String = ""
     private var countDown: CountDownTimer? = null
     @Inject
     lateinit var picasso: Picasso
@@ -85,7 +86,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
 
         getUserInfo(userId)
         getFactor(userId!!)
-        itemsList(factorId!!)
         productList()
 
         binding?.relativeLayout3?.recyclerviewChargeFRight?.adapter = itemsAdapter
@@ -129,7 +129,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         }
 
         binding?.relativeLayout2?.relativeLayout55?.setOnClickListener {
-            PayBackFragment().show(childFragmentManager ,null)
+            PayBackFragment.newInstance(userId!! ,factorId!! ,payBack).show(childFragmentManager ,null)
         }
 
 
@@ -210,7 +210,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             editText.setSelection(format.length)
         }
         editText.addTextChangedListener(watcher)
-
     }
 
     private fun subscribeOnUserInfo() {
@@ -223,7 +222,8 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                         binding?.relativeLayout2?.txtChargeFGetAge?.text = it.age.toString()
                         binding?.relativeLayout2?.txtChargeFGetPhoneNumber?.text = it.mobile
                         binding?.relativeLayout2?.txtChargeFGetNationalId?.text = it.national_id
-                        binding?.relativeLayout2?.textView16?.text = abs((it.credit)-(it.gift)).toString()
+                        payBack = abs((it.credit)-(it.gift)).toString()
+                        binding?.relativeLayout2?.textView16?.text = payBack
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -258,6 +258,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         factorId = it.id
+                        itemsList(factorId!!)
                         binding?.relativeLayout2?.textView13?.text = it.sumprice.toString()
                     }
                 }

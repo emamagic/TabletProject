@@ -17,8 +17,10 @@ class RemoteDataSource @Inject constructor(
     suspend fun userInfo(userID: Long?) = safeApi { myApi.userInfo(userID) }
     suspend fun userStatus(userID: Long? = null) = safeApi { myApi.userStatus(userID) }
     suspend fun changePass(currentPass: String, newPass: String, retype: String) = safeApi { myApi.changePass(currentPass, newPass, retype) }
-    suspend fun updateInfo(name: String? = null ,family: String? = null ,birthDay: String? = null ,gender: Int? = null ,mobile: Long? = null,nationalID: Long? = null,
-                           description: String? = null ,isParent: Int? = null) = safeApi { myApi.updateInfo(name, family, birthDay, gender, mobile ,nationalID ,description ,isParent) }
+    suspend fun updateInfo(id: Long ,name: String? = null ,family: String? = null ,birthDay: String? = null ,gender: Int? = null ,mobile: String? = null,nationalID: Long? = null,
+                           description: String? = null ,isParent: Int? = null) = safeApi { myApi.updateInfo(id ,name, family, birthDay, gender, mobile ,nationalID ,description ,isParent) }
+    suspend fun updateInfoSelf(name: String? = null ,family: String? = null ,birthDay: String? = null ,gender: Int? = null ,mobile: Long? = null,nationalID: Long? = null,
+                           description: String? = null ,isParent: Int? = null) = safeApi { myApi.updateInfoSelf(name, family, birthDay, gender, mobile ,nationalID ,description ,isParent) }
     suspend fun getUserList(num:Int? = null ,page:Int? = null ,search: String? = null ,asc: String? = null ,order: String? = null) = safeApi { myApi.getUserList(num = num , page = page ,search = search ,asc = asc ,order = order) }
     suspend fun transactionDashboard() = safeApi { myApi.transactionDashboard() }
     suspend fun transactionList() = safeApi { myApi.transactionList() }

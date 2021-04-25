@@ -38,6 +38,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     private var nationalID: String = ""
     private var gender: Int = 1
     private var isParent: Int = 0
+    private var isUpdatingMode: Boolean = false
     private var adapter: RelationAdapter? = null
     private var lastUser: UserListResponse? = null
     private var relationList: ArrayList<UserListResponse>? = null
@@ -57,7 +58,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = RelationAdapter(this)
-        userID = arguments?.getLong("userID")
+        userID = arguments?.getLong("userID") ?: 0
         fileID = arguments?.getString("fileID")
         relationList = ArrayList()
     }
@@ -75,9 +76,11 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding?.relativeLayout5?.RecyclerViewPesrsonalProfile?.adapter = adapter
+        isUpdatingMode = false
 
         if (userID != 0L) {
-             // it form ChargeFragment
+            // it form ChargeFragment
+            isUpdatingMode = true
             getRelation(userID!!)
             getUserInfo(userID!!)
         }
@@ -87,6 +90,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
         subscribeOnSetRelation()
         subscribeOnGetRelation()
         subscribeOnUserInfo()
+        subscribeOnUpdateInfo()
 
         getUserList()
 
@@ -120,16 +124,27 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
         binding?.btnPersonalFSubmit?.setOnClickListener {
             isChargeClicked = false
             if (checkValidValue()) {
-                addPerson(
-                    name,
-                    family,
-                    birthDay,
-                    gender,
-                    mobile,
-                    nationalID,
-                    if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString(),
-                    isParent
+                Log.e(
+                    "addpersonEdit",
+                    "$name $family $birthDay $gender $mobile $nationalID ${binding?.relativeLayout4?.editPersonalFDescription?.text}"
                 )
+                if (!isUpdatingMode){
+                    addPerson(
+                        name,
+                        family,
+                        birthDay,
+                        gender,
+                        mobile,
+                        nationalID,
+                        if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString(),
+                        isParent
+                    )
+                }else{
+                    updateInfo(userID!! ,name, family, birthDay, gender ,mobile ,nationalID.toLong() ,
+                        if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString()
+                        ,isParent)
+                }
+
             } else Toast.makeText(requireContext(), "اطلاعات را کامل پر کنید", Toast.LENGTH_SHORT)
                 .show()
         }
@@ -137,16 +152,23 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
         binding?.btnPersonalFSubmitCharge?.setOnClickListener {
             isChargeClicked = true
             if (checkValidValue()) {
-                addPerson(
-                    name,
-                    family,
-                    birthDay,
-                    gender,
-                    mobile,
-                    nationalID,
-                    if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString(),
-                    isParent
-                )
+                if (!isUpdatingMode){
+                    addPerson(
+                        name,
+                        family,
+                        birthDay,
+                        gender,
+                        mobile,
+                        nationalID,
+                        if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString(),
+                        isParent
+                    )
+                }else{
+                    updateInfo(userID!! ,name, family, birthDay, gender ,mobile ,nationalID.toLong() ,
+                        if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString()
+                        ,isParent)
+                }
+
             } else Toast.makeText(requireContext(), "اطلاعات را کامل پر کنید", Toast.LENGTH_SHORT)
                 .show()
 
@@ -197,6 +219,30 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
         viewModel.getUserList(num = 1, page = 1, search, "DESC", order = "id")
     }
 
+    private fun updateInfo(
+        id: Long,
+        name: String? = null,
+        family: String? = null,
+        birthDay: String? = null,
+        gender: Int? = null,
+        mobile: String? = null,
+        nationalID: Long? = null,
+        description: String? = null,
+        isParent: Int? = null
+    ) {
+        viewModel.updateInfo(
+            id,
+            name,
+            family,
+            birthDay,
+            gender,
+            mobile,
+            nationalID,
+            description,
+            isParent
+        )
+    }
+
     private fun addPerson(
         name: String,
         family: String,
@@ -221,7 +267,10 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         userID = it.id
                         if (relationList?.isNotEmpty()!!) {
                             relationList?.forEach { item ->
-                                Log.e("TAG", "subscribeOnAddPerson: id $id , item.id ${item.id}  type ${item.type}", )
+                                Log.e(
+                                    "TAG",
+                                    "subscribeOnAddPerson: id $id , item.id ${item.id}  type ${item.type}",
+                                )
                                 setUserRelation(id, item.id, item.type!!)
                             }
                         } else {
@@ -229,7 +278,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                             Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT)
                                 .show()
                             if (isChargeClicked) {
-                                   ChargeFragment.newInstance(id).show(childFragmentManager ,null)
+                                ChargeFragment.newInstance(id).show(childFragmentManager, null)
                             }
                             dismiss()
                         }
@@ -312,7 +361,8 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         if (relationList?.size == 0) {
                             hideLoading()
                             if (isChargeClicked) {
-                                ChargeFragment.newInstance(userID!!).show(childFragmentManager, null)
+                                ChargeFragment.newInstance(userID!!)
+                                    .show(childFragmentManager, null)
                             } else {
                                 Toast.makeText(
                                     requireContext(),
@@ -355,6 +405,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data?.let {
+                        Log.e("TAG", "subscribeOnGetRelation: $it")
                         if (it.isEmpty()) {
                             binding?.relativeLayout5?.linearPersonalTitle?.visibility = View.GONE
                             binding?.relativeLayout5?.imgPersonalFNothing?.visibility = View.VISIBLE
@@ -443,6 +494,39 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
         }
     }
 
+    private fun subscribeOnUpdateInfo() {
+        viewModel.updateInfo.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+                        Log.e("TAG", "subscribeOnUpdateInfo: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        dismiss()
+                    }
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -465,14 +549,14 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     }
 
 
-    private fun showLoading(){
+    private fun showLoading() {
         binding?.loading?.visibility = View.VISIBLE
         binding?.btnSubmitFCancel?.visibility = View.GONE
         binding?.btnPersonalFSubmitCharge?.visibility = View.GONE
         binding?.btnPersonalFSubmit?.visibility = View.GONE
     }
 
-    private fun hideLoading(){
+    private fun hideLoading() {
         binding?.loading?.visibility = View.GONE
         binding?.btnSubmitFCancel?.visibility = View.VISIBLE
         binding?.btnPersonalFSubmitCharge?.visibility = View.VISIBLE

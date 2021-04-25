@@ -3,6 +3,7 @@ package com.example.brightcity.ui.fragments
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -42,6 +44,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     private var factorId: Long? = null
     private lateinit var productAdapter: ProductAdapter
     private lateinit var itemsAdapter: ItemsAdapter
+    private var countDown: CountDownTimer? = null
     @Inject
     lateinit var picasso: Picasso
 
@@ -92,7 +95,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         binding?.btnChargeFCancel?.setOnClickListener { dismiss() }
 
         binding?.btnChargeFPay?.setOnClickListener {
-           //  transactionAdd(userId!! ,0," ",)
+          //   transactionAdd(userId!! ,factorId!!," ",)
         }
 
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
@@ -178,7 +181,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         viewModel.delete(factoritemId, factorId)
     }
 
-    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int) {
+    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null) {
         viewModel.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
     }
 
@@ -590,6 +593,16 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         }
     }
 
+    private fun countDownTimer(textView: TextView ,totalTime: Long ,step: Long) {
+        countDown = object : CountDownTimer(totalTime, step) {
+            override fun onTick(millisUntilFinished: Long) {
+                textView.text = "${millisUntilFinished / 1000} ثانیه "
+            }
+            override fun onFinish() {
+                countDown?.cancel()
+            }
+        }.start()
+    }
 
 
     private fun showLoading() {
@@ -607,6 +620,10 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        if (countDown != null){
+            countDown?.cancel()
+        }
+
     }
 
     override fun onItemSelectedProduct(position: Int, item: ProductListResponse) {

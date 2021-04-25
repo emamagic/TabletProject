@@ -89,7 +89,7 @@ class ChargeViewModel @Inject constructor(
         _delete.value = repository.delete(factoritemId, factorId)
     }
 
-    fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int)
+    fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null)
     = viewModelScope.launch {
         _transactionAdd.value = repository.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
     }

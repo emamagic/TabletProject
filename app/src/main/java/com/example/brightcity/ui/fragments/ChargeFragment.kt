@@ -20,6 +20,7 @@ import com.example.brightcity.api.responses.ItemsListResponse
 import com.example.brightcity.api.responses.ProductListResponse
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.FragmentChargeBinding
+import com.example.brightcity.interfaces.OnCallBackCharge
 import com.example.brightcity.ui.adapter.ItemsAdapter
 import com.example.brightcity.ui.adapter.ProductAdapter
 import com.example.brightcity.ui.viewmodels.ChargeViewModel
@@ -31,7 +32,7 @@ import javax.inject.Inject
 import kotlin.math.abs
 
 @AndroidEntryPoint
-class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter.Interaction {
+class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter.Interaction ,OnCallBackCharge {
 
     private val TAG = "ChargeFragment"
 
@@ -123,11 +124,12 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         })
 
         binding?.relativeLayout2?.button?.setOnClickListener {
-            AddPersonFragment.newInstance(userId!!).show(childFragmentManager ,null)
+            Log.e(TAG, "onViewCreated: $userId", )
+            AddPersonFragment(userId ,this).show(childFragmentManager ,null)
         }
 
         binding?.relativeLayout2?.relativeLayout55?.setOnClickListener {
-            PayBackFragment.newInstance(userId!! ,factorId!! ,payBack).show(childFragmentManager ,null)
+            PayBackFragment(userId!! ,factorId!! ,payBack ,this).show(childFragmentManager ,null)
         }
 
 
@@ -179,8 +181,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         viewModel.delete(factoritemId, factorId)
     }
 
-
-
     private fun productList() {
         viewModel.productList(1,9)
     }
@@ -214,6 +214,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
+                        binding?.relativeLayout2?.textView13?.text = it.credit.toString()
                         binding?.relativeLayout2?.txtChargeFGetName?.text = it.name
                         binding?.relativeLayout2?.txtChargeFGetAge?.text = it.age.toString()
                         binding?.relativeLayout2?.txtChargeFGetPhoneNumber?.text = it.mobile
@@ -255,7 +256,8 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                     response.data?.let {
                         factorId = it.id
                         itemsList(factorId!!)
-                        binding?.relativeLayout2?.textView13?.text = it.sumprice.toString()
+                        binding?.relativeLayout3?.txtChargeFTotalPayableCost?.text = ((it.sumprice+it.vatprice)-(it.payprice+it.offprice)).toString()
+                        binding?.relativeLayout3?.txtChargeFTotalCost?.text =it.sumprice.toString()
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -290,7 +292,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        itemsList(factorId!!)
+                        getFactor(userId!!)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -325,6 +327,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        getFactor(userId!!)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -498,8 +501,10 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Log.e(TAG, "subscribeOnItemsList: $it", )
+                        Log.e(TAG, "subscribeOnItemsList: $it",)
                         setUpRecyclerItems(it)
+                        // TODO: 4/26/2021
+                        // getFactor(userId!!)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -534,6 +539,8 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        getUserInfo(userId!!)
+                        getFactor(userId!!)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -560,7 +567,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             }
         }
     }
-
+    
     private fun showLoading() {
         binding?.loading?.visibility = View.VISIBLE
         binding?.btnChargeFPay?.visibility = View.GONE
@@ -584,7 +591,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
 
     override fun onItemSelectedProduct(position: Int, item: ProductListResponse) {
         if (item.id == -2L){
-            IncentiveFragment.newInstance(factorId!!).show(childFragmentManager ,null)
+            IncentiveFragment(this ,factorId!!).show(childFragmentManager ,null)
         }else{
             Log.e(TAG, "onItemSelectedProduct: ${item.id}  $factorId")
             addProduct(item.id ,factorId!!)
@@ -597,6 +604,12 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         when(item.status){
 
         }
+    }
+
+    override fun onViewStarted() {
+        Log.e(TAG, "onViewStarted: ")
+        getUserInfo(userId!!)
+        getFactor(userId!!)
     }
 
 

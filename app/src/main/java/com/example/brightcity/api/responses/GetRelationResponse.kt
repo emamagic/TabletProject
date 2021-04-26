@@ -18,7 +18,8 @@ data class GetRelationResponse(
         return UserListResponse(
             id = userId,
             name = userName,
-            status = status
+            status = status,
+            type = type
         )
     }
 

@@ -16,41 +16,20 @@ import androidx.fragment.app.viewModels
 import com.example.brightcity.R
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.PayBackFragmentBinding
+import com.example.brightcity.interfaces.OnCallBackCharge
 import com.example.brightcity.ui.viewmodels.PayBackViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
 @AndroidEntryPoint
-class PayBackFragment: DialogFragment() {
+class PayBackFragment(private val userId: Long ,private val factorId: Long ,private val payBack: String ,private val call: OnCallBackCharge): DialogFragment() {
 
     private val TAG = "PayBackFragment"
     private val viewModel: PayBackViewModel by viewModels()
     private var _binding: PayBackFragmentBinding? = null
     private val binding get() = _binding
-    private var userId: Long? = 0
-    private var factorId: Long? = 0
-    private var payBack: String? = ""
 
-    companion object {
-        fun newInstance(userId: Long ,factorId: Long ,payBack: String): PayBackFragment{
-            val args = Bundle()
-            args.putLong("userId" ,userId)
-            args.putLong("factorId" ,factorId)
-            args.putString("payBack" ,payBack)
-            val fragment = PayBackFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        userId = arguments?.getLong("userId")
-        factorId = arguments?.getLong("factorId")
-        payBack = arguments?.getString("payBack")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -143,5 +122,6 @@ class PayBackFragment: DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        call.onViewStarted()
     }
 }

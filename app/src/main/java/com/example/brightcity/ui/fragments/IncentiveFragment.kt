@@ -16,6 +16,7 @@ import com.example.brightcity.api.responses.ProductListResponse
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.FragmentIncentivePackagesBinding
 import com.example.brightcity.databinding.PayBackFragmentBinding
+import com.example.brightcity.interfaces.OnCallBackCharge
 import com.example.brightcity.ui.adapter.ProductAdapter
 import com.example.brightcity.ui.viewmodels.IncentiveViewModel
 import com.squareup.picasso.Picasso
@@ -23,25 +24,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IncentiveFragment: DialogFragment() ,ProductAdapter.Interaction {
+class IncentiveFragment(private val call: OnCallBackCharge ,private val factorId: Long): DialogFragment() ,ProductAdapter.Interaction {
 
     private val viewModel: IncentiveViewModel by viewModels()
     private var _binding: FragmentIncentivePackagesBinding? = null
     private val binding get() = _binding
     private lateinit var productAdapter: ProductAdapter
-    private var factorId: Long? = 0
     @Inject
     lateinit var picasso: Picasso
-
-    companion object{
-        fun newInstance(factorId: Long): IncentiveFragment{
-            val args = Bundle()
-            args.putLong("factorId" ,factorId)
-            val fragment = IncentiveFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +44,6 @@ class IncentiveFragment: DialogFragment() ,ProductAdapter.Interaction {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        factorId = arguments?.getLong("factorId")
         productAdapter = ProductAdapter(this ,picasso)
     }
 
@@ -159,10 +148,11 @@ class IncentiveFragment: DialogFragment() ,ProductAdapter.Interaction {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        call.onViewStarted()
     }
 
     override fun onItemSelectedProduct(position: Int, item: ProductListResponse) {
-        addProduct(item.id ,factorId!!)
+        addProduct(item.id ,factorId)
     }
 
 }

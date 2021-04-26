@@ -79,12 +79,12 @@ class RelationAdapter(private val interaction: Interaction? = null) :
             }
 
             txt_personalF_getname.text = item.name
-            txt_personalF_getRel.text = findType(item.type!!)
+            txt_personalF_getRel.text = findType(item.type)
 
         }
     }
 
-    fun findType(type: Int): String{
+    fun findType(type: Int?): String{
         return when(type){
             1 -> "فرزند"
             2 -> "پدر_مادر"

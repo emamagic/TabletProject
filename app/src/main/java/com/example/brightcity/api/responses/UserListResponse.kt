@@ -20,4 +20,8 @@ data class UserListResponse(
     val fileId: String? = null,
     // this below field is not come from server side
     var type: Int? = null
-)
+){
+    override fun toString(): String {
+        return "$type"
+    }
+}

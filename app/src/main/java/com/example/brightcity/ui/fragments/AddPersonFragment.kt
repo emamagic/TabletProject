@@ -3,6 +3,8 @@ package com.example.brightcity.ui.fragments
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.example.brightcity.api.responses.GetRelationResponse
 import com.example.brightcity.api.responses.UserListResponse
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.FragmentPersonalProfileBinding
+import com.example.brightcity.interfaces.OnCallBackCharge
 import com.example.brightcity.ui.adapter.RelationAdapter
 import com.example.brightcity.ui.viewmodels.AddPersonViewModel
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog
@@ -23,14 +26,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
+class AddPersonFragment(private val userId: Long? = null ,private val call: OnCallBackCharge? = null) : DialogFragment(), RelationAdapter.Interaction,
     RelationFragment.OnRelationCreate, DatePickerDialog.OnDateSetListener {
 
     private val viewModel: AddPersonViewModel by viewModels()
     private var _binding: FragmentPersonalProfileBinding? = null
     private val binding get() = _binding
-    private var userID: Long? = 0
-    private var fileID: String? = null
+    private var userID: Long? = null
     private var name: String = ""
     private var family: String = ""
     private var birthDay: String = ""
@@ -44,23 +46,11 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     private var relationList: ArrayList<UserListResponse>? = null
     private var isChargeClicked: Boolean = false
 
-    companion object {
-        fun newInstance(id: Long, fileId: String? = "0"): AddPersonFragment {
-            val args = Bundle()
-            args.putLong("userID", id)
-            args.putString("fileID", fileId)
-            val fragment = AddPersonFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = RelationAdapter(this)
-        userID = arguments?.getLong("userID") ?: 0
-        fileID = arguments?.getString("fileID")
-        relationList = ArrayList()
+        userID = userId
     }
 
     override fun onCreateView(
@@ -76,13 +66,15 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding?.relativeLayout5?.RecyclerViewPesrsonalProfile?.adapter = adapter
+        relationList = ArrayList()
         isUpdatingMode = false
 
-        if (userID != 0L) {
+        if (userID != null) {
             // it form ChargeFragment
+            Log.e("addPerson", "onViewCreated: $userID", )
             isUpdatingMode = true
             getRelation(userID!!)
-            getUserInfo(userID!!)
+            getUserInfo(userID)
         }
 
         subscribeOnAddPerson()
@@ -267,18 +259,19 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         userID = it.id
                         if (relationList?.isNotEmpty()!!) {
                             relationList?.forEach { item ->
+                                val type = item.type
                                 Log.e(
                                     "TAG",
-                                    "subscribeOnAddPerson: id $id , item.id ${item.id}  type ${item.type}",
+                                    "subscribeOnAddPersonnnnnnnn: id $id , item.id ${item.id}  type $type",
                                 )
-                                setUserRelation(id, item.id, item.type!!)
+                                setUserRelation(id, item.id, type!!)
                             }
                         } else {
                             hideLoading()
                             Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT)
                                 .show()
                             if (isChargeClicked) {
-                                ChargeFragment.newInstance(id).show(childFragmentManager, null)
+                                ChargeFragment.newInstance(id).show(parentFragmentManager, null)
                             }
                             dismiss()
                         }
@@ -347,6 +340,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     }
 
     private fun setUserRelation(userID: Long, relatedUser: Long, type: Int) {
+        Log.e("TAG", "setUserRelationssssssss: $type")
         viewModel.setRelation(userID, relatedUser, type)
     }
 
@@ -361,8 +355,11 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         if (relationList?.size == 0) {
                             hideLoading()
                             if (isChargeClicked) {
-                                ChargeFragment.newInstance(userID!!)
-                                    .show(childFragmentManager, null)
+                                if (isUpdatingMode) dismiss()
+                                else {
+                                    ChargeFragment.newInstance(userID!!)
+                                        .show(parentFragmentManager, null)
+                                }
                             } else {
                                 Toast.makeText(
                                     requireContext(),
@@ -500,8 +497,18 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Log.e("TAG", "subscribeOnUpdateInfo: $it")
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        dismiss()
+                        if (relationList?.isNotEmpty()!!) {
+                            relationList?.forEach { item ->
+                                Log.e(
+                                    "TAG",
+                                    "subscribeOnAddPerson: id $id , item.id ${item.id}  type ${item.type}",
+                                )
+                                setUserRelation(userID!!, item.id, item.type!!)
+                            }
+                        }else{
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                            dismiss()
+                        }
                     }
                 }
                 is ApiWrapper.NetworkError -> {
@@ -530,6 +537,8 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        if (isUpdatingMode) call?.onViewStarted()
+
     }
 
     override fun onDeleteRelationSelected(position: Int, item: UserListResponse) {

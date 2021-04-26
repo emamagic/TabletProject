@@ -18,7 +18,8 @@ class AddPersonRepository @Inject constructor(
 
     suspend fun setUserRelation(userID: Long ,relatedUser: Long ,type: Int) = remote.setUserRelation(userID, relatedUser, type)
 
-    suspend fun updateInfo(id: Long ,name: String? = null ,family: String? = null ,birthDay: String? = null ,gender: Int? = null ,mobile: String? = null ,nationalID: Long? = null ,description: String? = null ,isParent: Int? = null) = remote.updateInfo(id ,name, family, birthDay, gender, mobile, nationalID, description, isParent)
+    suspend fun updateInfo(id: Long ,name: String? = null ,family: String? = null ,birthDay: String? = null ,gender: Int? = null ,mobile: String? = null ,nationalID: Long? = null ,description: String? = null ,isParent: Int? = null) =
+        remote.updateInfo(id ,name, family, birthDay, gender, mobile, nationalID, description, isParent)
 
 
 

@@ -89,31 +89,31 @@ interface MyApi {
         @Field("retype") retype: String
     ):Response<ChangePassResponse>
 
-    @Multipart
     @PUT("user/update")
+    @FormUrlEncoded
     suspend fun updateInfo(
-        @Part("id") id: Long? = null,
-        @Part("name") name: String? = null,
-        @Part("family") family: String? = null,
-        @Part("birthdate") birthDay: String? = "1",
-        @Part("gender") gender: Int? = null,
-        @Part("mobile") mobile: String? = null,
-        @Part("national_id") national_id: Long? = null,
-        @Part("description") description: String? = null,
-        @Part("is_parent") is_parent: Int? = null,
+        @Field("id") id: Long? = null,
+        @Field("name") name: String? = null,
+        @Field("family") family: String? = null,
+        @Field("birthdate") birthDay: String? = "1",
+        @Field("gender") gender: Int? = null,
+        @Field("mobile") mobile: String? = null,
+        @Field("national_id") national_id: Long? = null,
+        @Field("description") description: String? = null,
+        @Field("is_parent") is_parent: Int? = null,
     ): Response<UpdateInfoResponse>
 
-    @Multipart
     @PUT("user/SelfUpdate")
+    @FormUrlEncoded
     suspend fun updateInfoSelf(
-        @Part("name") name: String? = null,
-        @Part("family") family: String? = null,
-        @Part("birthdate") birthDay: String? = "1",
-        @Part("gender") gender: Int? = null,
-        @Part("mobile") mobile: Long? = null,
-        @Part("national_id") national_id: Long? = null,
-        @Part("description") description: String? = null,
-        @Part("is_parent") is_parent: Int? = null,
+        @Field("name") name: String? = null,
+        @Field("family") family: String? = null,
+        @Field("birthdate") birthDay: String? = "1",
+        @Field("gender") gender: Int? = null,
+        @Field("mobile") mobile: Long? = null,
+        @Field("national_id") national_id: Long? = null,
+        @Field("description") description: String? = null,
+        @Field("is_parent") is_parent: Int? = null,
     ): Response<UpdateInfoResponse>
 
     @GET("user/list")

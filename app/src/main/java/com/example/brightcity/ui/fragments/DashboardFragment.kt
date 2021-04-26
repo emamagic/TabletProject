@@ -118,13 +118,7 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
             }
         })
 
-        mSocket?.on("user/list"){ args ->
-            Handler(Looper.getMainLooper()).post {
-                val data = args[0] as JSONArray
-                Log.e(TAG, "user/list ack $data: ")
-                setUpUserListRecycler(filterDateToList(data))
-            }
-        }
+
 
     }
 
@@ -239,6 +233,14 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
                 val ack = args[0] as JSONArray
                 Log.e(TAG, "message/list: $ack")
                 setUpMessageRecycler(filterDateToList(ack))
+            }
+        }
+
+        mSocket?.on("user/list"){ args ->
+            Handler(Looper.getMainLooper()).post {
+                val data = args[0] as JSONArray
+                Log.e(TAG, "user/list ack $data: ")
+                setUpUserListRecycler(filterDateToList(data))
             }
         }
     }

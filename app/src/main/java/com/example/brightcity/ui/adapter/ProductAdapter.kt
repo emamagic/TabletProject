@@ -74,8 +74,8 @@ class ProductAdapter(private val interaction: Interaction? = null ,private val p
                 if (item.id != -2L){
                     relative_more.visibility = View.GONE
                     relative_item.visibility = View.VISIBLE
-                    if (item.fileId != null)
-                        picasso.load("${Constance.BASE_URL}file/download?id=${item.fileId}").fit().into(img_chargeF_time)
+//                    if (item.fileId != null)
+//                        picasso.load("${Constance.BASE_URL}file/download?id=${item.fileId}").fit().into(img_chargeF_time)
 
                     txt_chargeF_cost.text = item.price
                     txt_chargeF_number.text = "${adapterPosition+1}"

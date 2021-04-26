@@ -140,7 +140,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         isParent
                     )
                 }else{
-                    updateInfo(userID!! ,name, family, birthDay, gender ,mobile ,nationalID.toLong() ,
+                    updateInfo(userID!! ,name.trim(), family, birthDay, gender ,mobile ,nationalID.toLong() ,
                         if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString()
                         ,isParent)
                 }
@@ -164,7 +164,7 @@ class AddPersonFragment : DialogFragment(), RelationAdapter.Interaction,
                         isParent
                     )
                 }else{
-                    updateInfo(userID!! ,name, family, birthDay, gender ,mobile ,nationalID.toLong() ,
+                    updateInfo(userID!! ,name.trim() , family, birthDay, gender ,mobile ,nationalID.toLong() ,
                         if (binding?.relativeLayout4?.editPersonalFDescription?.text?.isEmpty()!!) " " else binding?.relativeLayout4?.editPersonalFDescription?.text.toString()
                         ,isParent)
                 }

@@ -260,7 +260,8 @@ interface MyApi {
         @Query("factorId") factorId: Long
     ): Response<List<ItemsListResponse>>
 
-    @PUT("factor/addproduct")
+    @POST("factor/addproduct")
+    @FormUrlEncoded
     suspend fun addProduct(
         @Field("productId") productId: Long? = null,
         @Field("factorId") factorId: Long? = null

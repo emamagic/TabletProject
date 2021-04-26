@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.brightcity.R
 import com.example.brightcity.api.responses.ItemsListResponse
 import com.example.brightcity.api.responses.ProductListResponse
-import com.example.brightcity.api.responses.TransactionListResponse
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.FragmentChargeBinding
 import com.example.brightcity.ui.adapter.ItemsAdapter
@@ -588,6 +586,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         if (item.id == -2L){
             IncentiveFragment.newInstance(factorId!!).show(childFragmentManager ,null)
         }else{
+            Log.e(TAG, "onItemSelectedProduct: ${item.id}  $factorId")
             addProduct(item.id ,factorId!!)
         }
 

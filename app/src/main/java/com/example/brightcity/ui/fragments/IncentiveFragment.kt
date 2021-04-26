@@ -1,5 +1,7 @@
 package com.example.brightcity.ui.fragments
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -59,6 +61,7 @@ class IncentiveFragment: DialogFragment() ,ProductAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         subscribeOnAddProduct()
         subscribeOnProductList()
@@ -67,6 +70,8 @@ class IncentiveFragment: DialogFragment() ,ProductAdapter.Interaction {
 
         binding?.recyclerViewIncentiveF?.adapter = productAdapter
         binding?.recyclerViewIncentiveF?.layoutManager = GridLayoutManager(requireContext() ,5)
+
+        binding?.imgIncentiveFClose?.setOnClickListener { dismiss() }
 
     }
 

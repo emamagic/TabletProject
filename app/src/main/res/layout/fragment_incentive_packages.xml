@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/box_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -10,7 +12,7 @@
         android:layout_width="@dimen/_5sdp"
         android:layout_height="@dimen/_5sdp"
         android:layout_margin="@dimen/_16sdp"
-        android:background="@color/black"
+        android:background="@drawable/ic_triangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,18 +36,19 @@
         android:layout_height="@dimen/_18sdp"
         android:layout_margin="@dimen/_16sdp"
         android:background="@drawable/ic_cross"
+        app:layout_constraintBottom_toBottomOf="@+id/img_incentive_packagesF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/img_incentive_packagesF" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_incentiveF"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_width="600dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="@dimen/_14sdp"
         android:layout_marginBottom="@dimen/_30sdp"
         tools:listitem="@layout/item_incentive_packages"
         android:padding="@dimen/_5sdp"
-        android:background="@drawable/bg_recyclerview_incentive_package"
+        android:background="@drawable/bg_border_of"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/img_incentive_packagesF"

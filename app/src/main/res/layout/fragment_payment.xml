@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@drawable/box_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -21,7 +23,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/iransanse_medium"
         android:text="پرداخت "
-
         android:textSize="@dimen/_9sdp"
         android:textColor="@color/black"
         android:layout_marginEnd="@dimen/_7sdp"
@@ -33,11 +34,10 @@
         android:id="@+id/txt_pay_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_35sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:text="مبلغ قابل پرداخت : "
-        android:textColor="@color/black"
+        android:textColor="@color/black_text"
         android:textSize="@dimen/_8sdp"
-
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@+id/img_paymentF"
         app:layout_constraintTop_toBottomOf="@+id/txt_paymentF_title" />
@@ -68,8 +68,8 @@
         app:layout_constraintVertical_bias="0.0" />
     <Button
         android:id="@+id/btn_PaymentF_pay"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/container_userAccountF_height"
+        android:layout_width="95dp"
+        android:layout_height="28dp"
         android:layout_margin="@dimen/_16sdp"
         android:background="@drawable/bg_normal_btn"
         android:fontFamily="@font/iransanse_medium"
@@ -81,35 +81,45 @@
 
     <Button
         android:id="@+id/btn_PaymentF_Cancel"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/container_userAccountF_height"
-        android:layout_marginLeft="@dimen/_14sdp"
-        android:background="@drawable/bg_normal_edt"
+        android:layout_width="95dp"
+        android:layout_height="28dp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:background="@drawable/bg_green_border"
         android:fontFamily="@font/iransanse_medium"
         android:text="انصراف"
+        android:textColor="@color/black_text"
         app:layout_constraintBottom_toBottomOf="@+id/btn_PaymentF_pay"
         app:layout_constraintStart_toEndOf="@+id/btn_PaymentF_pay"
         app:layout_constraintTop_toTopOf="@+id/btn_PaymentF_pay" />
 
     <View
         android:id="@+id/view2"
-        android:layout_width="0dp"
+        android:layout_width="380dp"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="@+id/txt_pay_cost"
         app:layout_constraintStart_toStartOf="@+id/txt_paymentF_rial"
         app:layout_constraintTop_toBottomOf="@+id/txt_pay_cost" />
 
+    <View
+        android:id="@+id/view1"
+        android:layout_width="1dp"
+        android:layout_height="390dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_paymentF_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/iransanse_medium"
         android:text="کارت"
-        android:textColor="@color/black"
+        android:textColor="@color/black_text"
         app:layout_constraintEnd_toEndOf="@+id/txt_pay_cost"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -119,8 +129,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/iransanse_medium"
         android:text="نقد"
-        android:layout_marginTop="@dimen/_25sdp"
-        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:textColor="@color/black_text"
         app:layout_constraintEnd_toEndOf="@+id/txt_paymentF_card"
         app:layout_constraintTop_toBottomOf="@+id/container_cost_card" />
 
@@ -131,10 +141,8 @@
         app:layout_constraintTop_toTopOf="@id/txt_paymentF_card"
         android:layout_width="@dimen/container_userAccountF_width"
         android:layout_height="@dimen/container_userAccountF_height"
-        android:layout_marginEnd="@dimen/container_userAccountF_marginEnd"
-        android:background="@drawable/bg_normal_edt"
-
-      >
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/bg_normal_edt">
         <TextView
             android:id="@+id/txt_paymentF_rial_for_pay"
             android:layout_width="wrap_content"
@@ -143,7 +151,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_8sdp"
-            android:text="ریال"/>
+            android:hint="ریال"/>
 
         <EditText
             android:id="@+id/edit_paymentF_cost_for_cart"
@@ -162,13 +170,11 @@
             android:hint="1,200,000"
             android:maxLength="30"
             android:maxLines="1"
-
             android:paddingEnd="@dimen/_5sdp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/container_cost_cash"
-
         android:layout_width="@dimen/container_userAccountF_width"
         android:layout_height="@dimen/container_userAccountF_height"
         android:background="@drawable/bg_normal_edt"
@@ -184,7 +190,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/iransanse_medium"
-            android:text="ریال" />
+            android:hint="ریال" />
 
         <EditText
             android:id="@+id/edit_paymentF_cost_for_cash"
@@ -210,9 +216,10 @@
         android:id="@+id/btn_PaymentF_SendToCart"
         android:layout_width="@dimen/_70sdp"
         android:layout_height="@dimen/container_userAccountF_height"
-        android:background="@drawable/bg_normal_edt"
+        android:background="@drawable/bg_green_border"
         android:fontFamily="@font/iransanse_medium"
         android:text="ارسال به کارت خوان"
+        android:textColor="@color/black_text"
         app:layout_constraintBottom_toBottomOf="@+id/container_cost_card"
         app:layout_constraintStart_toStartOf="@+id/txt_paymentF_rial"
         app:layout_constraintTop_toTopOf="@+id/container_cost_card" />

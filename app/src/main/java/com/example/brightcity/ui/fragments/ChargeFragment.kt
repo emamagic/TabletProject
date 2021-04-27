@@ -102,11 +102,13 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
             val offCode = binding?.include1?.editChargeFCodeBon?.text?.toString()?.filter { it != ',' }
             if (offCode?.isNotEmpty()!!) addOffCode(offCode ,factorId!!)
+            else Toast.makeText(requireContext(), "کد را وارد کنید", Toast.LENGTH_SHORT).show()
         }
 
         binding?.include1?.btnPessonalProileFAdd?.setOnClickListener {
             val charge = binding?.include1?.editChargeFGetCharge?.text?.toString()?.filter { it != ',' }
             if (charge?.isNotEmpty()!!) addCharge(charge ,factorId!!)
+            else Toast.makeText(requireContext(), "مقدار شارژ را وارد کنید", Toast.LENGTH_SHORT).show()
         }
 
         binding?.include1?.editChargeFGetCharge?.addTextChangedListener(object: TextWatcher{
@@ -508,7 +510,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                     response.data?.let {
                         Log.e(TAG, "subscribeOnItemsList: $it",)
                         setUpRecyclerItems(it)
-                        // TODO: 4/26/2021
                         // getFactor(userId!!)
                     }
                 }

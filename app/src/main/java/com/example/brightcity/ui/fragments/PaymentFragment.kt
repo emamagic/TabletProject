@@ -1,5 +1,7 @@
 package com.example.brightcity.ui.fragments
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -42,6 +44,7 @@ class PaymentFragment(private val userID: Long ,private val factorID: Long ,priv
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         subscribeOnTransactionAdd()
 

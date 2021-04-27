@@ -45,6 +45,8 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     private lateinit var itemsAdapter: ItemsAdapter
     private var payBack: String = ""
     private var countDown: CountDownTimer? = null
+    private var payPrice: String? = ""
+    private var offCode: String? = ""
     @Inject
     lateinit var picasso: Picasso
 
@@ -94,7 +96,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         binding?.btnChargeFCancel?.setOnClickListener { dismiss() }
 
         binding?.btnChargeFPay?.setOnClickListener {
-            PaymentFragment.newInstance().show(childFragmentManager ,null)
+            PaymentFragment(userId!! ,factorId!! ,payPrice!! ,offCode!! ,this).show(childFragmentManager ,null)
         }
 
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
@@ -256,7 +258,8 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                     response.data?.let {
                         factorId = it.id
                         itemsList(factorId!!)
-                        binding?.relativeLayout3?.txtChargeFTotalPayableCost?.text = ((it.sumprice+it.vatprice)-(it.payprice+it.offprice)).toString()
+                        payPrice = ((it.sumprice+it.vatprice)-(it.payprice+it.offprice)).toString()
+                        binding?.relativeLayout3?.txtChargeFTotalPayableCost?.text = payPrice
                         binding?.relativeLayout3?.txtChargeFTotalCost?.text =it.sumprice.toString()
                     }
                 }
@@ -326,6 +329,8 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
+                        // TODO: 4/26/2021
+                        // server should return -> id
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         getFactor(userId!!)
                     }

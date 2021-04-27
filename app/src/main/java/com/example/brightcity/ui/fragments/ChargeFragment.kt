@@ -605,7 +605,22 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
 
     override fun onItemSelectedItem(position: Int, item: ItemsListResponse) {
         when(item.status){
-
+            // ثبت شده
+            0 -> delete(factorId!! ,item.id)
+            // پرداخت شده
+            1 -> play(factorId!! ,item.id)
+            // استفاده نشده
+            2 -> play(factorId!! ,item.id)
+            // درحال استفاده
+            3 -> {
+                when(item.type){
+                    // بن اعتباری (کد هدیه)
+                    0 -> { /* Do Nothing */ }
+                    else -> pause(factorId!! ,item.id)
+                }
+            }
+            // 4 -> R.drawable.ic_remove_item تکمیل شده
+            else -> delete(factorId!! ,item.id)
         }
     }
 

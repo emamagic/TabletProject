@@ -7,7 +7,7 @@ class PayBackRepository @Inject constructor(
     private val remote: RemoteDataSource
 ) {
 
-    suspend fun addTransaction(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int?) =
+    suspend fun addTransaction(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String? = null ,paydeviceId: Int? = null) =
         remote.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
 
 }

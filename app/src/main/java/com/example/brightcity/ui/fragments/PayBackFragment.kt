@@ -60,12 +60,12 @@ class PayBackFragment(private val userId: Long ,private val factorId: Long ,priv
 
         binding?.btnPaymentFPay?.setOnClickListener {
             val price = binding?.editPaymentFCostForCart?.text?.toString()?.filter { it != ',' }
-            transactionAdd(userId!! ,factorId!! ," ","-$price" ,"-$price"," "," ",null)
+            transactionAdd(userId ,factorId ," ","-$price" ,"-$price"," ",null,null)
         }
 
     }
 
-    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null) {
+    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String? = null ,paydeviceId: Int? = null) {
         viewModel.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
     }
 

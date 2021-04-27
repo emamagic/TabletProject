@@ -31,7 +31,7 @@ class RemoteDataSource @Inject constructor(
     suspend fun getLastMessage() = safeApi { myApi.getLastMessage() }
     suspend fun getDateTime() = safeApi { myApi.getDateTime() }
     suspend fun offCode(code: String) = safeApi { myApi.offCode(code) }
-    suspend fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null) =
+    suspend fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String? = null ,paydeviceId: Int? = null) =
         safeApi { myApi.transactionAdd(userID ,user_factorId ,title ,price ,cash ,cart ,offCodID ,paydeviceId) }
     suspend fun transactionDelete(id: Long) = safeApi { myApi.transactionDelete(id) }
     suspend fun transactionUpdate(price: String ,cash: String ,cart: String ,offCodID: String) = safeApi { myApi.transactionUpdate(price ,cash ,cart ,offCodID) }

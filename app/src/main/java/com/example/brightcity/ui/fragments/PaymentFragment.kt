@@ -24,7 +24,7 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 
 @AndroidEntryPoint
-class PaymentFragment(private val userID: Long ,private val factorID: Long ,private val totalPrice: String ,private val offCodID: String ,private val call: OnCallBackCharge): DialogFragment() {
+class PaymentFragment(private val userID: Long ,private val factorID: Long ,private val totalPrice: String ,private val call: OnCallBackCharge): DialogFragment() {
 
     private val viewModel: PaymentViewModel by viewModels()
     private var _binding: FragmentPaymentBinding? = null
@@ -67,12 +67,12 @@ class PaymentFragment(private val userID: Long ,private val factorID: Long ,priv
         binding?.btnPaymentFSendToCart?.setOnClickListener {
             cashPrice = binding?.editPaymentFCostForCash?.text?.toString()?.filter { it != ',' }
             cardPrice = binding?.editPaymentFCostForCart?.text?.toString()?.filter { it != ',' }
-            transactionAdd(userID ,factorID ," ",totalPrice ,cashPrice!! ,cardPrice!! ,offCodID ,null)
+            transactionAdd(userID ,factorID ," ",totalPrice ,cashPrice!! ,cardPrice!! ,null ,null)
         }
 
     }
 
-    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String ,paydeviceId: Int? = null) {
+    private fun transactionAdd(userID: Long ,user_factorId: Long ,title: String ,price: String ,cash: String ,cart: String ,offCodID: String? = null ,paydeviceId: Int? = null) {
         viewModel.transactionAdd(userID, user_factorId, title, price, cash, cart, offCodID, paydeviceId)
     }
 

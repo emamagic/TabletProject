@@ -150,7 +150,7 @@ interface MyApi {
         @Field("price") price: String,
         @Field("cash") cash: String,
         @Field("cart") cart: String,
-        @Field("offcodeId") offCodeID: String,
+        @Field("offcodeId") offCodeID: String? = null,
         @Field("paydeviceId") paydeviceId: Int? = null
     ): Response<TransactionAddResponse>
 

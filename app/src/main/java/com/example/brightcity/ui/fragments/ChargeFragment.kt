@@ -46,7 +46,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     private var payBack: String = ""
     private var countDown: CountDownTimer? = null
     private var payPrice: String? = ""
-    private var offCode: String? = ""
     @Inject
     lateinit var picasso: Picasso
 
@@ -96,7 +95,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
         binding?.btnChargeFCancel?.setOnClickListener { dismiss() }
 
         binding?.btnChargeFPay?.setOnClickListener {
-            PaymentFragment(userId!! ,factorId!! ,payPrice!! ,offCode!! ,this).show(childFragmentManager ,null)
+            PaymentFragment(userId!! ,factorId!! ,payPrice!! ,this).show(childFragmentManager ,null)
         }
 
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
@@ -331,8 +330,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        // TODO: 4/26/2021
-                        // server should return -> id
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         getFactor(userId!!)
                     }

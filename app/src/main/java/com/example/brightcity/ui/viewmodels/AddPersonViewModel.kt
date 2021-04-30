@@ -42,6 +42,10 @@ class AddPersonViewModel @Inject constructor(
     val updateInfo: LiveData<ApiWrapper<UpdateInfoResponse>>
         get() = _updateInfo
 
+    private var _deleteRelation = SingleLiveEvent<ApiWrapper<DeleteRelationResponse>>()
+    val deleteRelation: LiveData<ApiWrapper<DeleteRelationResponse>>
+        get() = _deleteRelation
+
     fun setRelation(userID: Long ,relatedUser: Long ,type: Int) = viewModelScope.launch {
         _setRelation.value = repository.setUserRelation(userID, relatedUser, type)
     }
@@ -51,6 +55,9 @@ class AddPersonViewModel @Inject constructor(
         _addPerson.value = repository.addPerson(name, family, birthDay, gender, mobile, nationalID, description, isParent)
     }
 
+    fun deleteRelation(userID: Long ,relatedUser: Long) = viewModelScope.launch {
+        _deleteRelation.value = repository.deleteRelation(userID, relatedUser)
+    }
 
     fun getUserStatus(userID: Long? = null) = viewModelScope.launch {
         _userStatus.value = repository.userStatus(userID)

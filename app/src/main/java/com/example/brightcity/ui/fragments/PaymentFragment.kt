@@ -64,10 +64,10 @@ class PaymentFragment(private val userID: Long ,private val factorID: Long ,priv
         })
         binding?.txtPaymentFCost?.text = totalPrice
         binding?.btnPaymentFCancel?.setOnClickListener { dismiss() }
-        binding?.btnPaymentFSendToCart?.setOnClickListener {
+        binding?.btnPaymentFPay?.setOnClickListener {
             cashPrice = binding?.editPaymentFCostForCash?.text?.toString()?.filter { it != ',' }
-            cardPrice = binding?.editPaymentFCostForCart?.text?.toString()?.filter { it != ',' }
-            transactionAdd(userID ,factorID ," ",totalPrice ,cashPrice!! ,cardPrice!! ,null ,null)
+          //  cardPrice = binding?.editPaymentFCostForCart?.text?.toString()?.filter { it != ',' }
+            transactionAdd(userID ,factorID ," ",totalPrice ,cashPrice!! ," " ,null ,null)
         }
 
     }

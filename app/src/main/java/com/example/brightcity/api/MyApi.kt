@@ -245,8 +245,8 @@ interface MyApi {
 
     @DELETE("factor/deleteitem")
     suspend fun deleteItem(
-        @Field("factoritemId") factorismId: Long,
-        @Field("factorId") factorId: Long
+        @Query("factoritemId") factorismId: Long,
+        @Query("factorId") factorId: Long
     ): Response<DeleteItemResponse>
 
     @GET("product/list")
@@ -266,5 +266,13 @@ interface MyApi {
         @Field("productId") productId: Long? = null,
         @Field("factorId") factorId: Long? = null
     ): Response<AddProductResponse>
+
+
+
+    @DELETE("user/omitRelation")
+    suspend fun deleteRelation(
+        @Query("userId")userId: Long,
+        @Query("related_user")relatedUser: Long
+    ): Response<DeleteRelationResponse>
 
 }

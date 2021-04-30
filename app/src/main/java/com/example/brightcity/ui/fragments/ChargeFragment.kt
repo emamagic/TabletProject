@@ -257,11 +257,13 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
+                        Log.e(TAG, "subscribeOnGetFactor: $it", )
                         factorId = it.id
                         itemsList(factorId!!)
-                        payPrice = ((it.sumprice+it.vatprice)-(it.payprice+it.offprice)).toString()
+                        payPrice =
+                            ((it.sumprice + it.vatprice) - (it.payprice + it.offprice)).toString()
                         binding?.relativeLayout3?.txtChargeFTotalPayableCost?.text = payPrice
-                        binding?.relativeLayout3?.txtChargeFTotalCost?.text =it.sumprice.toString()
+                        binding?.relativeLayout3?.txtChargeFTotalCost?.text = it.sumprice.toString()
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -433,7 +435,9 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Log.e(TAG, "subscribeOnDelete: ${it.status}")
+                        Log.e(TAG, "subscribeOnDelete: ${it.message}")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        getFactor(userId!!)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -604,23 +608,25 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     }
 
     override fun onItemSelectedItem(position: Int, item: ItemsListResponse) {
+        Log.e(TAG, "onItemSelectedItem: ${item.id} $factorId")
         when(item.status){
             // ثبت شده
-            0 -> delete(factorId!! ,item.id)
+            0 -> delete(item.id ,factorId!!)
             // پرداخت شده
-            1 -> play(factorId!! ,item.id)
+            1 -> play(item.id, factorId!!)
+
             // استفاده نشده
-            2 -> play(factorId!! ,item.id)
+            2 -> play(item.id ,factorId!!)
             // درحال استفاده
             3 -> {
                 when(item.type){
                     // بن اعتباری (کد هدیه)
                     0 -> { /* Do Nothing */ }
-                    else -> pause(factorId!! ,item.id)
+                    else -> pause(item.id ,factorId!!)
                 }
             }
             // 4 -> R.drawable.ic_remove_item تکمیل شده
-            else -> delete(factorId!! ,item.id)
+            else -> delete(item.id ,factorId!!)
         }
     }
 

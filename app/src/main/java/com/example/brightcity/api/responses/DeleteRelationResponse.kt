@@ -1,5 +1,5 @@
 package com.example.brightcity.api.responses
 
-data class DeleteItemResponse(
+data class DeleteRelationResponse(
     val message: String
 )

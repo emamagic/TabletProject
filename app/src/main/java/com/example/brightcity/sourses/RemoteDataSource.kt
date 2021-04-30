@@ -51,6 +51,7 @@ class RemoteDataSource @Inject constructor(
     suspend fun itemsList(factorId: Long) = safeApi { myApi.getItems(factorId) }
     suspend fun addProduct(productId: Long ,factorId: Long) =
         safeApi { myApi.addProduct(productId, factorId) }
+    suspend fun deleteRelation(userId: Long ,relatedUser: Long) = safeApi { myApi.deleteRelation(userId, relatedUser) }
 
 
 }

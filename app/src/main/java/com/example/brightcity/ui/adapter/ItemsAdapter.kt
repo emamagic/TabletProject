@@ -1,16 +1,15 @@
 package com.example.brightcity.ui.adapter
 
-import android.os.CountDownTimer
+import android.os.SystemClock
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.brightcity.R
 import com.example.brightcity.api.responses.ItemsListResponse
-import com.example.brightcity.api.responses.TransactionListResponse
 import com.example.brightcity.util.Constance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_list_charge.view.*
@@ -84,13 +83,16 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
                 img_chargeF_right.setOnClickListener { interaction?.onItemSelectedItem(adapterPosition, item) }
                 if (item.count == 2) img_chargeF_item_list_Credit.visibility = View.VISIBLE
                 else img_chargeF_item_list_Credit.visibility = View.GONE
-
+                Log.e("TAG", "bind: ${item.remain}")
                 if (item.remain != null){
                     txt_chargeF_item_list_time.visibility = View.VISIBLE
                     txt_chargeF_item_list_time.base = item.remain.toLong()
                     txt_chargeF_item_list_time.start()
                 }else{
-                    txt_chargeF_item_list_time.visibility = View.GONE
+                  //  txt_chargeF_item_list_time.visibility = View.GONE
+                    txt_chargeF_item_list_time.visibility = View.VISIBLE
+                    txt_chargeF_item_list_time.base = SystemClock.elapsedRealtime() + (1* 3600000 + 2* 60000 + 4 * 1000)
+                    txt_chargeF_item_list_time.start()
                 }
 
 

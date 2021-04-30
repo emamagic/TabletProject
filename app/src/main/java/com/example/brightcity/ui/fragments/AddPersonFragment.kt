@@ -83,6 +83,7 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
         subscribeOnGetRelation()
         subscribeOnUserInfo()
         subscribeOnUpdateInfo()
+        subscribeOnDeleteRelation()
 
         getUserList()
 
@@ -211,6 +212,10 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
         viewModel.getUserList(num = 1, page = 1, search, "DESC", order = "id")
     }
 
+    private fun deleteRelation(userID: Long, relatedUser: Long) {
+        viewModel.deleteRelation(userID, relatedUser)
+    }
+
     private fun updateInfo(
         id: Long,
         name: String? = null,
@@ -295,6 +300,40 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
                 is ApiWrapper.UnknownError -> {
                     hideLoading()
                     Log.e("TAG", "subscribeOnAddPerson: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun subscribeOnDeleteRelation() {
+        viewModel.deleteRelation.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+                        Log.e("TAG", "subscribeOnDeleteRelation: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnDeleteRelation: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnDeleteRelation: ${response.message}")
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.toastyError),
@@ -542,9 +581,15 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
     }
 
     override fun onDeleteRelationSelected(position: Int, item: UserListResponse) {
-        relationList?.removeAt(position)
-        checkListEmpty()
-        adapter?.submitList(relationList!!)
+        if (isUpdatingMode){
+            Log.e("TAG", "onDeleteRelationSelected: $userID   ${item.id}", )
+            deleteRelation(userId!! ,item.id)
+        }else {
+            relationList?.removeAt(position)
+            checkListEmpty()
+            adapter?.submitList(relationList!!)
+        }
+
     }
 
     override fun onRelationCreate(item: UserListResponse) {

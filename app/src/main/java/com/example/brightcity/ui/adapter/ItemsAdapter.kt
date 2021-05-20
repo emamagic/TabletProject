@@ -84,18 +84,10 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
                 if (item.count == 2) img_chargeF_item_list_Credit.visibility = View.VISIBLE
                 else img_chargeF_item_list_Credit.visibility = View.GONE
                 Log.e("TAG", "bind: ${item.remain}")
-                if (item.remain != null){
+                    val time = item.remain?.split(':')
                     txt_chargeF_item_list_time.visibility = View.VISIBLE
-                    txt_chargeF_item_list_time.base = item.remain.toLong()
+                    txt_chargeF_item_list_time.base = SystemClock.elapsedRealtime() + (time?.get(0)?.toInt()!! * 3600000 + time[1].toInt()* 60000 + time[2].toInt() * 1000)
                     txt_chargeF_item_list_time.start()
-                }else{
-                  //  txt_chargeF_item_list_time.visibility = View.GONE
-                    txt_chargeF_item_list_time.visibility = View.VISIBLE
-                    txt_chargeF_item_list_time.base = SystemClock.elapsedRealtime() + (1* 3600000 + 2* 60000 + 4 * 1000)
-                    txt_chargeF_item_list_time.start()
-                }
-
-
             }
 
 

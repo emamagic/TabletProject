@@ -276,7 +276,7 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
                             Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT)
                                 .show()
                             if (isChargeClicked) {
-                                ChargeFragment.newInstance(id).show(parentFragmentManager, null)
+                            //    ChargeFragment.newInstance(id).show(parentFragmentManager, null)
                             }
                             dismiss()
                         }
@@ -396,8 +396,7 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
                             if (isChargeClicked) {
                                 if (isUpdatingMode) dismiss()
                                 else {
-                                    ChargeFragment.newInstance(userID!!)
-                                        .show(parentFragmentManager, null)
+                                  //  ChargeFragment.newInstance(userID!!).show(parentFragmentManager, null)
                                 }
                             } else {
                                 Toast.makeText(

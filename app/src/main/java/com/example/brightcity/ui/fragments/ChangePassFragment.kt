@@ -28,7 +28,7 @@ import org.json.JSONObject
 import java.net.URISyntaxException
 
 @AndroidEntryPoint
-class ChangePassFragment: DialogFragment() {
+class ChangePassFragment: DialogFragment()  {
 
     private val viewModel: ChangePassViewModel by viewModels()
     private var _binding: BoxChangePassBinding? = null

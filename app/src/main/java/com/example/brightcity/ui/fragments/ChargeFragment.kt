@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -100,13 +101,19 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
 
         binding?.include1?.btnChargeFSubmitCodeBon?.setOnClickListener {
             val offCode = binding?.include1?.editChargeFCodeBon?.text?.toString()?.filter { it != ',' }
-            if (offCode?.isNotEmpty()!!) addOffCode(offCode ,factorId!!)
+            if (offCode?.isNotEmpty()!!) {
+                addOffCode(offCode ,factorId!!)
+                binding?.include1?.editChargeFCodeBon?.setText("")
+            }
             else Toast.makeText(requireContext(), "کد را وارد کنید", Toast.LENGTH_SHORT).show()
         }
 
         binding?.include1?.btnPessonalProileFAdd?.setOnClickListener {
             val charge = binding?.include1?.editChargeFGetCharge?.text?.toString()?.filter { it != ',' }
-            if (charge?.isNotEmpty()!!) addCharge(charge ,factorId!!)
+            if (charge?.isNotEmpty()!!) {
+                addCharge(charge ,factorId!!)
+                binding?.include1?.editChargeFGetCharge?.setText("")
+            }
             else Toast.makeText(requireContext(), "مقدار شارژ را وارد کنید", Toast.LENGTH_SHORT).show()
         }
 
@@ -368,6 +375,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Log.e(TAG, "subscribeOnPlay: ${it.status}")
+                        getFactor(userId!!)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -402,6 +410,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Log.e(TAG, "subscribeOnPause: ${it.status}")
+                        getFactor(userId!!)
                     }
                 }
                 is ApiWrapper.ApiError -> {
@@ -574,7 +583,7 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
             }
         }
     }
-    
+
     private fun showLoading() {
         binding?.loading?.visibility = View.VISIBLE
         binding?.btnChargeFPay?.visibility = View.GONE

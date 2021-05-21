@@ -249,6 +249,7 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
         userList = ArrayList()
         binding?.usersBox?.recyclerSearchBoxSearch?.adapter = userListAdapter
         userList.addAll(list)
+        userList.removeLast()
         userListAdapter.submitList(userList)
     }
 

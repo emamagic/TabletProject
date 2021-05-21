@@ -39,7 +39,8 @@ class LoginFragment: MainFragment(R.layout.fragment_login) {
             val password = binding?.edtLoginFPass?.text.toString()
             if (userName.isNotEmpty() && password.isNotEmpty()){
             //    userLogin(userName ,password)
-                binding?.loadingLogin?.visibility = View.VISIBLE
+                // TODO: 5/21/2021 remove username pass
+                showLoading()
                 userLogin("casheir" ,"123456")
             }
             else toasty(resources.getString(R.string.txt_name_pass_empty) ,3)
@@ -53,7 +54,6 @@ class LoginFragment: MainFragment(R.layout.fragment_login) {
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Log.e(TAG, "subScribeOnUserLogin: $it")
                         MyJwt.setAuthoriseToken(it.access_token ,it.refresh_token)
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.constraint_login_container, HomeFragment())
@@ -61,18 +61,15 @@ class LoginFragment: MainFragment(R.layout.fragment_login) {
                     }
                 }
                 is ApiWrapper.NetworkError -> {
-                    binding?.loadingLogin?.visibility = View.GONE
                     toastNet()
                 }
 
                 is ApiWrapper.ApiError -> response.error?.let {
-                    binding?.loadingLogin?.visibility = View.GONE
                     toasty(it.message , 3)
                 }
 
                 is ApiWrapper.UnknownError -> {
                     Log.e(TAG, "subScribeOnUserLogin: ${response.message}")
-                    binding?.loadingLogin?.visibility = View.GONE
                     toastError()
                 }
 
@@ -81,10 +78,16 @@ class LoginFragment: MainFragment(R.layout.fragment_login) {
     }
     
     private fun userLogin(userName: String ,password: String){ viewModel.userLogin(userName, password) }
-    
+
+    fun showLoading() {
+        binding?.loadingLogin?.visibility = View.VISIBLE
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
 }

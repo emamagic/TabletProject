@@ -4,8 +4,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -16,31 +14,18 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.brightcity.R
 import com.example.brightcity.api.responses.PayDevicesResponse
-import com.example.brightcity.api.responses.TransactionListResponse
 import com.example.brightcity.api.safe.ApiWrapper
-import com.example.brightcity.api.safe.MyJwt
 import com.example.brightcity.databinding.FragmentCloseCashierBinding
 import com.example.brightcity.models.SummeryCacheModel
 import com.example.brightcity.ui.adapter.CloseCashierAdapter
 import com.example.brightcity.ui.viewmodels.CloseCacheViewModel
-import com.example.brightcity.util.Constance
 import com.example.brightcity.util.Constance.USER_ID
 import dagger.hilt.android.AndroidEntryPoint
-import io.socket.client.Ack
-import io.socket.client.IO
-import io.socket.client.Manager
-import io.socket.client.Socket
-import io.socket.engineio.client.Transport
-import okhttp3.internal.filterList
-import org.json.JSONArray
-import org.json.JSONObject
 import java.math.BigDecimal
-import java.net.URISyntaxException
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -55,13 +40,14 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
     private lateinit var cardTypesArray: ArrayList<PayDevicesResponse>
     private lateinit var summeryCacheModels: ArrayList<SummeryCacheModel>
     private lateinit var cardSpinnerAdapter: ArrayAdapter<String>
-    private var cardType: String = " "
     private var userId: Long = 0
+    private var cardType: String = " "
     private var description: String = " "
     private var amount: String = " "
+    // type ->  نقدی(1) - کارتخوان (2)- بن(3)
     private var type: Int = 0
-    private var isUpdatingMode: Boolean = false
     private var transactionIds: String = ""
+    private var isUpdatingMode: Boolean = false
     private var summeryItemDelete: SummeryCacheModel? = null
     private var summeryItemUpdate: SummeryCacheModel? = null
     private var cashInfo: CashInfo? = null
@@ -90,27 +76,25 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
         cardTypesArray = ArrayList()
         summeryCacheModels = ArrayList()
         userId = pref.getLong(USER_ID, 0)
+
         subscribeOnTransactionDelete()
         subscribeOnTransactionUpdate()
         subscribeOnTransactionAdd()
         subscribeOnTransactionClose()
         subscribeOnPayDevices()
+
         setUpPriceTypeSpinner()
         getPayDevices()
-        Log.e("TAG", "array size ${summeryCacheModels.size}", )
 
         binding?.btnCashAndAmountFCancel?.setOnClickListener { dismiss() }
 
         binding?.editCashAndAmountFReceive?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
             override fun afterTextChanged(s: Editable?) {
                 splitDigitNumber(binding?.editCashAndAmountFReceive!!, this)
             }
         })
-
 
         binding?.btnCashAndAmountFCloseCach?.setOnClickListener {
             if (binding?.editCashAndAmountFDelivered?.text.toString()
@@ -120,13 +104,10 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
                     Toast.makeText(requireContext(), "تراکنشی ثبت نشده است", Toast.LENGTH_SHORT).show()
                 }else{
                     summeryCacheModels.forEachIndexed { index, summeryCacheModel ->
-                        transactionIds += if (index == summeryCacheModels.lastIndex) {
-                            "${summeryCacheModel.id}"
-                        } else
-                            "${summeryCacheModel.id},"
+                        transactionIds += if (index == summeryCacheModels.lastIndex) "${summeryCacheModel.id}"
+                         else "${summeryCacheModel.id},"
                     }
 
-                    Log.e("TAG", "transactionIds: $transactionIds")
                     transactionClose(
                         transactionIds,
                         userId.toInt(),
@@ -176,13 +157,10 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
         priceTypeListener()
     }
 
-
     private fun setUpCardTypeSpinner(list: List<PayDevicesResponse>) {
-        cardTypesArray.addAll(list)
-        cardType(cardTypesArray)
+        cardType(list as ArrayList)
         cardTypeListener()
     }
-
 
     private fun priceType(priceTypes: ArrayList<String>) {
 
@@ -207,8 +185,7 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
                     id: Long
                 ) {
                     type = (id + 1).toInt()
-                    if (id != 0L) binding?.spinnerCashAndAmountFReadCart?.visibility =
-                        View.VISIBLE
+                    if (id != 0L && id != 2L) binding?.spinnerCashAndAmountFReadCart?.visibility = View.VISIBLE
                     else binding?.spinnerCashAndAmountFReadCart?.visibility = View.INVISIBLE
 
 
@@ -286,8 +263,6 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
     private fun subscribeOnTransactionAdd() {
         viewModel.transactionAdd.observe(viewLifecycleOwner) { response ->
             hideLoading()
-            binding?.editCashAndAmountFReceive?.setText("")
-            binding?.editCashAndAmountFDescription?.setText("")
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data?.let {
@@ -325,17 +300,20 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
                     ).show()
                 }
             }
+            resetValues()
         }
     }
 
-    private fun subscribeOnTransactionClose() {
-        viewModel.transactionClose.observe(viewLifecycleOwner) { response ->
+    private fun subscribeOnTransactionUpdate() {
+        viewModel.transactionUpdate.observe(viewLifecycleOwner) { response ->
+            hideLoading()
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT)
-                            .show()
-                        dismiss()
+                        summeryCacheModels[summeryCacheModels.indexOf(summeryItemUpdate)] =
+                            SummeryCacheModel(summeryItemUpdate?.id!! ,cashInfo?.amount!! ,cashInfo?.type!! ,if (type == 2) cardType else " " ,cashInfo?.description)
+                        closeCashAdapter.submitList(summeryCacheModels)
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.NetworkError -> {
@@ -360,6 +338,42 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
                     ).show()
                 }
             }
+            resetValues()
+        }
+    }
+
+    private fun subscribeOnTransactionClose() {
+        viewModel.transactionClose.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ApiWrapper.Success -> {
+                    response.data?.let {
+                        Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                is ApiWrapper.NetworkError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyNet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiWrapper.ApiError -> {
+                    response.error?.let {
+                        Log.e("TAG", "subscribeOnAddPerson: $it")
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ApiWrapper.UnknownError -> {
+                    Log.e("TAG", "subscribeOnAddPerson: ${response.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.toastyError),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            dismiss()
         }
     }
 
@@ -396,60 +410,20 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
                     ).show()
                 }
             }
+            resetValues()
         }
     }
-
-    private fun subscribeOnTransactionUpdate() {
-        viewModel.transactionUpdate.observe(viewLifecycleOwner) { response ->
-            hideLoading()
-            binding?.editCashAndAmountFReceive?.setText("")
-            binding?.editCashAndAmountFDescription?.setText("")
-            when (response) {
-                is ApiWrapper.Success -> {
-                    response.data?.let {
-                        summeryCacheModels[summeryCacheModels.indexOf(summeryItemUpdate)] =
-                            SummeryCacheModel(summeryItemUpdate?.id!! ,cashInfo?.amount!! ,cashInfo?.type!! ,cardType ,cashInfo?.description)
-                        closeCashAdapter.submitList(summeryCacheModels)
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-                is ApiWrapper.NetworkError -> {
-                    Toast.makeText(
-                        requireContext(),
-                        requireContext().resources.getString(R.string.toastyNet),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                is ApiWrapper.ApiError -> {
-                    response.error?.let {
-                        Log.e("TAG", "subscribeOnAddPerson: $it")
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-                is ApiWrapper.UnknownError -> {
-                    Log.e("TAG", "subscribeOnAddPerson: ${response.message}")
-                    Toast.makeText(
-                        requireContext(),
-                        requireContext().resources.getString(R.string.toastyError),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-    }
-
 
     private fun subscribeOnPayDevices() {
         viewModel.payDevices.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data?.let { list ->
-                        Log.e("TAG", "subscribeOnPayDevices: $list")
                         if (list.isEmpty()){
-                            cardTypesArray.add(PayDevicesResponse(0 ,"s" ,""))
-                            cardTypesArray.add(PayDevicesResponse(1 ,"a" ,""))
-                            cardTypesArray.add(PayDevicesResponse(2 ,"h" ,""))
-                            cardTypesArray.add(PayDevicesResponse(3 ,"d" ,""))
+                            cardTypesArray.add(PayDevicesResponse(1 ,"s" ,""))
+                            cardTypesArray.add(PayDevicesResponse(2 ,"a" ,""))
+                            cardTypesArray.add(PayDevicesResponse(3 ,"h" ,""))
+                            cardTypesArray.add(PayDevicesResponse(4 ,"d" ,""))
                             setUpCardTypeSpinner(cardTypesArray)
                         }else{
                             setUpCardTypeSpinner(list)
@@ -515,11 +489,6 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun showLoading(){
         binding?.loading?.visibility = View.VISIBLE
         binding?.btnCashAndAmountFCloseCach?.visibility = View.GONE
@@ -532,11 +501,22 @@ class CloseCacheFragment : DialogFragment(), CloseCashierAdapter.Interaction {
         binding?.btnCashAndAmountFCancel?.visibility = View.VISIBLE
     }
 
+    private fun resetValues() {
+        binding?.editCashAndAmountFReceive?.setText("")
+        binding?.editCashAndAmountFDescription?.setText("")
+        binding?.spinner1CloseCach?.setSelection(0)
+        binding?.spinner2CloseCach?.setSelection(0)
+    }
 
     data class CashInfo(
         val casheirId: Int,
         val description: String,
         val amount: String,
         val type: Int)
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

@@ -44,7 +44,6 @@ class AuditFragment: MainFragment(R.layout.fragment_audit) ,AuditAdapter.Interac
         subscribeOnTransactionList()
         getAuditList()
         binding?.btnAuditCloseCache?.setOnClickListener { CloseCacheFragment().show(childFragmentManager ,null) }
-
     }
 
 
@@ -54,7 +53,7 @@ class AuditFragment: MainFragment(R.layout.fragment_audit) ,AuditAdapter.Interac
 
     private fun subscribeOnTransactionList(){
         viewModel.transactionList.observe(viewLifecycleOwner) { response ->
-            binding?.loadingAudit?.visibility = View.GONE
+            hideLoading()
             when(response){
                 is ApiWrapper.Success ->  response.data?.let { setUpAuditRecycler(it) }
                 is ApiWrapper.NetworkError ->  toastNet()
@@ -71,6 +70,10 @@ class AuditFragment: MainFragment(R.layout.fragment_audit) ,AuditAdapter.Interac
         binding?.recyclerAudit?.adapter = adapter
         list.addAll(mList)
         adapter.submitList(list)
+    }
+
+    fun hideLoading() {
+        binding?.loading?.visibility = View.GONE
     }
 
     override fun onDestroyView() {

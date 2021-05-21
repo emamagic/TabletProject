@@ -47,12 +47,16 @@ class ChangePassFragment: DialogFragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         subscribeOnChangePass()
 
         binding?.btnChangePassFCancel?.setOnClickListener { dismiss() }
+
         binding?.btnChangePassFPay?.setOnClickListener {
-          //  changePass(binding?.txtChangPassFPass?.text.toString() ,binding?.txtChangPassFNewPass?.text.toString() ,binding?.txtChangPassFNewPassRetype?.text.toString())
-            changePass("light_casheir" ,binding?.txtChangPassFNewPass?.text.toString() ,binding?.txtChangPassFNewPassRetype?.text.toString())
+            val currentPass = binding?.txtChangPassFPass?.text.toString()
+            val newPass = binding?.txtChangPassFNewPass?.text.toString()
+            val retypePass = binding?.txtChangPassFNewPassRetype?.text.toString()
+            changePass(currentPass ,newPass ,retypePass)
         }
     }
 
@@ -60,28 +64,13 @@ class ChangePassFragment: DialogFragment()  {
         viewModel.changePass(currentPass, newPass, retype)
     }
 
-/*    private fun changePassSocket(currentPass: String ,newPass: String ,retype: String){
-        val changePass = JSONObject()
-        changePass.put("current", currentPass)
-        changePass.put("password", newPass)
-        changePass.put("retype", retype)
-        mSocket?.emit("user/password", changePass, Ack { args ->
-            Handler(Looper.getMainLooper()).post {
-                val ack = args[0] as JSONObject
-                Log.e("TAG", "user/password ack $ack")
-                 Toast.makeText(requireContext(), ack.getString("message"), Toast.LENGTH_SHORT).show()
-            }
-        })
-    }*/
-
     private fun subscribeOnChangePass(){
         viewModel.changePass.observe(viewLifecycleOwner) {response ->
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
                         Log.e("TAG", "subscribeOnChangePass: $it", )
-                        Toast.makeText(requireContext(), it.result, Toast.LENGTH_SHORT).show()
-                        dismiss()
+                        Toast.makeText(requireContext(), "رمز عبور تغییر یافت", Toast.LENGTH_SHORT).show()
                     }
                 }
                 is ApiWrapper.NetworkError -> {
@@ -89,13 +78,20 @@ class ChangePassFragment: DialogFragment()  {
                 }
                 is ApiWrapper.ApiError -> {
                     response.error?.let {
-                        Toast.makeText(requireContext(), it.validation?.message, Toast.LENGTH_SHORT).show()
+                        Log.e("TAG", "subscribeOnChangePass: $it", )
+                        when(it.statusCode){
+                            400 ->  Toast.makeText(requireContext(), "رمز عبور حداقل باید 6 کاراکتر باشد", Toast.LENGTH_SHORT).show()
+                            402 -> Toast.makeText(requireContext(), "رمز و تکرار همخوانی ندارد", Toast.LENGTH_SHORT).show()
+                            403 ->  Toast.makeText(requireContext(), "رمز فعلی صحیح نیست", Toast.LENGTH_SHORT).show()
+                        }
+
                     }
                 }
                 is ApiWrapper.UnknownError -> {
                     Toast.makeText(requireContext(), requireContext().resources.getString(R.string.toastyError), Toast.LENGTH_SHORT).show()
                 }
             }
+            dismiss()
         }
     }
 

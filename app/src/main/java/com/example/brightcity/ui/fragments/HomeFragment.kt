@@ -4,14 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Point
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Chronometer
-import android.widget.Chronometer.OnChronometerTickListener
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -32,7 +29,6 @@ import com.example.brightcity.util.Constance.USER_ID
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
-import java.text.DecimalFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -41,8 +37,8 @@ import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class HomeFragment: MainFragment(R.layout.fragment_home) , HomeSideMenuAdapter.Interaction ,OnProfileMenuListener {
 
-    private val viewModel: HomeViewModel by viewModels()
     private val TAG = "HomeFragment"
+    private val viewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding
     private lateinit var adapter: HomeSideMenuAdapter
@@ -57,8 +53,6 @@ class HomeFragment: MainFragment(R.layout.fragment_home) , HomeSideMenuAdapter.I
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // test(jwtHelper)
-        // mSocket?.connect()
         profileMenuListener = this
         adapter = HomeSideMenuAdapter(this)
         list = ArrayList()
@@ -77,10 +71,10 @@ class HomeFragment: MainFragment(R.layout.fragment_home) , HomeSideMenuAdapter.I
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.e(TAG, "onViewCreated: pref ${MyJwt.getAccessToken()}")
         subscribeOnUserLogout()
         subscribeOnUserStatus()
         subscribeOnDateTime()
+
         getDateTime()
         userStatus()
 
@@ -91,77 +85,6 @@ class HomeFragment: MainFragment(R.layout.fragment_home) , HomeSideMenuAdapter.I
         setUpRecyclerView()
         binding?.imgHomeFPerson?.setOnClickListener { showPopupMenu() }
     }
-
-
-
-/*    private fun accessHttps(jwtHelper: JwtHelper): IO.Options {
-
-        return IO.Options().also { opts ->
-            opts.query = "access_token=${jwtHelper.getToken(ACCESS_TOKEN_STATUS)}"
-            opts.sslContext = SSLContext.getInstance("SSL").also { ssl ->
-                // trustAllCerts  value part2
-                ssl.init(null, arrayOf<TrustManager>(object : X509TrustManager {
-                    override fun getAcceptedIssuers(): Array<X509Certificate> {
-                        return arrayOf()
-                    }
-
-                    @SuppressLint("TrustAllX509TrustManager")
-                    @Throws(CertificateException::class)
-                    override fun checkClientTrusted(
-                        chain: Array<X509Certificate>,
-                        authType: String
-                    ) {
-                    }
-
-                    @SuppressLint("TrustAllX509TrustManager")
-                    @Throws(CertificateException::class)
-                    override fun checkServerTrusted(
-                        chain: Array<X509Certificate>,
-                        authType: String
-                    ) {
-                    }
-                }), null)
-            }
-            opts.reconnection = true
-            opts.secure = true
-            opts.timeout = 1500
-
-        }
-
-    }*/
-/*    fun test(jwtHelper: JwtHelper){
-        try {
-            val socketUrl: String = SOCKET_URL
-            val hostnameVerifier = HostnameVerifier { _, _ -> true }
-            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {}
-                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {}
-                override fun getAcceptedIssuers(): Array<X509Certificate?> {
-                    return arrayOfNulls(0)
-                }
-            })
-            val trustManager = trustAllCerts[0] as X509TrustManager
-            val sslContext = SSLContext.getInstance("SSL")
-            sslContext.init(null, trustAllCerts, null)
-            val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
-            val okHttpClient = okhttp3.OkHttpClient.Builder()
-                .hostnameVerifier(hostnameVerifier)
-                .sslSocketFactory(sslSocketFactory, trustManager)
-                .build()
-            val opts = IO.Options()
-            opts.query = "access_token=${jwtHelper.getToken(ACCESS_TOKEN_STATUS)}"
-            opts.callFactory = okHttpClient
-            opts.webSocketFactory = okHttpClient
-            mSocket = IO.socket(socketUrl, opts)
-        } catch (e: URISyntaxException) {
-            throw RuntimeException(e)
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        } catch (e: KeyManagementException) {
-            e.printStackTrace()
-        }
-
-    }*/
 
     private fun userLogout(){
         viewModel.userLogout()
@@ -230,7 +153,6 @@ class HomeFragment: MainFragment(R.layout.fragment_home) , HomeSideMenuAdapter.I
             when(response){
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Log.e(TAG, "subscribeOnUserLogout: ${it.result}", )
                         if (it.result == "logout accessed") {
                             MyJwt.clear()
                             childFragmentManager.beginTransaction()
@@ -285,13 +207,6 @@ class HomeFragment: MainFragment(R.layout.fragment_home) , HomeSideMenuAdapter.I
         ) }
     }
 
-    private fun getTime(): String{
-        val instance: Calendar = Calendar.getInstance()
-        val hour: Int = instance.get(Calendar.HOUR)
-        val minute: Int = instance.get(Calendar.MINUTE)
-        return "${hour}:${minute}"
-    }
-
     private fun setUpRecyclerView(){
         binding?.recyclerHomeFSideMenu?.adapter = adapter
         list.add(
@@ -338,7 +253,7 @@ class HomeFragment: MainFragment(R.layout.fragment_home) , HomeSideMenuAdapter.I
 
     override fun onProfileMenuUserAccountClicked(pw: PopupWindow) {
         pw.dismiss()
-        UserAccountFragment().show(childFragmentManager, null)
+        UserAccountFragment.newInstance(fileID).show(childFragmentManager, null)
     }
 
 }

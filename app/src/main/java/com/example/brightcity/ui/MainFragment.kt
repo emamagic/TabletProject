@@ -50,25 +50,6 @@ open class MainFragment(@LayoutRes val contentLayoutId: Int) :Fragment() {
         binding?.layoutStub?.inflate()
     }
 
-
-
-    protected fun showLoading(isDim: Boolean = false){
-        binding?.cardMyFLoading?.visibility = View.VISIBLE
-        if (binding?.cardMyFLoading?.visibility != View.VISIBLE){
-            if (isDim){
-                binding?.cardMyFLoading?.setBackgroundColor(Color.parseColor("#cc000000"))
-            }
-            binding?.cardMyFLoading?.visibility = View.VISIBLE
-        }
-    }
-
-    protected fun hideLoading(){
-        if (binding?.cardMyFLoading?.visibility != View.GONE){
-            binding?.cardMyFLoading?.visibility = View.GONE
-        }
-    }
-
-
     @SuppressLint("ResourceAsColor")
     fun toasty(title: String, selectedMode: Int? = null) {
         val layout = layoutInflater.inflate(

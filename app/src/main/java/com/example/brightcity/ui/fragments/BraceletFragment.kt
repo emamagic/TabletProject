@@ -127,7 +127,7 @@ class BraceletFragment(private val onAddPersonClicked: OnAddPersonListener): Dia
     }
 
     override fun onItemSelected(position: Int, item: UserListResponse) {
-     //   ChargeFragment.newInstance(item.id).show(childFragmentManager ,null)
+        ChargeFragment.newInstance(item.id).show(childFragmentManager ,null)
 
     }
     private fun timery(delay: Long, call: () -> Unit): Timer {

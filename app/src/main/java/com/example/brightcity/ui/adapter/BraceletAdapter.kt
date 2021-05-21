@@ -81,8 +81,8 @@ class BraceletAdapter(private val interaction: Interaction? = null ,private val 
                 txt_bracelet_item_name.text = item.name
                 txt_bracelet_item_age.text = item.age.toString()
                 txt_bracelet_item_phone.text = item.mobile
-                if (item.fileId != null)
-                picasso.load("${Constance.BASE_URL}file/download?id=${item.fileId}").fit().placeholder(R.drawable.ic_avatar).into(image_item_search)
+              //  if (item.fileId != null)
+//                picasso.load("${Constance.BASE_URL}file/download?id=${item.fileId}").fit().placeholder(R.drawable.ic_avatar).into(image_item_search)
             }
         }
     }

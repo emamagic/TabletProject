@@ -36,7 +36,6 @@ class UserAccountFragment : DialogFragment() {
     private val viewModel: UserAccountViewModel by viewModels()
     private var _binding: FragmentUserAccountBinding? = null
     private val binding get() = _binding
-    private var userID: Long? = null
     private var fileID: String? = ""
     private var name: String = ""
     private var birthDay: String = ""
@@ -45,16 +44,15 @@ class UserAccountFragment : DialogFragment() {
     private var role: String = ""
     private var nationalID: Long = 0
     private var gender: Int = 0
-    private var description: String = ""
+    private var description: String = " "
     private var isParent: Int = 0
 
     @Inject
     lateinit var picasso: Picasso
 
     companion object {
-        fun newInstance(id: Long, fileId: String?): UserAccountFragment {
+        fun newInstance(fileId: String?): UserAccountFragment {
             val args = Bundle()
-            args.putLong("userID", id)
             args.putString("fileID", fileId)
             val fragment = UserAccountFragment()
             fragment.arguments = args
@@ -64,7 +62,6 @@ class UserAccountFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userID = arguments?.getLong("userID")
         fileID = arguments?.getString("fileID")
     }
 
@@ -83,9 +80,12 @@ class UserAccountFragment : DialogFragment() {
         if (fileID != null)
             picasso.load("${Constance.BASE_URL}file/download?id=${fileID}").fit()
                 .placeholder(R.drawable.ic_avatar).fit().into(binding?.circleImageView)
+
         subscribeOnUserInfo()
         subscribeOnUpdateUserInfo()
-        getUserInfo(userID)
+
+        // if you send userID null then server return info of cashier
+        getUserInfo(null)
 
         binding?.btnUserAccountFChangeAccount?.setOnClickListener {
             ChangePassFragment().show(
@@ -98,13 +98,11 @@ class UserAccountFragment : DialogFragment() {
 
         binding?.btnUserAccountFPay?.setOnClickListener {
             if (binding?.editUserAccountFNumber?.text.toString().isNotEmpty()) {
-
                 updateUserInfo(
                     mobile = binding?.editUserAccountFNumber?.text.toString().toLong(),
                     name = name,
                     family = family,
-                    // TODO: 3/17/2021  
-                    birthDay = null,
+                    birthDay = birthDay,
                     gender = gender,
                     isParent = isParent,
                     nationalID = nationalID,
@@ -199,7 +197,6 @@ class UserAccountFragment : DialogFragment() {
                     response.data?.let {
                         Log.e("TAG", "userUpdate: ${response.data}")
                         Toast.makeText(requireContext(), "با موفقیت انجام شد", Toast.LENGTH_SHORT).show()
-                        dismiss()
                     }
                 }
                 is ApiWrapper.NetworkError -> {
@@ -224,6 +221,7 @@ class UserAccountFragment : DialogFragment() {
                     ).show()
                 }
             }
+            dismiss()
         }
     }
 

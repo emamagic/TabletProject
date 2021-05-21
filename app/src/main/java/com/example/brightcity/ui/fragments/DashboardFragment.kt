@@ -63,52 +63,8 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
         messageList = ArrayList()
        socketConnect()
 
-/*
-
-        mSocket?.on(Socket.EVENT_CONNECT){ args ->
-            Log.e(TAG, "connect $args")
-        }
-
-        mSocket?.on(Socket.EVENT_CONNECT_ERROR){ args ->
-            Log.e(TAG, "connect error: ${args[0]}")
-        }
-
-        mSocket?.on("error"){args->
-            Log.e(TAG, "connect error ${args[0]}", )
-        }
-
-        val logListInput = JSONObject()
-        logListInput.put("num", 5)
-        logListInput.put("page", 1)
-        mSocket?.emit("logs/list", logListInput, Ack { args ->
-            Handler(Looper.getMainLooper()).post {
-                val ack = args[0] as JSONArray
-                Log.e(TAG, "logs/list ack $ack", )
-                //    setUpLogRecycler(filterDateToList(ack))
-            }
-        })
-
-
-        val test = JSONObject()
-        test.put("a", 1)
-        mSocket?.emit("user/dashboard", test , Ack { args ->
-            Handler(Looper.getMainLooper()).post {
-                val ack = args[0] as JSONObject
-                Log.e(TAG, "user/dashboard ack: $ack")
-            }
-        })
-
-        val test2 = JSONObject()
-        test2.put("a", 1)
-        mSocket?.emit("transaction/dashboard" ,test2, Ack { args ->
-            Handler(Looper.getMainLooper()).post {
-                val ack = args[0] as JSONObject
-                Log.e(TAG, "light_casheir ack $ack")
-            }
-        })
-*/
         val userListInput = JSONObject()
-        userListInput.put("num", 7)
+        userListInput.put("num", 6)
         userListInput.put("page", 1)
         mSocket?.emit("user/list", userListInput, Ack { args ->
             Handler(Looper.getMainLooper()).post {
@@ -133,18 +89,21 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         subscribeOnLogList()
         subscribeOnUserDashboard()
-       // subscribeOnUserList()
         subscribeOnTransactionDashboard()
         subscribeOnLastMessage()
+        subscribeOnUserList()
+
         getTransactionDashboard()
         getLogList()
-       // getUserList()
         getUserDashboard()
         getLastMessage()
         socketOnEvents()
-        binding?.usersBox?.txtSearchMore?.setOnClickListener { SearchFragment().show(
+
+        binding?.usersBox?.txtSearchMore?.setOnClickListener {
+            SearchFragment().show(
             childFragmentManager,
             null
         ) }
@@ -182,7 +141,6 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
         mSocket!!.io().on(Manager.EVENT_TRANSPORT) { args ->
             val transport: Transport = args[0] as Transport
             transport.on(Transport.EVENT_REQUEST_HEADERS) { args ->
-                Log.v(TAG, "Caught EVENT_REQUEST_HEADERS after EVENT_TRANSPORT, adding headers")
                 val mHeaders =
                     args[0] as MutableMap<String, List<String>>
                 mHeaders["authorization"] = listOf("bearer ${MyJwt.getAccessToken()}")
@@ -191,13 +149,6 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
     }
 
     private fun socketOnEvents(){
-
-        mSocket?.on(Socket.EVENT_CONNECT){
-            Log.e(TAG, "socket Connect: ")
-        }
-        mSocket?.on(Socket.EVENT_DISCONNECT){
-            Log.e(TAG, "socket Disconnect: ")
-        }
 
         mSocket?.on("logs/list"){ args ->
             Handler(Looper.getMainLooper()).post {
@@ -249,7 +200,6 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
         userList = ArrayList()
         binding?.usersBox?.recyclerSearchBoxSearch?.adapter = userListAdapter
         userList.addAll(list)
-        userList.removeLast()
         userListAdapter.submitList(userList)
     }
 
@@ -274,7 +224,7 @@ class DashboardFragment: MainFragment(R.layout.fragment_dashboard), DashboardLog
     }
 
     private fun getUserList(search: String? = null){
-        viewModel.getUserList(7,1,search = search)
+        viewModel.getUserList(6,1,search = search)
     }
 
     private fun getTransactionDashboard(){

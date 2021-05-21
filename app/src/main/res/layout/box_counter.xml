@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/users_text"
-        android:layout_width="83dp"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:text="کاربران حاضر"
         android:fontFamily="@font/iran_sans_mobile"
@@ -64,7 +64,7 @@
 
     <TextView
         android:id="@+id/family_text"
-        android:layout_width="83dp"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:text="خانوار حاضر"
         android:fontFamily="@font/iran_sans_mobile"
@@ -108,7 +108,7 @@
 
     <TextView
         android:id="@+id/register_text"
-        android:layout_width="83dp"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:text="ثبت‌نام جدید"
         android:fontFamily="@font/iran_sans_mobile"

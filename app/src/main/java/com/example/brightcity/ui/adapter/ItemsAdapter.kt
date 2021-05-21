@@ -85,9 +85,11 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
                 else img_chargeF_item_list_Credit.visibility = View.GONE
                 Log.e("TAG", "bind: ${item.remain}")
                     val time = item.remain?.split(':')
+                if (item.status == 3){
                     txt_chargeF_item_list_time.visibility = View.VISIBLE
                     txt_chargeF_item_list_time.base = SystemClock.elapsedRealtime() + (time?.get(0)?.toInt()!! * 3600000 + time[1].toInt()* 60000 + time[2].toInt() * 1000)
                     txt_chargeF_item_list_time.start()
+                }else txt_chargeF_item_list_time.visibility = View.INVISIBLE
             }
 
 
@@ -115,18 +117,6 @@ class ItemsAdapter(private val interaction: Interaction? = null ,private val pic
             else -> R.drawable.ic_remove_item
         }
     }
-
-/*    private fun countDownTimer(textView: TextView, totalTime: Long, step: Long) {
-        // user lifecycle owner to react to dismiss if ui destroied
-        countDown = object : CountDownTimer(totalTime, step) {
-            override fun onTick(millisUntilFinished: Long) {
-                textView.text = "${millisUntilFinished / 1000} ثانیه "
-            }
-            override fun onFinish() {
-                countDown?.cancel()
-            }
-        }.start()
-    }*/
 
     interface Interaction {
         fun onItemSelectedItem(position: Int, item: ItemsListResponse)

@@ -69,14 +69,6 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
         relationList = ArrayList()
         isUpdatingMode = false
 
-        if (userID != null) {
-            // it form ChargeFragment
-            Log.e("addPerson", "onViewCreated: $userID", )
-            isUpdatingMode = true
-            getRelation(userID!!)
-            getUserInfo(userID)
-        }
-
         subscribeOnAddPerson()
         subscribeOnUserList()
         subscribeOnSetRelation()
@@ -84,6 +76,14 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
         subscribeOnUserInfo()
         subscribeOnUpdateInfo()
         subscribeOnDeleteRelation()
+
+        if (userID != null) {
+            Log.e("addPerson", "onViewCreated: $userID", )
+            // it form ChargeFragment
+            isUpdatingMode = true
+            getRelation(userID!!)
+            getUserInfo(userID)
+        }
 
         getUserList()
 
@@ -117,10 +117,6 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
         binding?.btnPersonalFSubmit?.setOnClickListener {
             isChargeClicked = false
             if (checkValidValue()) {
-                Log.e(
-                    "addpersonEdit",
-                    "$name $family $birthDay $gender $mobile $nationalID ${binding?.relativeLayout4?.editPersonalFDescription?.text}"
-                )
                 if (!isUpdatingMode){
                     addPerson(
                         name,
@@ -259,16 +255,12 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Log.e("TAG", "subscribeOnAddPerson: $it")
                         val id: Long = it.id
                         userID = it.id
                         if (relationList?.isNotEmpty()!!) {
                             relationList?.forEach { item ->
                                 val type = item.type
-                                Log.e(
-                                    "TAG",
-                                    "subscribeOnAddPersonnnnnnnn: id $id , item.id ${item.id}  type $type",
-                                )
+
                                 setUserRelation(id, item.id, type!!)
                             }
                         } else {
@@ -534,13 +526,8 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data?.let {
-                        Log.e("TAG", "subscribeOnUpdateInfo: $it")
                         if (relationList?.isNotEmpty()!!) {
                             relationList?.forEach { item ->
-                                Log.e(
-                                    "TAG",
-                                    "subscribeOnAddPerson: id $id , item.id ${item.id}  type ${item.type}",
-                                )
                                 setUserRelation(userID!!, item.id, item.type!!)
                             }
                         }else{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,13 +10,12 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_chargeF_item_list"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/_5sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
 
 
     <Chronometer
@@ -25,26 +24,23 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/iran_sans_mobile"
         android:layout_marginStart="@dimen/_5sdp"
+        android:visibility="invisible"
         android:countDown="true"
         android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_chargeF_right"
-        app:layout_constraintStart_toEndOf="@+id/img_chargeF_right"
-        app:layout_constraintTop_toTopOf="@+id/img_chargeF_right" />
+        android:layout_toRightOf="@+id/img_chargeF_right"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/txt_chargeF_item_list_Credit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_toStartOf="@+id/img_chargeF_item_list"
+        android:layout_alignTop="@+id/img_chargeF_item_list"
         android:fontFamily="@font/iran_sans_mobile"
         tools:text="اعتبار نقدی"
         android:textSize="10sp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/txt_chargeF_item_list_Cost"
-        app:layout_constraintEnd_toStartOf="@+id/img_chargeF_item_list"
-        app:layout_constraintTop_toTopOf="@id/img_chargeF_item_list"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        android:layout_toLeftOf="@+id/img_chargeF_item_list"/>
 
     <TextView
         android:id="@+id/txt_chargeF_item_list_Cost"
@@ -52,12 +48,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/iran_sans_mobile"
         android:layout_marginEnd="@dimen/_6sdp"
+        android:textSize="10sp"
         android:textColor="@color/black"
         tools:text="65,0000"
-        android:layout_marginBottom="@dimen/_2sdp"
-        app:layout_constraintBottom_toBottomOf="@id/img_chargeF_item_list"
-        app:layout_constraintEnd_toStartOf="@+id/img_chargeF_item_list"
-        app:layout_constraintTop_toBottomOf="@+id/txt_chargeF_item_list_Credit" />
+        android:layout_toLeftOf="@+id/img_chargeF_item_list"
+        android:layout_alignBottom="@+id/img_chargeF_item_list"/>
 
 
     <ImageView
@@ -65,22 +60,20 @@
         android:layout_width="@dimen/_6sdp"
         android:layout_height="@dimen/_5sdp"
         android:background="@color/orange"
-        android:layout_marginEnd="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_chargeF_item_list_Credit"
-        app:layout_constraintEnd_toStartOf="@+id/txt_chargeF_item_list_Credit"
-        app:layout_constraintTop_toTopOf="@+id/txt_chargeF_item_list_Credit" />
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:layout_toLeftOf="@+id/txt_chargeF_item_list_Credit"
+        android:layout_alignTop="@+id/txt_chargeF_item_list_Credit"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/iransanse_medium"
         android:text="@string/txt_rail"
-        android:textSize="10sp"
+        android:textSize="8sp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_chargeF_item_list_Cost"
-        app:layout_constraintEnd_toEndOf="@+id/img_chargeF_item_list_Credit"
-        app:layout_constraintStart_toStartOf="@+id/img_chargeF_item_list_Credit"
-        app:layout_constraintTop_toTopOf="@+id/txt_chargeF_item_list_Cost" />
+        android:layout_toLeftOf="@+id/txt_chargeF_item_list_Cost"
+        android:layout_alignTop="@+id/txt_chargeF_item_list_Cost"
+        android:layout_alignBottom="@+id/txt_chargeF_item_list_Cost"/>
 
 
     <ImageView
@@ -88,7 +81,6 @@
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
         android:layout_margin="@dimen/_5sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"/>
+</RelativeLayout>

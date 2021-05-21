@@ -69,7 +69,7 @@ class SearchFragment(private val isFromRelation: Boolean = false ,private val on
 
     private fun getUserList(search: String? = null ,order: String? = null ,asc: String? = null) {
         viewModel.getUserList(search, order ,asc).observe(viewLifecycleOwner) { response ->
-            binding?.loadingSearch?.visibility = View.GONE
+            binding?.loading?.visibility = View.GONE
 
             userListAdapter.submitData(viewLifecycleOwner.lifecycle,response )
             binding?.recyclerSearchDialog?.adapter = userListAdapter.withLoadStateHeaderAndFooter(
@@ -95,11 +95,6 @@ class SearchFragment(private val isFromRelation: Boolean = false ,private val on
             }
         }
     }
-
-/*    private fun setUpSearchRecycler(){
-        binding?.recyclerSearchDialog?.adapter = userListAdapter
-        userListAdapter.submitList(searchList)
-    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

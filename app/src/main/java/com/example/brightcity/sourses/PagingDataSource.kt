@@ -10,7 +10,7 @@ class PagingDataSource @Inject constructor(
     private val myApi: MyApi
 ) {
 
-    fun getLibrarySub(search: String? = null ,order: String? = null ,asc: String? = null) =
+    fun getUserList(search: String? = null, order: String? = null, asc: String? = null) =
         Pager(
             config = PagingConfig(
                 pageSize = 20,

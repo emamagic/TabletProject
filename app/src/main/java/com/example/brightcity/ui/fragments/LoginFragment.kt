@@ -79,7 +79,7 @@ class LoginFragment: MainFragment(R.layout.fragment_login) {
     
     private fun userLogin(userName: String ,password: String){ viewModel.userLogin(userName, password) }
 
-    fun showLoading() {
+    private fun showLoading() {
         binding?.loadingLogin?.visibility = View.VISIBLE
     }
 

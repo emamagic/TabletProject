@@ -585,15 +585,11 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     }
 
     private fun showLoading() {
-        binding?.loading?.visibility = View.VISIBLE
-        binding?.btnChargeFPay?.visibility = View.GONE
-        binding?.btnChargeFCancel?.visibility = View.GONE
+        binding?.relativeLayout3?.loading?.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
-        binding?.loading?.visibility = View.GONE
-        binding?.btnChargeFPay?.visibility = View.VISIBLE
-        binding?.btnChargeFCancel?.visibility = View.VISIBLE
+        binding?.relativeLayout3?.loading?.visibility = View.GONE
     }
 
     override fun onDestroyView() {

@@ -3,8 +3,6 @@ package com.example.brightcity.ui.fragments
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.brightcity.R
-import com.example.brightcity.api.responses.GetRelationResponse
 import com.example.brightcity.api.responses.UserListResponse
 import com.example.brightcity.api.safe.ApiWrapper
 import com.example.brightcity.databinding.FragmentPersonalProfileBinding
@@ -568,8 +565,8 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
 
     override fun onDeleteRelationSelected(position: Int, item: UserListResponse) {
         if (isUpdatingMode){
-            Log.e("TAG", "onDeleteRelationSelected: $userID   ${item.id}", )
-            deleteRelation(userId!! ,item.id)
+            Log.e("TAG", "onDeleteRelationSelected: $userID   ${item.related_user}", )
+            deleteRelation(userId!! ,item.related_user!!)
         }else {
             relationList?.removeAt(position)
             checkListEmpty()

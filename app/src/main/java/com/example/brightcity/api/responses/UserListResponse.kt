@@ -18,6 +18,7 @@ data class UserListResponse(
     val createdAt: String? = null,
     val updatedAt: String? = null,
     val fileId: String? = null,
+    val related_user: Long? = null,
     // this below field is not come from server side
     var type: Int? = null
 ){

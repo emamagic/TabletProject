@@ -7,7 +7,7 @@ data class GetRelationResponse(
     val pid: Long,
     val ord: Int,
     val userId: Long,
-    val related_userId: Long,
+    val related_user: Long,
     val type: Int,
     val status: Int,
     val description: String,
@@ -19,7 +19,8 @@ data class GetRelationResponse(
             id = userId,
             name = userName,
             status = status,
-            type = type
+            type = type,
+            related_user = related_user
         )
     }
 

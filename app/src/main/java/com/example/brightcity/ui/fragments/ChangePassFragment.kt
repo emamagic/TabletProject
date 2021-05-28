@@ -80,8 +80,7 @@ class ChangePassFragment: DialogFragment()  {
                     response.error?.let {
                         Log.e("TAG", "subscribeOnChangePass: $it", )
                         when(it.statusCode){
-                            400 ->  Toast.makeText(requireContext(), "رمز عبور حداقل باید 6 کاراکتر باشد", Toast.LENGTH_SHORT).show()
-                            402 -> Toast.makeText(requireContext(), "رمز و تکرار همخوانی ندارد", Toast.LENGTH_SHORT).show()
+                            400 ->  Toast.makeText(requireContext(), "رمز عبور حداقل باید 6 کاراکتر باشد یا رمز و تکرار همخوانی ندارد", Toast.LENGTH_SHORT).show()
                             403 ->  Toast.makeText(requireContext(), "رمز فعلی صحیح نیست", Toast.LENGTH_SHORT).show()
                         }
 

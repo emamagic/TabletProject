@@ -268,7 +268,7 @@ interface MyApi {
     ): Response<AddProductResponse>
 
 
-
+    // TODO: 6/1/2021 this request has problem and servers send odd response
     @DELETE("user/omitRelation")
     suspend fun deleteRelation(
         @Query("userId")userId: Long,

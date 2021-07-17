@@ -12,7 +12,8 @@ data class GetRelationResponse(
     val status: Int,
     val description: String,
     @SerializedName("user.fullname")
-    val userName: String
+    val userName: String,
+    var isOldItem: Boolean = false
 ){
     fun mapToUserList(): UserListResponse{
         return UserListResponse(
@@ -20,7 +21,8 @@ data class GetRelationResponse(
             name = userName,
             status = status,
             type = type,
-            related_user = related_user
+            related_user = related_user,
+            isOldItem = isOldItem
         )
     }
 

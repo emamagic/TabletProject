@@ -636,7 +636,6 @@ class ChargeFragment: DialogFragment() ,ProductAdapter.Interaction ,ItemsAdapter
     }
 
     override fun onViewStarted() {
-        Log.e(TAG, "onViewStarted: ")
         getUserInfo(userId!!)
         getFactor(userId!!)
     }

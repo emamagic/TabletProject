@@ -251,13 +251,14 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
         viewModel.addPerson.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ApiWrapper.Success -> {
+                    Log.e("TAG", "subscribeOnAddPerson: ${response.data}", )
                     response.data?.let {
                         val id: Long = it.id
                         userID = it.id
                         if (relationList?.isNotEmpty()!!) {
                             relationList?.forEach { item ->
                                 val type = item.type
-
+                                if (!item.isOldItem)
                                 setUserRelation(id, item.id, type!!)
                             }
                         } else {
@@ -368,7 +369,6 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
     }
 
     private fun setUserRelation(userID: Long, relatedUser: Long, type: Int) {
-        Log.e("TAG", "setUserRelationssssssss: $type")
         viewModel.setRelation(userID, relatedUser, type)
     }
 
@@ -428,15 +428,18 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
         viewModel.userRelation.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ApiWrapper.Success -> {
-                    response.data?.let {
-                        Log.e("TAG", "subscribeOnGetRelation: $it")
-                        if (it.isEmpty()) {
+                    response.data?.let { list ->
+                        Log.e("TAG", "subscribeOnGetRelation: $list")
+                        if (list.isEmpty()) {
                             binding?.relativeLayout5?.linearPersonalTitle?.visibility = View.GONE
                             binding?.relativeLayout5?.imgPersonalFNothing?.visibility = View.VISIBLE
                         } else {
                             binding?.relativeLayout5?.linearPersonalTitle?.visibility = View.VISIBLE
                             binding?.relativeLayout5?.imgPersonalFNothing?.visibility = View.GONE
-                            it.forEach { item -> setUpUserRelationRecycler(item.mapToUserList()) }
+                            if (isUpdatingMode){
+                                list.map { it.isOldItem = true }
+                                list.forEach { item -> setUpUserRelationRecycler(item.mapToUserList()) }
+                            }else list.forEach { item -> setUpUserRelationRecycler(item.mapToUserList()) }
 
                         }
                     }
@@ -525,8 +528,11 @@ class AddPersonFragment(private val userId: Long? = null ,private val call: OnCa
                     response.data?.let {
                         if (relationList?.isNotEmpty()!!) {
                             relationList?.forEach { item ->
+                                Log.e("TAG", "subscribeOnUpdateInfo: $item")
+                                if (!item.isOldItem)
                                 setUserRelation(userID!!, item.id, item.type!!)
                             }
+                            dismiss()
                         }else{
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                             dismiss()

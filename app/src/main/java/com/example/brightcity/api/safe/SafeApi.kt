@@ -8,12 +8,8 @@ import java.net.UnknownHostException
 
 abstract class SafeApi() {
 
-   // private val mutex = Mutex()
-
     suspend fun <T> safeApi(call: suspend () -> Response<T>): ApiWrapper<T> {
 
-/*        return if (!mutex.isLocked) mutex.withLock { apiTry { call.invoke() } }
-        else   null*/
         return apiFiltering { call() }
 
     }
@@ -29,7 +25,7 @@ abstract class SafeApi() {
                 )
             }
         }
-           // getNewRefreshToken(response ,application)
+
             return ApiWrapper.ApiError(
                 error = Gson().fromJson(response.errorBody()?.string() ,ErrorResponse::class.java),
                 headers = response.headers()
@@ -49,25 +45,5 @@ abstract class SafeApi() {
                 ApiWrapper.UnknownError(message = "${t.message}//${t.cause}")
         }
     }
-
-/*    private fun <T> getNewRefreshToken(response: Response<T> ,application: Application){
-        if (response.code() == 401){
-            val jwtHelper = JwtHelper.getInstance(application)
-            if (jwtHelper.isLoggedIn){
-                // ACCESS_TOKEN Deprecated
-                jwtHelper.jwtStatus = REFRESH_TOKEN_STATUS
-                GlobalScope.launch {
-                    val data = Gson().fromJson(myApi.userLogin().body()?.toString() ,LoginResponse::class.java)
-                    Log.e("TAG", "getNewRefreshToken: data -> $data")
-                    jwtHelper.setToken(data.access_token ,ACCESS_TOKEN_STATUS)
-                    jwtHelper.setToken(data.refresh_token ,REFRESH_TOKEN_STATUS)
-                    cancel()
-                    return@launch
-                }
-            }
-        }
-    }*/
-
-
 
 }

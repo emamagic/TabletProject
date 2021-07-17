@@ -19,10 +19,11 @@ data class UserListResponse(
     val updatedAt: String? = null,
     val fileId: String? = null,
     val related_user: Long? = null,
-    // this below field is not come from server side
-    var type: Int? = null
+    // these below fields are not come from server side
+    var type: Int? = null,
+    var isOldItem: Boolean = false
 ){
     override fun toString(): String {
-        return "$type"
+        return "$type  $isOldItem"
     }
 }
